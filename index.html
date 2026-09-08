@@ -30,9 +30,7 @@ body{
   min-height:100vh;
 }
 
-button,
-input,
-textarea{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -169,6 +167,24 @@ textarea.input{
   font-size:13px;
 }
 
+.online-dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#22c55e;
+  margin-right:5px;
+}
+
+.offline-dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#666;
+  margin-right:5px;
+}
+
 .container{
   width:min(700px,100%);
   margin:auto;
@@ -257,6 +273,7 @@ textarea.input{
 .post-actions{
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 .action{
@@ -277,6 +294,44 @@ textarea.input{
 
 .delete-action{
   color:#f87171;
+}
+
+.block-action{
+  color:#f87171;
+}
+
+/* COMMENTS */
+
+.comment-list{
+  max-height:350px;
+  overflow:auto;
+  margin-bottom:12px;
+}
+
+.comment{
+  background:#181818;
+  border:1px solid #292929;
+  padding:11px;
+  border-radius:12px;
+  margin-bottom:8px;
+}
+
+.comment-user{
+  color:var(--theme);
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.comment-text{
+  color:#ddd;
+  line-height:1.4;
+}
+
+.comment-date{
+  color:#666;
+  font-size:10px;
+  margin-top:5px;
 }
 
 /* REELS */
@@ -316,6 +371,24 @@ textarea.input{
 .reel-text{
   color:#ddd;
   white-space:pre-wrap;
+}
+
+.reel-actions{
+  position:absolute;
+  right:12px;
+  bottom:15px;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.reel-actions button{
+  border:0;
+  background:rgba(20,20,20,.85);
+  color:#fff;
+  padding:9px;
+  border-radius:9px;
 }
 
 /* SONG */
@@ -378,6 +451,13 @@ textarea.input{
   margin-top:14px;
 }
 
+.song-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
 /* PROFILE */
 
 .profile-card{
@@ -409,6 +489,12 @@ textarea.input{
 .profile-role{
   color:var(--theme);
   margin-top:5px;
+}
+
+.profile-status{
+  margin-top:8px;
+  color:#aaa;
+  font-size:12px;
 }
 
 .stats{
@@ -458,6 +544,35 @@ textarea.input{
   border:1px solid #333;
   background:#191919;
   color:white;
+  padding:10px 14px;
+  border-radius:10px;
+}
+
+.activity-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.activity-buttons button{
+  border:1px solid #333;
+  background:#191919;
+  color:white;
+  padding:12px;
+  border-radius:10px;
+}
+
+.status-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.status-toggle{
+  border:1px solid #333;
+  background:#191919;
+  color:#fff;
   padding:10px 14px;
   border-radius:10px;
 }
@@ -626,6 +741,54 @@ textarea.input{
   margin-bottom:10px;
 }
 
+.activity-tabs{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-bottom:12px;
+}
+
+.activity-tabs button{
+  white-space:nowrap;
+  border:1px solid #333;
+  background:#191919;
+  color:#bbb;
+  padding:9px 12px;
+  border-radius:9px;
+}
+
+.activity-tabs button.active{
+  background:var(--theme);
+  color:#fff;
+}
+
+.activity-item{
+  background:#181818;
+  border:1px solid #292929;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:9px;
+}
+
+.activity-title{
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.activity-info{
+  color:#999;
+  font-size:12px;
+}
+
+.activity-button{
+  margin-top:9px;
+  border:1px solid #333;
+  background:#222;
+  color:#fff;
+  border-radius:8px;
+  padding:7px 10px;
+}
+
 /* EMPTY */
 
 .empty{
@@ -651,6 +814,10 @@ textarea.input{
 
   .share-menu{
     right:14px;
+  }
+
+  .activity-buttons{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -797,6 +964,10 @@ textarea.input{
              class="profile-role">
         </div>
 
+        <div id="profileStatus"
+             class="profile-status">
+        </div>
+
         <div class="stats">
 
           <div class="stat">
@@ -862,6 +1033,67 @@ textarea.input{
         </div>
 
       </div>
+
+
+      <div class="setting-card">
+
+        <h3>Hesap Hareketleri</h3>
+
+        <p>
+          Hesabındaki yorum, beğeni, arşiv ve paylaşım geçmişini görüntüle.
+        </p>
+
+        <div class="activity-buttons">
+
+          <button onclick="openActivityModal('blocked')">
+            Engellediklerim
+          </button>
+
+          <button onclick="openActivityModal('comments')">
+            Yorumlarım
+          </button>
+
+          <button onclick="openActivityModal('likes')">
+            Kalplerim
+          </button>
+
+          <button onclick="openActivityModal('archive')">
+            Arşivim
+          </button>
+
+          <button onclick="openActivityModal('shares')">
+            Paylaşım Geçmişim
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="setting-card">
+
+        <h3>Online Durumu</h3>
+
+        <p>
+          Diğer kullanıcıların seni çevrimiçi olarak görmesini kontrol et.
+        </p>
+
+        <div class="status-row">
+
+          <span id="onlineStatusText">
+            Çevrimdışı
+          </span>
+
+          <button id="onlineToggle"
+                  class="status-toggle"
+                  onclick="toggleOnlineStatus()">
+            Açık
+          </button>
+
+        </div>
+
+      </div>
+
 
       <div class="setting-card">
 
@@ -1011,13 +1243,13 @@ textarea.input{
     <div id="songShareForm" class="hidden">
 
       <label class="file-label">
-        JPG kapak görseli zorunlu
+        Kapak görseli
       </label>
 
       <input id="songCover"
              class="input"
              type="file"
-             accept=".jpg,.jpeg,image/jpeg">
+             accept="image/*">
 
       <label class="file-label">
         Şarkı adı
@@ -1088,6 +1320,98 @@ textarea.input{
 </div>
 
 
+<!-- COMMENTS MODAL -->
+
+<div id="commentsModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>
+        Yorumlar
+      </h2>
+
+      <button class="close"
+              onclick="closeModal('commentsModal')">
+        X
+      </button>
+
+    </div>
+
+    <div id="commentList"
+         class="comment-list">
+    </div>
+
+    <textarea id="commentText"
+              class="input"
+              placeholder="Yorumunu yaz..."></textarea>
+
+    <button class="primary"
+            onclick="addComment()">
+      Yorum Yap
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ACTIVITY MODAL -->
+
+<div id="activityModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>
+        Hesap Hareketleri
+      </h2>
+
+      <button class="close"
+              onclick="closeModal('activityModal')">
+        X
+      </button>
+
+    </div>
+
+    <div class="activity-tabs">
+
+      <button id="tab-blocked"
+              onclick="renderActivity('blocked')">
+        Engellediklerim
+      </button>
+
+      <button id="tab-comments"
+              onclick="renderActivity('comments')">
+        Yorumlarım
+      </button>
+
+      <button id="tab-likes"
+              onclick="renderActivity('likes')">
+        Kalplerim
+      </button>
+
+      <button id="tab-archive"
+              onclick="renderActivity('archive')">
+        Arşivim
+      </button>
+
+      <button id="tab-shares"
+              onclick="renderActivity('shares')">
+        Paylaşım Geçmişim
+      </button>
+
+    </div>
+
+    <div id="activityContent"></div>
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* =========================
@@ -1104,21 +1428,18 @@ function openMediaDB(){
     const request =
       indexedDB.open(MEDIA_DB_NAME,1);
 
-    request.onupgradeneeded = function(){
+    request.onupgradeneeded=function(){
 
-      const db = request.result;
+      const db=request.result;
 
       if(!db.objectStoreNames.contains(MEDIA_STORE)){
-
         db.createObjectStore(MEDIA_STORE);
       }
+
     };
 
-    request.onsuccess =
-      ()=>resolve(request.result);
-
-    request.onerror =
-      ()=>reject(request.error);
+    request.onsuccess=()=>resolve(request.result);
+    request.onerror=()=>reject(request.error);
 
   });
 
@@ -1131,17 +1452,12 @@ function saveMediaBlob(id,blob){
 
     return new Promise((resolve,reject)=>{
 
-      const tx =
-        db.transaction(MEDIA_STORE,"readwrite");
+      const tx=db.transaction(MEDIA_STORE,"readwrite");
 
-      tx.objectStore(MEDIA_STORE)
-        .put(blob,id);
+      tx.objectStore(MEDIA_STORE).put(blob,id);
 
-      tx.oncomplete =
-        ()=>resolve();
-
-      tx.onerror =
-        ()=>reject(tx.error);
+      tx.oncomplete=()=>resolve();
+      tx.onerror=()=>reject(tx.error);
 
     });
 
@@ -1156,17 +1472,13 @@ function getMediaBlob(id){
 
     return new Promise((resolve,reject)=>{
 
-      const tx =
-        db.transaction(MEDIA_STORE,"readonly");
+      const tx=db.transaction(MEDIA_STORE,"readonly");
 
-      const request =
+      const request=
         tx.objectStore(MEDIA_STORE).get(id);
 
-      request.onsuccess =
-        ()=>resolve(request.result);
-
-      request.onerror =
-        ()=>reject(request.error);
+      request.onsuccess=()=>resolve(request.result);
+      request.onerror=()=>reject(request.error);
 
     });
 
@@ -1179,7 +1491,7 @@ function deleteMediaBlob(id){
 
   return openMediaDB().then(db=>{
 
-    const tx =
+    const tx=
       db.transaction(MEDIA_STORE,"readwrite");
 
     tx.objectStore(MEDIA_STORE).delete(id);
@@ -1193,29 +1505,63 @@ function deleteMediaBlob(id){
    DATA
 ========================= */
 
-let users =
+let users=
   JSON.parse(
     localStorage.getItem("mym_users") || "[]"
   );
 
-let posts =
+let posts=
   JSON.parse(
     localStorage.getItem("mym_posts") || "[]"
   );
 
-let reels =
+let reels=
   JSON.parse(
     localStorage.getItem("mym_reels") || "[]"
   );
 
-let songs =
+let songs=
   JSON.parse(
     localStorage.getItem("mym_songs") || "[]"
   );
 
-let currentUser = null;
+let comments=
+  JSON.parse(
+    localStorage.getItem("mym_comments") || "[]"
+  );
 
-let currentShareType = "text";
+let archive=
+  JSON.parse(
+    localStorage.getItem("mym_archive") || "[]"
+  );
+
+let shareHistory=
+  JSON.parse(
+    localStorage.getItem("mym_share_history") || "[]"
+  );
+
+let currentUser=null;
+let currentShareType="text";
+let currentCommentPostId=null;
+
+
+/* Eski hesapları yeni sisteme uyarla */
+
+users.forEach(user=>{
+
+  if(!Array.isArray(user.blockedUsers)){
+    user.blockedUsers=[];
+  }
+
+  if(typeof user.online!=="boolean"){
+    user.online=false;
+  }
+
+  if(!user.lastSeen){
+    user.lastSeen=null;
+  }
+
+});
 
 
 /* =========================
@@ -1243,6 +1589,22 @@ function saveAll(){
     "mym_songs",
     JSON.stringify(songs)
   );
+
+  localStorage.setItem(
+    "mym_comments",
+    JSON.stringify(comments)
+  );
+
+  localStorage.setItem(
+    "mym_archive",
+    JSON.stringify(archive)
+  );
+
+  localStorage.setItem(
+    "mym_share_history",
+    JSON.stringify(shareHistory)
+  );
+
 }
 
 
@@ -1278,17 +1640,17 @@ function showLogin(){
 
 function register(){
 
-  const name =
+  const name=
     document
       .getElementById("registerName")
       .value.trim();
 
-  const password =
+  const password=
     document
       .getElementById("registerPassword")
       .value;
 
-  const role =
+  const role=
     document
       .getElementById("registerRole")
       .value;
@@ -1296,18 +1658,20 @@ function register(){
   if(!name || !password){
 
     alert("Kullanıcı adı ve şifre gerekli.");
-
     return;
+
   }
 
-  if(users.some(u=>u.name.toLowerCase()===name.toLowerCase())){
+  if(users.some(
+    u=>u.name.toLowerCase()===name.toLowerCase()
+  )){
 
     alert("Bu kullanıcı adı zaten kullanılıyor.");
-
     return;
+
   }
 
-  const user = {
+  const user={
 
     id:Date.now(),
 
@@ -1317,7 +1681,13 @@ function register(){
 
     role:role,
 
-    repostedPosts:[]
+    repostedPosts:[],
+
+    blockedUsers:[],
+
+    online:false,
+
+    lastSeen:null
 
   };
 
@@ -1334,19 +1704,19 @@ function register(){
 
 function login(){
 
-  const name =
+  const name=
     document
       .getElementById("loginName")
       .value.trim();
 
-  const password =
+  const password=
     document
       .getElementById("loginPassword")
       .value;
 
-  const user =
+  const user=
     users.find(
-      u =>
+      u=>
         u.name.toLowerCase()===name.toLowerCase()
         &&
         u.password===password
@@ -1355,11 +1725,15 @@ function login(){
   if(!user){
 
     alert("Kullanıcı adı veya şifre yanlış.");
-
     return;
+
   }
 
-  currentUser = user;
+  currentUser=user;
+
+  setCurrentUser();
+
+  setOnline(true);
 
   enterApp();
 
@@ -1368,7 +1742,11 @@ function login(){
 
 function logout(){
 
-  currentUser = null;
+  setOnline(false);
+
+  localStorage.removeItem("mym_current_user");
+
+  currentUser=null;
 
   document
     .getElementById("app")
@@ -1395,10 +1773,7 @@ function enterApp(){
     .getElementById("app")
     .classList.remove("hidden");
 
-  document
-    .getElementById("topUser")
-    .textContent =
-      currentUser.name;
+  updateTopUser();
 
   updateProfile();
 
@@ -1408,6 +1783,26 @@ function enterApp(){
 
   renderSongs();
 
+  updateOnlineUI();
+
+}
+
+
+function updateTopUser(){
+
+  if(!currentUser)return;
+
+  const online=
+    currentUser.online;
+
+  document
+    .getElementById("topUser")
+    .innerHTML=
+      `
+      <span class="${online ? "online-dot":"offline-dot"}"></span>
+      ${escapeHTML(currentUser.name)}
+      `;
+
 }
 
 
@@ -1415,7 +1810,9 @@ function showPage(page,button){
 
   document
     .querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    .forEach(
+      p=>p.classList.remove("active")
+    );
 
   document
     .getElementById(page+"Page")
@@ -1423,49 +1820,222 @@ function showPage(page,button){
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(b=>b.classList.remove("active"));
+    .forEach(
+      b=>b.classList.remove("active")
+    );
 
   if(button){
-
     button.classList.add("active");
-
   }
 
   if(page==="reels"){
-
     renderReels();
-
   }
 
   if(page==="profile"){
-
     updateProfile();
-
   }
 
 }
 
 
 /* =========================
-   POSTS
+   ONLINE
+========================= */
+
+function setOnline(status){
+
+  if(!currentUser)return;
+
+  const user=
+    users.find(u=>u.id===currentUser.id);
+
+  if(!user)return;
+
+  user.online=status;
+  user.lastSeen=Date.now();
+
+  currentUser=user;
+
+  saveAll();
+
+  updateTopUser();
+  updateOnlineUI();
+
+}
+
+
+function toggleOnlineStatus(){
+
+  if(!currentUser)return;
+
+  setOnline(!currentUser.online);
+
+}
+
+
+function updateOnlineUI(){
+
+  if(!currentUser)return;
+
+  const text=
+    document.getElementById("onlineStatusText");
+
+  const button=
+    document.getElementById("onlineToggle");
+
+  if(currentUser.online){
+
+    text.textContent="Çevrimiçi";
+
+    button.textContent="Kapat";
+
+  }else{
+
+    text.textContent="Çevrimdışı";
+
+    button.textContent="Aç";
+
+  }
+
+  const profileStatus=
+    document.getElementById("profileStatus");
+
+  if(profileStatus){
+
+    profileStatus.innerHTML=
+      currentUser.online
+      ?
+      `<span class="online-dot"></span>Çevrimiçi`
+      :
+      `<span class="offline-dot"></span>Çevrimdışı`;
+
+  }
+
+}
+
+
+/* Her 30 saniyede online zamanını yenile */
+
+setInterval(()=>{
+
+  if(currentUser && currentUser.online){
+
+    setOnline(true);
+
+  }
+
+},30000);
+
+
+/* =========================
+   BLOCK SYSTEM
+========================= */
+
+function isBlocked(userId){
+
+  if(!currentUser)return false;
+
+  return (currentUser.blockedUsers || [])
+    .map(String)
+    .includes(String(userId));
+
+}
+
+
+function blockUser(userId){
+
+  if(!currentUser)return;
+
+  if(String(userId)===String(currentUser.id)){
+    return;
+  }
+
+  const user=
+    users.find(u=>String(u.id)===String(userId));
+
+  if(!user)return;
+
+  currentUser.blockedUsers=
+    currentUser.blockedUsers || [];
+
+  if(!currentUser.blockedUsers
+      .map(String)
+      .includes(String(userId))){
+
+    currentUser.blockedUsers.push(userId);
+
+  }
+
+  const stored=
+    users.find(u=>u.id===currentUser.id);
+
+  if(stored){
+
+    stored.blockedUsers=
+      [...currentUser.blockedUsers];
+
+  }
+
+  saveAll();
+
+  renderFeed();
+  renderReels();
+  renderSongs();
+
+  alert(user.name+" engellendi.");
+
+}
+
+
+function unblockUser(userId){
+
+  if(!currentUser)return;
+
+  currentUser.blockedUsers=
+    (currentUser.blockedUsers || [])
+      .filter(id=>String(id)!==String(userId));
+
+  const stored=
+    users.find(u=>u.id===currentUser.id);
+
+  if(stored){
+
+    stored.blockedUsers=
+      [...currentUser.blockedUsers];
+
+  }
+
+  saveAll();
+
+  renderActivity("blocked");
+
+  renderFeed();
+  renderReels();
+  renderSongs();
+
+}
+
+
+/* =========================
+   POST
 ========================= */
 
 function createPost(){
 
-  const input =
+  const input=
     document.getElementById("postText");
 
-  const text =
-    input.value.trim();
+  const text=input.value.trim();
 
   if(!text){
 
     alert("Bir şeyler yaz.");
-
     return;
+
   }
 
-  const post = {
+  const post={
 
     id:Date.now(),
 
@@ -1490,6 +2060,8 @@ function createPost(){
   };
 
   posts.unshift(post);
+
+  recordShare("Gönderi",post.id);
 
   saveAll();
 
@@ -1497,12 +2069,14 @@ function createPost(){
 
   renderFeed();
 
+  updateProfile();
+
 }
 
 
 function publishModalPost(){
 
-  const text =
+  const text=
     document
       .getElementById("modalPostText")
       .value.trim();
@@ -1510,11 +2084,11 @@ function publishModalPost(){
   if(!text){
 
     alert("Gönderi boş olamaz.");
-
     return;
+
   }
 
-  const post = {
+  const post={
 
     id:Date.now(),
 
@@ -1539,6 +2113,8 @@ function publishModalPost(){
   };
 
   posts.unshift(post);
+
+  recordShare("Gönderi",post.id);
 
   saveAll();
 
@@ -1550,20 +2126,22 @@ function publishModalPost(){
 
   renderFeed();
 
+  updateProfile();
+
 }
 
 
 function toggleLike(id){
 
-  const post =
+  const post=
     posts.find(p=>p.id===id);
 
   if(!post)return;
 
-  post.likedBy =
+  post.likedBy=
     post.likedBy || [];
 
-  const index =
+  const index=
     post.likedBy.indexOf(currentUser.id);
 
   if(index===-1){
@@ -1576,7 +2154,7 @@ function toggleLike(id){
 
   }
 
-  post.likes =
+  post.likes=
     post.likedBy.length;
 
   saveAll();
@@ -1588,12 +2166,299 @@ function toggleLike(id){
 
 function deletePost(id){
 
-  posts =
+  const post=
+    posts.find(p=>p.id===id);
+
+  if(!post)return;
+
+  if(post.userId!==currentUser.id){
+
+    alert("Bu gönderiyi silemezsin.");
+    return;
+
+  }
+
+  posts=
     posts.filter(p=>p.id!==id);
+
+  comments=
+    comments.filter(c=>c.postId!==id);
+
+  archive=
+    archive.filter(
+      a=>!(a.type==="post" && a.itemId===id)
+    );
 
   saveAll();
 
   renderFeed();
+
+  updateProfile();
+
+}
+
+
+/* =========================
+   COMMENTS
+========================= */
+
+function openComments(postId){
+
+  currentCommentPostId=postId;
+
+  renderComments();
+
+  document
+    .getElementById("commentsModal")
+    .classList.add("active");
+
+}
+
+
+function renderComments(){
+
+  const box=
+    document.getElementById("commentList");
+
+  const list=
+    comments.filter(
+      c=>c.postId===currentCommentPostId
+    );
+
+  if(!list.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Henüz yorum yok.
+      </div>`;
+
+    return;
+
+  }
+
+  box.innerHTML=
+    list.map(comment=>{
+
+      return `
+        <div class="comment">
+
+          <div class="comment-user">
+            ${escapeHTML(comment.userName)}
+          </div>
+
+          <div class="comment-text">
+            ${escapeHTML(comment.text)}
+          </div>
+
+          <div class="comment-date">
+            ${formatDate(comment.createdAt)}
+          </div>
+
+          ${
+            comment.userId===currentUser.id
+            ?
+            `
+            <button
+              class="activity-button"
+              onclick="deleteComment(${comment.id})">
+              Sil
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+
+function addComment(){
+
+  const input=
+    document.getElementById("commentText");
+
+  const text=input.value.trim();
+
+  if(!text){
+
+    alert("Yorum yaz.");
+    return;
+
+  }
+
+  if(!currentCommentPostId)return;
+
+  const comment={
+
+    id:
+      Date.now()+
+      Math.floor(Math.random()*1000),
+
+    postId:currentCommentPostId,
+
+    userId:currentUser.id,
+
+    userName:currentUser.name,
+
+    text:text,
+
+    createdAt:new Date().toISOString()
+
+  };
+
+  comments.push(comment);
+
+  const post=
+    posts.find(p=>p.id===currentCommentPostId);
+
+  if(post){
+
+    post.comments=
+      comments.filter(
+        c=>c.postId===post.id
+      ).length;
+
+  }
+
+  saveAll();
+
+  input.value="";
+
+  renderComments();
+
+  renderFeed();
+
+}
+
+
+function deleteComment(id){
+
+  const comment=
+    comments.find(c=>c.id===id);
+
+  if(!comment)return;
+
+  if(comment.userId!==currentUser.id)return;
+
+  comments=
+    comments.filter(c=>c.id!==id);
+
+  const post=
+    posts.find(p=>p.id===comment.postId);
+
+  if(post){
+
+    post.comments=
+      comments.filter(
+        c=>c.postId===post.id
+      ).length;
+
+  }
+
+  saveAll();
+
+  renderComments();
+
+  renderFeed();
+
+}
+
+
+/* =========================
+   ARCHIVE
+========================= */
+
+function isArchived(type,itemId){
+
+  return archive.some(
+    a=>
+      a.userId===currentUser.id
+      &&
+      a.type===type
+      &&
+      String(a.itemId)===String(itemId)
+  );
+
+}
+
+
+function toggleArchive(type,itemId){
+
+  const index=
+    archive.findIndex(
+      a=>
+        a.userId===currentUser.id
+        &&
+        a.type===type
+        &&
+        String(a.itemId)===String(itemId)
+    );
+
+  if(index===-1){
+
+    archive.push({
+
+      id:Date.now(),
+
+      userId:currentUser.id,
+
+      type:type,
+
+      itemId:itemId,
+
+      createdAt:new Date().toISOString()
+
+    });
+
+  }else{
+
+    archive.splice(index,1);
+
+  }
+
+  saveAll();
+
+  renderFeed();
+
+  renderReels();
+
+  renderSongs();
+
+}
+
+
+/* =========================
+   SHARE HISTORY
+========================= */
+
+function recordShare(type,itemId){
+
+  shareHistory.unshift({
+
+    id:Date.now()+Math.floor(Math.random()*1000),
+
+    userId:currentUser.id,
+
+    type:type,
+
+    itemId:itemId,
+
+    createdAt:new Date().toISOString()
+
+  });
+
+  /* Çok büyümesini engelle */
+
+  if(shareHistory.length>500){
+
+    shareHistory=
+      shareHistory.slice(0,500);
+
+  }
 
 }
 
@@ -1617,23 +2482,31 @@ function openRepostModal(){
 
 function renderRepostList(){
 
-  const box =
+  const box=
     document.getElementById("repostList");
 
-  if(!posts.length){
+  const available=
+    posts.filter(
+      post=>!isBlocked(post.userId)
+    );
 
-    box.innerHTML =
-      `<div class="empty">Henüz paylaşılacak post yok.</div>`;
+  if(!available.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Henüz paylaşılacak post yok.
+      </div>`;
 
     return;
+
   }
 
-  box.innerHTML =
-    posts.map(post=>{
+  box.innerHTML=
+    available.map(post=>{
 
-      const already =
+      const already=
         posts.some(
-          p =>
+          p=>
             p.type==="repost"
             &&
             p.originalPostId===post.id
@@ -1656,9 +2529,11 @@ function renderRepostList(){
           <button
             class="primary"
             onclick="repostPost(${post.id})"
-            ${already ? "disabled" : ""}>
+            ${already ? "disabled":""}>
 
-            ${already ? "Zaten paylaşıldı" : "Yeniden Paylaş"}
+            ${already
+              ? "Zaten paylaşıldı"
+              : "Yeniden Paylaş"}
 
           </button>
 
@@ -1673,14 +2548,21 @@ function renderRepostList(){
 
 function repostPost(id){
 
-  const original =
+  const original=
     posts.find(p=>p.id===id);
 
   if(!original)return;
 
-  const already =
+  if(isBlocked(original.userId)){
+
+    alert("Bu kullanıcıyı engelledin.");
+    return;
+
+  }
+
+  const already=
     posts.some(
-      p =>
+      p=>
         p.type==="repost"
         &&
         p.originalPostId===id
@@ -1691,15 +2573,14 @@ function repostPost(id){
   if(already){
 
     alert("Bu gönderiyi zaten yeniden paylaştın.");
-
     return;
+
   }
 
-  const repost = {
+  const repost={
 
     id:
-      Date.now()
-      +
+      Date.now()+
       Math.floor(Math.random()*1000),
 
     userId:currentUser.id,
@@ -1728,11 +2609,15 @@ function repostPost(id){
 
   posts.unshift(repost);
 
+  recordShare("Yeniden Paylaşım",repost.id);
+
   saveAll();
 
   closeModal("repostModal");
 
   renderFeed();
+
+  updateProfile();
 
 }
 
@@ -1743,39 +2628,55 @@ function repostPost(id){
 
 function renderFeed(){
 
-  const feed =
+  const feed=
     document.getElementById("feed");
 
-  if(!posts.length){
+  const visible=
+    posts.filter(
+      post=>!isBlocked(post.userId)
+    );
 
-    feed.innerHTML =
+  if(!visible.length){
+
+    feed.innerHTML=
       `<div class="empty">
         Henüz gönderi yok.
       </div>`;
 
     return;
+
   }
 
-  feed.innerHTML =
-    posts.map(createPostHTML).join("");
+  feed.innerHTML=
+    visible.map(createPostHTML).join("");
 
 }
 
 
 function createPostHTML(post){
 
-  const liked =
+  const liked=
     post.likedBy &&
     post.likedBy.includes(currentUser.id);
 
-  const isMine =
+  const isMine=
     post.userId===currentUser.id;
+
+  const archived=
+    isArchived("post",post.id);
+
+  const targetUser=
+    users.find(u=>u.id===post.userId);
+
+  const online=
+    targetUser &&
+    targetUser.online;
 
   let repostHeader="";
 
   if(post.type==="repost"){
 
-    repostHeader = `
+    repostHeader=`
 
       <div style="
         color:var(--theme);
@@ -1813,7 +2714,15 @@ function createPostHTML(post){
           <div>
 
             <div class="username">
+
+              ${
+                online
+                ? `<span class="online-dot"></span>`
+                : `<span class="offline-dot"></span>`
+              }
+
               ${escapeHTML(post.userName)}
+
             </div>
 
             <div class="role">
@@ -1836,12 +2745,16 @@ function createPostHTML(post){
           class="action ${liked ? "active":""}"
           onclick="toggleLike(${post.id})">
 
-          Beğen ${post.likes || 0}
+          Kalp ${post.likes || 0}
 
         </button>
 
-        <button class="action">
+        <button
+          class="action"
+          onclick="openComments(${post.id})">
+
           Yorum ${post.comments || 0}
+
         </button>
 
         <button
@@ -1852,14 +2765,42 @@ function createPostHTML(post){
 
         </button>
 
+        <button
+          class="action ${archived ? "active":""}"
+          onclick="toggleArchive('post',${post.id})">
+
+          ${archived ? "Arşivden Çıkar":"Arşivle"}
+
+        </button>
+
+        ${
+          !isMine
+          ?
+          `
+          <button
+            class="action block-action"
+            onclick="blockUser(${post.userId})">
+
+            Engelle
+
+          </button>
+          `
+          :
+          ""
+        }
+
         ${
           isMine
           ?
-          `<button
-             class="action delete-action"
-             onclick="deletePost(${post.id})">
-             Sil
-           </button>`
+          `
+          <button
+            class="action delete-action"
+            onclick="deletePost(${post.id})">
+
+            Sil
+
+          </button>
+          `
           :
           ""
         }
@@ -1879,12 +2820,12 @@ function createPostHTML(post){
 
 async function publishReel(){
 
-  const file =
+  const file=
     document
       .getElementById("reelVideo")
       .files[0];
 
-  const text =
+  const text=
     document
       .getElementById("reelText")
       .value.trim();
@@ -1892,30 +2833,34 @@ async function publishReel(){
   if(!file){
 
     alert("Bir video seç.");
-
     return;
+
   }
 
   if(!file.type.startsWith("video/")){
 
     alert("Sadece video dosyası yükleyebilirsin.");
-
     return;
+
   }
 
-  const id =
-    "reel_" +
-    Date.now() +
-    "_" +
+  const mediaId=
+    "reel_"+
+    Date.now()+
+    "_"+
     Math.random()
       .toString(36)
       .slice(2);
 
-  await saveMediaBlob(id,file);
+  await saveMediaBlob(mediaId,file);
+
+  const reelId=
+    Date.now()+
+    Math.floor(Math.random()*1000);
 
   reels.unshift({
 
-    id:Date.now(),
+    id:reelId,
 
     userId:currentUser.id,
 
@@ -1925,13 +2870,15 @@ async function publishReel(){
 
     text:text,
 
-    videoMediaId:id,
+    videoMediaId:mediaId,
 
     likes:0,
 
     createdAt:new Date().toISOString()
 
   });
+
+  recordShare("Reels",reelId);
 
   saveAll();
 
@@ -1947,6 +2894,8 @@ async function publishReel(){
 
   renderReels();
 
+  updateProfile();
+
   showPage("reels");
 
 }
@@ -1954,39 +2903,48 @@ async function publishReel(){
 
 async function renderReels(){
 
-  const box =
+  const box=
     document.getElementById("reels");
 
-  if(!reels.length){
+  const visible=
+    reels.filter(
+      reel=>!isBlocked(reel.userId)
+    );
 
-    box.innerHTML =
+  if(!visible.length){
+
+    box.innerHTML=
       `<div class="empty">
         Henüz Reels videosu yok.
       </div>`;
 
     return;
+
   }
 
   box.innerHTML="";
 
-  for(const reel of reels){
+  for(const reel of visible){
 
-    const blob =
+    const blob=
       await getMediaBlob(
         reel.videoMediaId
       );
 
     if(!blob)continue;
 
-    const url =
+    const url=
       URL.createObjectURL(blob);
 
-    const div =
+    const archived=
+      isArchived("reel",reel.id);
+
+    const div=
       document.createElement("div");
 
     div.className="reel";
 
-    div.innerHTML = `
+    div.innerHTML=`
 
       <video
         src="${url}"
@@ -1998,12 +2956,40 @@ async function renderReels(){
       <div class="reel-info">
 
         <div class="reel-user">
+
           ${escapeHTML(reel.userName)}
+
         </div>
 
         <div class="reel-text">
           ${escapeHTML(reel.text || "")}
         </div>
+
+      </div>
+
+      <div class="reel-actions">
+
+        <button
+          onclick="toggleArchive('reel',${reel.id})">
+
+          ${archived ? "Arşivden Çıkar":"Arşivle"}
+
+        </button>
+
+        ${
+          reel.userId!==currentUser.id
+          ?
+          `
+          <button
+            onclick="blockUser(${reel.userId})">
+
+            Engelle
+
+          </button>
+          `
+          :
+          ""
+        }
 
       </div>
 
@@ -2022,22 +3008,22 @@ async function renderReels(){
 
 async function publishSong(){
 
-  const cover =
+  const cover=
     document
       .getElementById("songCover")
       .files[0];
 
-  const name =
+  const name=
     document
       .getElementById("songName")
       .value.trim();
 
-  const description =
+  const description=
     document
       .getElementById("songDescription")
       .value.trim();
 
-  const audio =
+  const audio=
     document
       .getElementById("songFile")
       .files[0];
@@ -2045,64 +3031,59 @@ async function publishSong(){
 
   if(!cover){
 
-    alert("JPG kapak görseli zorunlu.");
-
+    alert("Kapak görseli zorunlu.");
     return;
+
   }
 
-  const isJPG =
-    cover.type==="image/jpeg"
-    ||
-    /\.(jpg|jpeg)$/i.test(cover.name);
+  if(!cover.type.startsWith("image/")){
 
-  if(!isJPG){
-
-    alert("Kapak görseli sadece JPG olmalı.");
-
+    alert("Geçerli bir görsel dosyası seç.");
     return;
+
   }
 
   if(!name){
 
     alert("Şarkı adı zorunlu.");
-
     return;
+
   }
 
   if(name.length>40){
 
     alert("Şarkı adı en fazla 40 karakter olabilir.");
-
     return;
+
   }
 
   if(!audio){
 
     alert("Şarkı dosyasını seç.");
-
     return;
+
   }
 
   if(!audio.type.startsWith("audio/")){
 
     alert("Geçerli bir ses dosyası seç.");
-
     return;
+
   }
 
 
-  const coverId =
-    "cover_" +
-    Date.now() +
-    "_" +
+  const coverId=
+    "cover_"+
+    Date.now()+
+    "_"+
     Math.random()
       .toString(36)
       .slice(2);
 
-  const audioId =
-    "audio_" +
-    Date.now() +
-    "_" +
+  const audioId=
+    "audio_"+
+    Date.now()+
+    "_"+
     Math.random()
       .toString(36)
       .slice(2);
@@ -2119,9 +3100,14 @@ async function publishSong(){
   );
 
 
+  const songId=
+    Date.now()+
+    Math.floor(Math.random()*1000);
+
+
   songs.unshift({
 
-    id:Date.now(),
+    id:songId,
 
     userId:currentUser.id,
 
@@ -2143,6 +3129,8 @@ async function publishSong(){
 
   });
 
+
+  recordShare("Şarkı",songId);
 
   saveAll();
 
@@ -2172,6 +3160,8 @@ async function publishSong(){
 
   renderSongs();
 
+  updateProfile();
+
   alert("Şarkı başarıyla yayınlandı.");
 
 }
@@ -2179,53 +3169,63 @@ async function publishSong(){
 
 async function renderSongs(){
 
-  const box =
+  const box=
     document.getElementById("songs");
 
-  if(!songs.length){
+  const visible=
+    songs.filter(
+      song=>!isBlocked(song.userId)
+    );
 
-    box.innerHTML =
+  if(!visible.length){
+
+    box.innerHTML=
       `<div class="empty">
         Henüz şarkı yayınlanmamış.
       </div>`;
 
     return;
+
   }
 
   box.innerHTML="";
 
-  for(const song of songs){
+  for(const song of visible){
 
-    const cover =
+    const cover=
       await getMediaBlob(
         song.coverMediaId
       );
 
-    const audio =
+    const audio=
       await getMediaBlob(
         song.audioMediaId
       );
 
     if(!cover || !audio)continue;
 
-    const coverURL =
+    const coverURL=
       URL.createObjectURL(cover);
 
-    const audioURL =
+    const audioURL=
       URL.createObjectURL(audio);
 
-    const card =
+    const archived=
+      isArchived("song",song.id);
+
+    const card=
       document.createElement("div");
 
     card.className="song-card";
 
-    card.innerHTML = `
+    card.innerHTML=`
 
       <div class="song-top">
 
         <img
           class="song-cover"
-          src="${coverURL}">
+          src="${coverURL}"
+          alt="Kapak">
 
         <div class="song-info">
 
@@ -2244,9 +3244,11 @@ async function renderSongs(){
       ${
         song.description
         ?
-        `<div class="song-description">
+        `
+        <div class="song-description">
           ${escapeHTML(song.description)}
-         </div>`
+        </div>
+        `
         :
         ""
       }
@@ -2256,6 +3258,34 @@ async function renderSongs(){
         src="${audioURL}"
         controls>
       </audio>
+
+      <div class="song-actions">
+
+        <button
+          class="action ${archived ? "active":""}"
+          onclick="toggleArchive('song',${song.id})">
+
+          ${archived ? "Arşivden Çıkar":"Arşivle"}
+
+        </button>
+
+        ${
+          song.userId!==currentUser.id
+          ?
+          `
+          <button
+            class="action block-action"
+            onclick="blockUser(${song.userId})">
+
+            Engelle
+
+          </button>
+          `
+          :
+          ""
+        }
+
+      </div>
 
     `;
 
@@ -2283,7 +3313,9 @@ function openShareModal(type){
 
   currentShareType=type;
 
-  toggleShareMenu();
+  document
+    .getElementById("shareMenu")
+    .classList.remove("active");
 
   document
     .getElementById("shareModal")
@@ -2345,9 +3377,14 @@ function openShareModal(type){
 
 function closeModal(id){
 
-  document
-    .getElementById(id)
-    .classList.remove("active");
+  const modal=
+    document.getElementById(id);
+
+  if(modal){
+
+    modal.classList.remove("active");
+
+  }
 
 }
 
@@ -2360,17 +3397,17 @@ function updateProfile(){
 
   if(!currentUser)return;
 
-  const myPosts =
+  const myPosts=
     posts.filter(
       p=>p.userId===currentUser.id
     ).length;
 
-  const mySongs =
+  const mySongs=
     songs.filter(
       s=>s.userId===currentUser.id
     ).length;
 
-  const myReels =
+  const myReels=
     reels.filter(
       r=>r.userId===currentUser.id
     ).length;
@@ -2378,35 +3415,493 @@ function updateProfile(){
 
   document
     .getElementById("profileAvatar")
-    .textContent =
+    .textContent=
       currentUser.name
         .charAt(0)
         .toUpperCase();
 
   document
     .getElementById("profileName")
-    .textContent =
+    .textContent=
       currentUser.name;
 
   document
     .getElementById("profileRole")
-    .textContent =
+    .textContent=
       currentUser.role;
 
   document
     .getElementById("profilePosts")
-    .textContent =
+    .textContent=
       myPosts;
 
   document
     .getElementById("profileSongs")
-    .textContent =
+    .textContent=
       mySongs;
 
   document
     .getElementById("profileReels")
-    .textContent =
+    .textContent=
       myReels;
+
+  updateOnlineUI();
+
+}
+
+
+/* =========================
+   ACTIVITY
+========================= */
+
+function openActivityModal(type){
+
+  document
+    .getElementById("activityModal")
+    .classList.add("active");
+
+  renderActivity(type);
+
+}
+
+
+function renderActivity(type){
+
+  document
+    .querySelectorAll(".activity-tabs button")
+    .forEach(
+      b=>b.classList.remove("active")
+    );
+
+  const activeTab=
+    document.getElementById("tab-"+type);
+
+  if(activeTab){
+    activeTab.classList.add("active");
+  }
+
+  const box=
+    document.getElementById("activityContent");
+
+
+  /* ENGELLENENLER */
+
+  if(type==="blocked"){
+
+    const blockedIds=
+      currentUser.blockedUsers || [];
+
+    const blockedUsers=
+      users.filter(
+        u=>blockedIds
+          .map(String)
+          .includes(String(u.id))
+      );
+
+    if(!blockedUsers.length){
+
+      box.innerHTML=
+        `<div class="empty">
+          Henüz kimseyi engellemedin.
+        </div>`;
+
+      return;
+
+    }
+
+    box.innerHTML=
+      blockedUsers.map(user=>`
+
+        <div class="activity-item">
+
+          <div class="activity-title">
+            ${escapeHTML(user.name)}
+          </div>
+
+          <div class="activity-info">
+            ${escapeHTML(user.role || "Kullanıcı")}
+          </div>
+
+          <button
+            class="activity-button"
+            onclick="unblockUser(${user.id})">
+
+            Engel Kaldır
+
+          </button>
+
+        </div>
+
+      `).join("");
+
+    return;
+
+  }
+
+
+  /* YORUMLAR */
+
+  if(type==="comments"){
+
+    const mine=
+      comments
+        .filter(
+          c=>c.userId===currentUser.id
+        )
+        .sort(
+          (a,b)=>
+            new Date(b.createdAt)-
+            new Date(a.createdAt)
+        );
+
+    if(!mine.length){
+
+      box.innerHTML=
+        `<div class="empty">
+          Henüz yorum yapmadın.
+        </div>`;
+
+      return;
+
+    }
+
+    box.innerHTML=
+      mine.map(comment=>{
+
+        const post=
+          posts.find(
+            p=>p.id===comment.postId
+          );
+
+        return `
+
+          <div class="activity-item">
+
+            <div class="activity-title">
+              ${escapeHTML(comment.text)}
+            </div>
+
+            <div class="activity-info">
+              ${
+                post
+                ?
+                "Gönderi: "+
+                escapeHTML(
+                  post.text.slice(0,80)
+                )
+                :
+                "Gönderi artık mevcut değil."
+              }
+            </div>
+
+            <div class="activity-info">
+              ${formatDate(comment.createdAt)}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+    return;
+
+  }
+
+
+  /* KALPLER */
+
+  if(type==="likes"){
+
+    const likedPosts=
+      posts.filter(
+        p=>
+          p.likedBy &&
+          p.likedBy.includes(currentUser.id)
+      );
+
+    if(!likedPosts.length){
+
+      box.innerHTML=
+        `<div class="empty">
+          Henüz bir gönderiyi beğenmedin.
+        </div>`;
+
+      return;
+
+    }
+
+    box.innerHTML=
+      likedPosts.map(post=>`
+
+        <div class="activity-item">
+
+          <div class="activity-title">
+            ${escapeHTML(post.userName)}
+          </div>
+
+          <div class="activity-info">
+            ${escapeHTML(post.text)}
+          </div>
+
+          <button
+            class="activity-button"
+            onclick="toggleLike(${post.id});renderActivity('likes')">
+
+            Kalbi Geri Al
+
+          </button>
+
+        </div>
+
+      `).join("");
+
+    return;
+
+  }
+
+
+  /* ARŞİV */
+
+  if(type==="archive"){
+
+    const mine=
+      archive
+        .filter(
+          a=>a.userId===currentUser.id
+        )
+        .sort(
+          (a,b)=>
+            new Date(b.createdAt)-
+            new Date(a.createdAt)
+        );
+
+    if(!mine.length){
+
+      box.innerHTML=
+        `<div class="empty">
+          Arşivin boş.
+        </div>`;
+
+      return;
+
+    }
+
+    box.innerHTML=
+      mine.map(item=>{
+
+        let title="";
+        let info="";
+
+        if(item.type==="post"){
+
+          const post=
+            posts.find(
+              p=>p.id===item.itemId
+            );
+
+          title=
+            post
+            ?
+            post.userName
+            :
+            "Silinmiş gönderi";
+
+          info=
+            post
+            ?
+            post.text
+            :
+            "Bu gönderi artık mevcut değil.";
+
+        }
+
+        if(item.type==="reel"){
+
+          const reel=
+            reels.find(
+              r=>r.id===item.itemId
+            );
+
+          title=
+            reel
+            ?
+            reel.userName
+            :
+            "Silinmiş Reels";
+
+          info=
+            reel
+            ?
+            reel.text || "Reels videosu"
+            :
+            "Bu Reels artık mevcut değil.";
+
+        }
+
+        if(item.type==="song"){
+
+          const song=
+            songs.find(
+              s=>s.id===item.itemId
+            );
+
+          title=
+            song
+            ?
+            song.name
+            :
+            "Silinmiş şarkı";
+
+          info=
+            song
+            ?
+            song.userName
+            :
+            "Bu şarkı artık mevcut değil.";
+
+        }
+
+        return `
+
+          <div class="activity-item">
+
+            <div class="activity-title">
+              ${escapeHTML(title)}
+            </div>
+
+            <div class="activity-info">
+              ${escapeHTML(info)}
+            </div>
+
+            <div class="activity-info">
+              ${escapeHTML(item.type)}
+              ·
+              ${formatDate(item.createdAt)}
+            </div>
+
+            <button
+              class="activity-button"
+              onclick="toggleArchive('${item.type}',${item.itemId});renderActivity('archive')">
+
+              Arşivden Çıkar
+
+            </button>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+    return;
+
+  }
+
+
+  /* PAYLAŞIM GEÇMİŞİ */
+
+  if(type==="shares"){
+
+    const mine=
+      shareHistory
+        .filter(
+          h=>h.userId===currentUser.id
+        )
+        .sort(
+          (a,b)=>
+            new Date(b.createdAt)-
+            new Date(a.createdAt)
+        );
+
+    if(!mine.length){
+
+      box.innerHTML=
+        `<div class="empty">
+          Henüz paylaşım geçmişin yok.
+        </div>`;
+
+      return;
+
+    }
+
+    box.innerHTML=
+      mine.map(item=>{
+
+        let title=item.type;
+
+        if(item.type==="Gönderi"){
+
+          const post=
+            posts.find(
+              p=>p.id===item.itemId
+            );
+
+          if(post){
+            title=
+              "Gönderi: "+
+              post.text.slice(0,70);
+          }
+
+        }
+
+        if(item.type==="Şarkı"){
+
+          const song=
+            songs.find(
+              s=>s.id===item.itemId
+            );
+
+          if(song){
+            title=
+              "Şarkı: "+
+              song.name;
+          }
+
+        }
+
+        if(item.type==="Reels"){
+
+          title="Reels videosu yayınlandı";
+
+        }
+
+        if(item.type==="Yeniden Paylaşım"){
+
+          const repost=
+            posts.find(
+              p=>p.id===item.itemId
+            );
+
+          if(repost){
+
+            title=
+              "Yeniden paylaşım: "+
+              repost.text.slice(0,60);
+
+          }
+
+        }
+
+        return `
+
+          <div class="activity-item">
+
+            <div class="activity-title">
+              ${escapeHTML(title)}
+            </div>
+
+            <div class="activity-info">
+              ${formatDate(item.createdAt)}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }
 
 }
 
@@ -2430,7 +3925,7 @@ function setTheme(color){
 }
 
 
-const savedTheme =
+const savedTheme=
   localStorage.getItem("mym_theme");
 
 if(savedTheme){
@@ -2452,8 +3947,9 @@ document
 
       document
         .getElementById("songNameCount")
-        .textContent =
-          this.value.length + " / 40";
+        .textContent=
+          this.value.length+
+          " / 40";
 
     }
   );
@@ -2471,6 +3967,31 @@ function escapeHTML(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date){
+
+  if(!date)return "";
+
+  const d=
+    new Date(date);
+
+  return d.toLocaleString(
+    "tr-TR",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
 
 }
 
@@ -2503,12 +4024,12 @@ document
    AUTO SESSION
 ========================= */
 
-const savedUserId =
+const savedUserId=
   localStorage.getItem("mym_current_user");
 
 if(savedUserId){
 
-  const found =
+  const found=
     users.find(
       u=>String(u.id)===String(savedUserId)
     );
@@ -2517,6 +4038,8 @@ if(savedUserId){
 
     currentUser=found;
 
+    setOnline(true);
+
     enterApp();
 
   }
@@ -2524,7 +4047,9 @@ if(savedUserId){
 }
 
 
-/* save current user */
+/* =========================
+   CURRENT USER
+========================= */
 
 function setCurrentUser(){
 
@@ -2540,67 +4065,37 @@ function setCurrentUser(){
 }
 
 
-/* override login for session */
+/* =========================
+   PAGE CLOSE
+========================= */
 
-const originalLogin = login;
+window.addEventListener(
+  "beforeunload",
+  function(){
 
-login = function(){
+    if(currentUser){
 
-  const name =
-    document
-      .getElementById("loginName")
-      .value.trim();
+      const user=
+        users.find(
+          u=>u.id===currentUser.id
+        );
 
-  const password =
-    document
-      .getElementById("loginPassword")
-      .value;
+      if(user){
 
-  const user =
-    users.find(
-      u =>
-        u.name.toLowerCase()===name.toLowerCase()
-        &&
-        u.password===password
-    );
+        user.online=false;
+        user.lastSeen=Date.now();
 
-  if(!user){
+        localStorage.setItem(
+          "mym_users",
+          JSON.stringify(users)
+        );
 
-    alert("Kullanıcı adı veya şifre yanlış.");
+      }
 
-    return;
+    }
+
   }
-
-  currentUser=user;
-
-  setCurrentUser();
-
-  enterApp();
-
-};
-
-
-/* override logout session */
-
-const originalLogout = logout;
-
-logout = function(){
-
-  localStorage.removeItem(
-    "mym_current_user"
-  );
-
-  currentUser=null;
-
-  document
-    .getElementById("app")
-    .classList.add("hidden");
-
-  document
-    .getElementById("authPage")
-    .classList.remove("hidden");
-
-};
+);
 
 
 /* =========================
@@ -2611,10 +4106,10 @@ document.addEventListener(
   "click",
   function(e){
 
-    const menu =
+    const menu=
       document.getElementById("shareMenu");
 
-    const fab =
+    const fab=
       document.getElementById("shareFab");
 
     if(
@@ -2631,6 +4126,13 @@ document.addEventListener(
 
   }
 );
+
+
+/* =========================
+   INITIAL SAVE
+========================= */
+
+saveAll();
 
 </script>
 
