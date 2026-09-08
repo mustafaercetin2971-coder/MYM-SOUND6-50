@@ -2,1131 +2,7753 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MYM SOUND</title>
+
 <style>
+/* =========================================================
+   MYM SOUND
+   ANA TASARIM SİSTEMİ
+   ========================================================= */
+
 :root{
- --p:#8b5cf6;--p2:#6d28d9;--a:#c084fc;--bg:#08080d;--panel:#11111a;
- --panel2:#181824;--text:#fff;--muted:#9999aa;--border:#292938;
+    --p:#7c3aed;
+    --p2:#a855f7;
+    --a:#c084fc;
+    --bg:#08080d;
+    --bg2:#0d0d15;
+    --panel:#12121c;
+    --panel2:#181824;
+    --border:#29293a;
+    --text:#ffffff;
+    --muted:#9898aa;
+    --danger:#ef4444;
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --shadow:0 15px 45px rgba(0,0,0,.35);
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-button,.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--p);color:#fff}
-button:hover{filter:brightness(1.12)}
-input,textarea,select{width:100%;background:#0c0c13;color:#fff;border:1px solid var(--border);border-radius:10px;padding:11px;outline:none}
-textarea{min-height:100px;resize:vertical}
-.hidden{display:none!important}
-.app{min-height:100vh}
-.top{
- position:sticky;top:0;z-index:50;height:64px;background:rgba(8,8,13,.94);
- backdrop-filter:blur(18px);border-bottom:1px solid var(--border);
- display:flex;align-items:center;padding:0 18px;gap:16px
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
-.logo{font-size:22px;font-weight:900;color:var(--a)}
-.search{max-width:430px;flex:1}
-.user-mini{margin-left:auto;display:flex;align-items:center;gap:8px}
-.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:var(--p);display:grid;place-items:center;font-weight:bold}
-.layout{display:flex;min-height:calc(100vh - 64px)}
-.side{
- width:220px;border-right:1px solid var(--border);padding:16px;position:sticky;
- top:64px;height:calc(100vh - 64px);background:#0b0b11
+
+html{
+    scroll-behavior:smooth;
 }
-.navbtn{width:100%;background:transparent;text-align:left;margin:4px 0;color:#ddd}
-.navbtn.active{background:var(--p2)}
-.main{flex:1;max-width:1200px;margin:auto;padding:22px;width:100%}
-.page-title{font-size:28px;font-weight:900;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(124,58,237,.12),transparent 35%),
+        radial-gradient(circle at 80% 20%,rgba(168,85,247,.08),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,Helvetica,sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+img{
+    max-width:100%;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--bg);
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--border);
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--p);
+}
+
+/* =========================================================
+   GENEL
+   ========================================================= */
+
+.hidden{
+    display:none!important;
+}
+
+.app{
+    min-height:100vh;
+}
+
+.container{
+    width:min(1250px,calc(100% - 30px));
+    margin:auto;
+}
+
 .card{
- background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;
- box-shadow:0 8px 30px #0003
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.035),
+        rgba(255,255,255,.015)
+    );
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
 }
-.row{display:flex;align-items:center;gap:10px}
-.between{justify-content:space-between}
-.muted{color:var(--muted)}
-.small{font-size:12px}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--p2);font-size:11px}
-.featured{border:1px solid var(--a);box-shadow:0 0 25px #8b5cf633}
-.featured-label{color:var(--a);font-size:11px;font-weight:bold}
-.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#222}
-audio{width:100%;margin-top:12px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.actions button{font-size:12px}
-.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:18px}
-.tab{background:var(--panel2);white-space:nowrap}
-.tab.active{background:var(--p)}
-.auth{
- min-height:100vh;display:grid;place-items:center;padding:20px;
- background:radial-gradient(circle at top,var(--p2),#08080d 45%)
+
+.muted{
+    color:var(--muted);
 }
-.authbox{width:min(440px,100%);background:#11111a;border:1px solid var(--border);border-radius:20px;padding:25px}
-.authbox h1{color:var(--a)}
-.form{display:grid;gap:12px}
+
+.small{
+    font-size:12px;
+}
+
+.center{
+    text-align:center;
+}
+
+.flex{
+    display:flex;
+}
+
+.column{
+    flex-direction:column;
+}
+
+.gap5{
+    gap:5px;
+}
+
+.gap10{
+    gap:10px;
+}
+
+.gap15{
+    gap:15px;
+}
+
+.gap20{
+    gap:20px;
+}
+
+/* =========================================================
+   BUTTONLAR
+   ========================================================= */
+
+.btn{
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:var(--text);
+    border-radius:12px;
+    padding:10px 15px;
+    transition:.2s;
+    font-weight:600;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    border-color:var(--p);
+}
+
+.btn.primary{
+    background:linear-gradient(
+        135deg,
+        var(--p),
+        var(--p2)
+    );
+    border-color:transparent;
+}
+
+.btn.danger{
+    background:#35151a;
+    border-color:#6b2028;
+    color:#ff8e98;
+}
+
+.btn.success{
+    background:#102a1a;
+    border-color:#205f37;
+    color:#70e59b;
+}
+
+.btn.warning{
+    background:#33250c;
+    border-color:#745719;
+    color:#ffd56a;
+}
+
+.btn.full{
+    width:100%;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:68px;
+    background:rgba(8,8,13,.84);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+}
+
+.topbar-inner{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(
+        135deg,
+        var(--p),
+        var(--p2)
+    );
+}
+
+.header-search{
+    flex:1;
+    max-width:480px;
+    position:relative;
+}
+
+.header-search input{
+    width:100%;
+    background:var(--panel);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 15px;
+    outline:none;
+}
+
+.header-search input:focus{
+    border-color:var(--p);
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:var(--text);
+}
+
+/* =========================================================
+   ANA LAYOUT
+   ========================================================= */
+
+.main-layout{
+    display:grid;
+    grid-template-columns:230px minmax(0,1fr);
+    gap:20px;
+    padding-top:20px;
+}
+
+.sidebar{
+    position:sticky;
+    top:88px;
+    height:max-content;
+}
+
+.sidebar-menu{
+    padding:10px;
+}
+
+.nav-item{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:13px 14px;
+    border-radius:13px;
+    text-align:left;
+    margin-bottom:3px;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:rgba(124,58,237,.13);
+    color:#fff;
+}
+
+.content{
+    min-width:0;
+}
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+.auth-page{
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:20px;
+}
+
+.auth-box{
+    width:min(450px,100%);
+    padding:30px;
+}
+
+.auth-logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.auth-logo .logo-mark{
+    margin:0 auto 12px;
+    width:60px;
+    height:60px;
+    font-size:25px;
+}
+
+.auth-logo h1{
+    font-size:30px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:7px;
+}
+
+.input{
+    width:100%;
+    border:1px solid var(--border);
+    background:#0b0b12;
+    color:#fff;
+    border-radius:12px;
+    padding:12px 13px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:var(--p);
+}
+
+textarea.input{
+    min-height:110px;
+    resize:vertical;
+}
+
+.auth-switch{
+    margin-top:18px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.auth-switch button{
+    background:none;
+    border:0;
+    color:var(--a);
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.page-header h1{
+    font-size:26px;
+}
+
+.page-header p{
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* =========================================================
+   POST
+   ========================================================= */
+
+.post-create{
+    padding:16px;
+    margin-bottom:18px;
+}
+
+.post-create-row{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+    flex:none;
+    border-radius:50%;
+    overflow:hidden;
+    background:linear-gradient(
+        135deg,
+        var(--p),
+        var(--p2)
+    );
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.avatar.small-avatar{
+    width:34px;
+    height:34px;
+    font-size:12px;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.fake-input{
+    flex:1;
+    padding:12px 15px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    border-radius:14px;
+    color:var(--muted);
+    cursor:pointer;
+}
+
+.post-card{
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.post-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.user-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-info strong{
+    display:block;
+}
+
+.user-info span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.post-content{
+    margin:16px 0;
+    line-height:1.6;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.post-media{
+    width:100%;
+    max-height:650px;
+    object-fit:contain;
+    background:#050507;
+    border-radius:15px;
+    border:1px solid var(--border);
+}
+
+.post-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border-top:1px solid var(--border);
+    margin-top:15px;
+    padding-top:12px;
+}
+
+.action-btn{
+    background:transparent;
+    border:0;
+    color:var(--muted);
+    padding:8px 10px;
+    border-radius:10px;
+}
+
+.action-btn:hover{
+    background:var(--panel2);
+    color:#fff;
+}
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.pro-badge{
+    display:inline-flex;
+    align-items:center;
+    border-radius:7px;
+    padding:3px 7px;
+    font-size:10px;
+    font-weight:900;
+    margin-left:5px;
+}
+
+.pro-monthly{
+    background:#7c3aed;
+    color:#fff;
+}
+
+.pro-yearly{
+    background:#2563eb;
+    color:#fff;
+}
+
+.admin-badge{
+    background:#dc2626;
+    color:white;
+}
+
+/* =========================================================
+   REELS
+   ========================================================= */
+
+.reels-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.reel-card{
+    position:relative;
+    min-height:440px;
+    overflow:hidden;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:#050507;
+}
+
+.reel-card video,
+.reel-card img{
+    width:100%;
+    height:100%;
+    min-height:440px;
+    object-fit:cover;
+}
+
+.reel-info{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:18px;
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.85)
+    );
+}
+
+/* =========================================================
+   SONG
+   ========================================================= */
+
+.song-card{
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:12px;
+}
+
+.song-cover{
+    width:62px;
+    height:62px;
+    flex:none;
+    border-radius:13px;
+    background:linear-gradient(
+        135deg,
+        var(--p),
+        var(--p2)
+    );
+    overflow:hidden;
+}
+
+.song-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.song-main{
+    flex:1;
+    min-width:0;
+}
+
+.song-main strong{
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.song-main audio{
+    width:100%;
+    margin-top:8px;
+}
+
+/* =========================================================
+   CHANNEL
+   ========================================================= */
+
+.channel-cover{
+    height:230px;
+    border-radius:20px 20px 0 0;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.8),
+            rgba(168,85,247,.3)
+        );
+    background-size:cover;
+    background-position:center;
+}
+
+.channel-header{
+    padding:20px;
+}
+
+.channel-profile-row{
+    display:flex;
+    align-items:flex-end;
+    gap:15px;
+    margin-top:-50px;
+}
+
+.channel-large-avatar{
+    width:100px;
+    height:100px;
+    border:5px solid var(--bg);
+    border-radius:50%;
+    overflow:hidden;
+    background:var(--p);
+    display:grid;
+    place-items:center;
+    font-size:30px;
+    font-weight:900;
+}
+
+.channel-large-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.channel-stats{
+    display:flex;
+    gap:25px;
+    margin-top:15px;
+}
+
+.channel-tabs{
+    display:flex;
+    overflow:auto;
+    border-top:1px solid var(--border);
+    margin-top:18px;
+}
+
+.channel-tab{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:13px 17px;
+    white-space:nowrap;
+}
+
+.channel-tab.active{
+    color:#fff;
+    border-bottom:2px solid var(--p);
+}
+
+/* =========================================================
+   SHOP
+   ========================================================= */
+
+.shop-hero{
+    min-height:250px;
+    border-radius:20px;
+    padding:30px;
+    display:flex;
+    align-items:flex-end;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.85),
+            rgba(0,0,0,.15)
+        ),
+        linear-gradient(
+            135deg,
+            var(--p),
+            #111
+        );
+    background-size:cover;
+    background-position:center;
+    margin-bottom:18px;
+}
+
+.shop-items{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.shop-card{
+    padding:15px;
+}
+
+.shop-image{
+    height:180px;
+    border-radius:14px;
+    overflow:hidden;
+    background:#08080c;
+    margin-bottom:12px;
+}
+
+.shop-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.price{
+    color:var(--a);
+    font-size:19px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+.role-tag{
+    display:inline-block;
+    font-size:10px;
+    padding:4px 7px;
+    border-radius:6px;
+    background:var(--panel2);
+    color:var(--muted);
+}
+
+/* =========================================================
+   PRO
+   ========================================================= */
+
+.pro-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.pro-card{
+    padding:25px;
+    position:relative;
+    overflow:hidden;
+}
+
+.pro-card.monthly{
+    border-color:#7c3aed;
+}
+
+.pro-card.yearly{
+    border-color:#2563eb;
+}
+
+.pro-price{
+    font-size:38px;
+    font-weight:900;
+    margin:18px 0 5px;
+}
+
+.pro-list{
+    list-style:none;
+    margin:20px 0;
+}
+
+.pro-list li{
+    padding:9px 0;
+    color:#ddd;
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.pro-current{
+    margin-top:18px;
+    padding:14px;
+    border-radius:13px;
+    background:var(--panel2);
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.settings-grid{
+    display:grid;
+    grid-template-columns:200px minmax(0,1fr);
+    gap:18px;
+}
+
+.settings-menu{
+    padding:10px;
+}
+
+.settings-content{
+    padding:20px;
+}
+
+.theme-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.theme-option{
+    border:2px solid var(--border);
+    border-radius:14px;
+    padding:12px;
+    cursor:pointer;
+}
+
+.theme-option.selected{
+    border-color:var(--p);
+}
+
+.theme-preview{
+    height:55px;
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+/* =========================================================
+   MESAJ
+   ========================================================= */
+
+.messages-layout{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    min-height:650px;
+    overflow:hidden;
+}
+
+.message-users{
+    border-right:1px solid var(--border);
+    padding:10px;
+}
+
+.message-user{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    padding:10px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.message-user:hover,
+.message-user.active{
+    background:var(--panel2);
+}
+
+.chat{
+    display:flex;
+    flex-direction:column;
+}
+
+.chat-head{
+    padding:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.chat-messages{
+    flex:1;
+    padding:18px;
+    overflow:auto;
+    min-height:450px;
+}
+
+.message{
+    max-width:70%;
+    padding:10px 13px;
+    border-radius:14px;
+    margin-bottom:8px;
+    background:var(--panel2);
+}
+
+.message.mine{
+    margin-left:auto;
+    background:var(--p);
+}
+
+.chat-send{
+    display:flex;
+    gap:8px;
+    padding:12px;
+    border-top:1px solid var(--border);
+}
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+.admin-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat-card{
+    padding:18px;
+}
+
+.stat-number{
+    font-size:27px;
+    font-weight:900;
+    margin-top:7px;
+}
+
+.admin-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.admin-table th,
+.admin-table td{
+    padding:11px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    vertical-align:middle;
+}
+
+.admin-table th{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-layer{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal-layer.open{
+    display:flex;
+}
+
 .modal{
- position:fixed;inset:0;background:#000b;z-index:100;display:grid;place-items:center;
- padding:18px
+    width:min(650px,100%);
+    max-height:90vh;
+    overflow:auto;
+    padding:22px;
 }
-.modalbox{width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-close{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:#fff;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast-area{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:2000;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
 .toast{
- position:fixed;right:20px;bottom:20px;background:var(--panel2);border:1px solid var(--p);
- padding:13px 17px;border-radius:12px;z-index:300
+    max-width:350px;
+    padding:13px 16px;
+    border-radius:13px;
+    background:#181820;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
 }
-.stat{font-size:25px;font-weight:900;color:var(--a)}
-.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px}
-.theme{
- padding:10px;border:2px solid var(--border);border-radius:12px;background:var(--panel2);
- color:#fff;text-align:left
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-results{
+    display:grid;
+    gap:10px;
 }
-.theme.selected{border-color:#fff}
-.theme-color{height:38px;border-radius:8px;margin-bottom:7px}
-.admin{border:1px solid #d33;background:#160d0d}
-.admin h2{color:#ff7777}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:9px;border-bottom:1px solid var(--border);text-align:left}
-.danger{background:#a51d32}
-.success{background:#168653}
-.warn{background:#a86b13}
-@media(max-width:800px){
- .side{position:fixed;bottom:0;top:auto;left:0;width:100%;height:64px;z-index:60;
- display:flex;padding:5px;border-top:1px solid var(--border);overflow:auto}
- .navbtn{min-width:90px;text-align:center;margin:0}
- .layout{padding-bottom:64px}
- .top{padding:0 10px}
- .search{display:none}
+
+.search-result{
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notification{
+    padding:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.notification.unread{
+    background:rgba(124,58,237,.08);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .main-layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        top:auto;
+        z-index:90;
+        border-top:1px solid var(--border);
+        background:rgba(8,8,13,.95);
+        backdrop-filter:blur(15px);
+    }
+
+    .sidebar-menu{
+        display:flex;
+        overflow:auto;
+        padding:7px;
+    }
+
+    .nav-item{
+        flex-direction:column;
+        justify-content:center;
+        min-width:70px;
+        font-size:10px;
+        padding:7px;
+        margin:0;
+    }
+
+    .content{
+        padding-bottom:75px;
+    }
+
+    .reels-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .shop-items{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .admin-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+
+    .container{
+        width:min(100% - 16px,1250px);
+    }
+
+    .header-search{
+        display:none;
+    }
+
+    .topbar{
+        height:60px;
+    }
+
+    .page-header h1{
+        font-size:22px;
+    }
+
+    .reels-grid,
+    .shop-items,
+    .pro-grid{
+        grid-template-columns:1fr;
+    }
+
+    .settings-grid,
+    .messages-layout{
+        grid-template-columns:1fr;
+    }
+
+    .message-users{
+        border-right:0;
+        border-bottom:1px solid var(--border);
+        max-height:180px;
+        overflow:auto;
+    }
+
+    .theme-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .channel-profile-row{
+        align-items:center;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .channel-stats{
+        justify-content:center;
+    }
+
+    .admin-table{
+        min-width:850px;
+    }
+
+    .admin-table-wrap{
+        overflow:auto;
+    }
 }
 </style>
 </head>
+
 <body>
 
 <div id="app"></div>
-<div id="modal"></div>
-<div id="toast"></div>
+
+<div id="modalLayer" class="modal-layer">
+    <div id="modalBox" class="modal card"></div>
+</div>
+
+<div id="toastArea" class="toast-area"></div>
 
 <script>
-"use strict";
+/* =========================================================
+   MYM SOUND
+   VERİTABANI / STORAGE
+   ========================================================= */
 
-const KEY={
- users:"mym_users_v9",
- posts:"mym_posts_v9",
- songs:"mym_songs_v9",
- reels:"mym_reels_v9",
- shop:"mym_shop_v9",
- messages:"mym_messages_v9",
- activities:"mym_activities_v9",
- notifications:"mym_notifications_v9",
- current:"mym_current_v9"
+const DB = {
+
+    users: "mym_sound_users_v20",
+    posts: "mym_sound_posts_v20",
+    reels: "mym_sound_reels_v20",
+    songs: "mym_sound_songs_v20",
+    shop: "mym_sound_shop_v20",
+    messages: "mym_sound_messages_v20",
+    notifications: "mym_sound_notifications_v20",
+    activities: "mym_sound_activities_v20",
+    current: "mym_sound_current_v20",
+    settings: "mym_sound_settings_v20",
+    adminLogs: "mym_sound_admin_logs_v20"
+
 };
 
-const THEMES=[
- ["Mor"," #8b5cf6","#6d28d9","#c084fc"],
- ["Mavi","#3b82f6","#1d4ed8","#60a5fa"],
- ["Kırmızı","#ef4444","#991b1b","#f87171"],
- ["Yeşil","#22c55e","#15803d","#86efac"],
- ["Turuncu","#f97316","#c2410c","#fdba74"],
- ["Pembe","#ec4899","#be185d","#f9a8d4"],
- ["Turkuaz","#14b8a6","#0f766e","#5eead4"],
- ["Lacivert","#2563eb","#172554","#93c5fd"],
- ["Sarı","#eab308","#a16207","#fde047"],
- ["Cyan","#06b6d4","#0e7490","#67e8f9"],
- ["Magenta","#d946ef","#86198f","#f0abfc"],
- ["Lila","#a78bfa","#7c3aed","#ddd6fe"],
- ["Emerald","#10b981","#047857","#6ee7b7"],
- ["Indigo","#6366f1","#3730a3","#a5b4fc"],
- ["Rose","#f43f5e","#be123c","#fda4af"],
- ["Amber","#f59e0b","#b45309","#fcd34d"],
- ["Lime","#84cc16","#4d7c0f","#bef264"],
- ["Sky","#0ea5e9","#0369a1","#7dd3fc"],
- ["Violet","#7c3aed","#4c1d95","#c4b5fd"],
- ["Monokrom","#94a3b8","#334155","#e2e8f0"]
-].map((x,i)=>({id:"theme"+i,name:x[0],primary:x[1].trim(),secondary:x[2],accent:x[3]}));
+function read(key, fallback){
 
-const ROLES=["Dinleyici","Sanatçı","Beat Maker","Mix Engineer","Prodüktör"];
+    try{
 
-let state={
- page:"home",
- auth:"login",
- feed:"all",
- search:"",
- settings:"account"
+        const value = localStorage.getItem(key);
+
+        if(value === null){
+            return fallback;
+        }
+
+        return JSON.parse(value);
+
+    }catch(error){
+
+        console.error(error);
+        return fallback;
+
+    }
+
+}
+
+function write(key,value){
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(value)
+    );
+
+}
+
+function uid(prefix="id"){
+
+    return prefix +
+        "_" +
+        Date.now().toString(36) +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2,9);
+
+}
+
+function now(){
+
+    return Date.now();
+
+}
+
+function dayMs(){
+
+    return 24 * 60 * 60 * 1000;
+
+}
+
+function monthKey(timestamp){
+
+    const d = new Date(timestamp);
+
+    return d.getFullYear() +
+        "-" +
+        String(d.getMonth()+1).padStart(2,"0");
+
+}
+
+/* =========================================================
+   PRO SİSTEMİ
+   ========================================================= */
+
+const PRO = {
+
+    monthly:{
+        price:50,
+        days:30,
+        boosts:10,
+        badge:"PRO",
+        badgeClass:"pro-monthly"
+    },
+
+    yearly:{
+        price:200,
+        days:365,
+        boosts:10,
+        badge:"PRO",
+        badgeClass:"pro-yearly"
+    }
+
 };
 
-const load=(k,d=[])=>{
- try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}
-};
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+function getUsers(){
 
-let users=load(KEY.users);
-let posts=load(KEY.posts);
-let songs=load(KEY.songs);
-let reels=load(KEY.reels);
-let shop=load(KEY.shop);
-let messages=load(KEY.messages);
-let activities=load(KEY.activities);
-let notifications=load(KEY.notifications);
+    return read(DB.users,[]);
 
-const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+"_"+Math.random();
-const now=()=>Date.now();
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const fmt=t=>new Date(t).toLocaleString("tr-TR");
-const me=()=>users.find(x=>x.id===localStorage.getItem(KEY.current));
-const userById=id=>users.find(x=>x.id===id);
-
-function monthStart(d=new Date()){
- return new Date(d.getFullYear(),d.getMonth(),1,0,0,0,0).getTime();
-}
-function addMonth(t){
- const d=new Date(t);
- d.setMonth(d.getMonth()+1);
- return d.getTime();
-}
-function addYear(t){
- const d=new Date(t);
- d.setFullYear(d.getFullYear()+1);
- return d.getTime();
 }
 
-function defaults(u){
- u.settings=u.settings||{};
- if(!u.settings.theme)u.settings.theme="theme0";
- if(u.settings.notifications===undefined)u.settings.notifications=true;
- if(u.settings.autoplay===undefined)u.settings.autoplay=false;
- if(!u.blockedUsers)u.blockedUsers=[];
- if(!u.followers)u.followers=[];
- if(!u.following)u.following=[];
- if(!u.nameChanges)u.nameChanges=[];
- if(!u.email)u.email="";
- if(u.plan!=="pro")u.plan="free";
- if(!("proPlan" in u))u.proPlan=null;
- if(!("proStartedAt" in u))u.proStartedAt=null;
- if(!("proExpiresAt" in u))u.proExpiresAt=null;
- if(!("proCycleKey" in u))u.proCycleKey=null;
- if(!("proBoostUsed" in u))u.proBoostUsed=0;
- return u;
-}
-users=users.map(defaults);
-save(KEY.users,users);
+function saveUsers(users){
 
-function themeApply(){
- const u=me();
- const t=THEMES.find(x=>x.id===u?.settings?.theme)||THEMES[0];
- document.documentElement.style.setProperty("--p",t.primary);
- document.documentElement.style.setProperty("--p2",t.secondary);
- document.documentElement.style.setProperty("--a",t.accent);
+    write(DB.users,users);
+
 }
 
-function saveAll(){
- save(KEY.users,users);save(KEY.posts,posts);save(KEY.songs,songs);
- save(KEY.reels,reels);save(KEY.shop,shop);save(KEY.messages,messages);
- save(KEY.activities,activities);save(KEY.notifications,notifications);
+function currentUser(){
+
+    const id = read(DB.current,null);
+
+    if(!id){
+        return null;
+    }
+
+    const users = getUsers();
+
+    return users.find(
+        u => u.id === id
+    ) || null;
+
 }
 
-function activity(type,text){
- const u=me();
- if(!u)return;
- activities.unshift({id:uid(),userId:u.id,type,text,createdAt:now()});
- activities=activities.slice(0,500);
- save(KEY.activities,activities);
+function updateUser(id,callback){
+
+    const users = getUsers();
+
+    const index = users.findIndex(
+        u => u.id === id
+    );
+
+    if(index === -1){
+        return null;
+    }
+
+    callback(users[index]);
+
+    saveUsers(users);
+
+    return users[index];
+
 }
 
-function toast(text){
- const el=document.getElementById("toast");
- el.innerHTML=`<div class="toast">${esc(text)}</div>`;
- setTimeout(()=>el.innerHTML="",2500);
+function getUser(id){
+
+    return getUsers().find(
+        u => u.id === id
+    ) || null;
+
 }
 
-function modal(html){
- document.getElementById("modal").innerHTML=`<div class="modal" id="modalBg">
- <div class="modalbox">${html}</div></div>`;
-}
-function closeModal(){document.getElementById("modal").innerHTML=""}
+/* =========================================================
+   PRO KONTROL
+   ========================================================= */
 
-function isAdmin(u=me()){
- return !!u&&u.role==="admin";
+function checkPro(user){
+
+    if(!user){
+        return;
+    }
+
+    if(user.plan !== "pro"){
+        return;
+    }
+
+    if(
+        !user.proExpiresAt ||
+        now() >= user.proExpiresAt
+    ){
+
+        user.plan = "free";
+        user.proPlan = null;
+        user.proStartedAt = null;
+        user.proExpiresAt = null;
+        user.proCycleKey = null;
+        user.proBoostUsed = 0;
+
+        saveUsers(getUsers());
+
+        return;
+    }
+
+    /*
+       YILLIK PRO'DA:
+       10 öne çıkarma hakkı her takvim ayının
+       ilk 00:00 döneminde yenilenir.
+
+       Önemli:
+       Pro'nun kendisi yenilenmez.
+       Sadece aylık hak yenilenir.
+    */
+
+    if(user.proPlan === "yearly"){
+
+        const currentCycle = monthKey(now());
+
+        if(user.proCycleKey !== currentCycle){
+
+            updateUser(user.id,u => {
+
+                u.proCycleKey = currentCycle;
+                u.proBoostUsed = 0;
+
+            });
+
+            clearExpiredFeaturedForUser(
+                user.id
+            );
+
+        }
+
+    }
+
 }
 
-function expirePro(u){
- if(!u)return;
- if(u.plan==="pro"&&u.proExpiresAt&&now()>=u.proExpiresAt){
-  u.plan="free";
-  u.proPlan=null;
-  u.proStartedAt=null;
-  u.proExpiresAt=null;
-  u.proCycleKey=null;
-  u.proBoostUsed=0;
-  clearUserBoosts(u.id);
-  saveAll();
- }
+function isPro(user){
+
+    if(!user){
+        return false;
+    }
+
+    checkPro(user);
+
+    const fresh = getUser(user.id);
+
+    return !!(
+        fresh &&
+        fresh.plan === "pro" &&
+        fresh.proExpiresAt > now()
+    );
+
 }
 
-function clearUserBoosts(userId){
- const arr=[posts,songs,reels,shop];
- arr.forEach(list=>{
-  list.forEach(x=>{
-   if(x.boostedBy===userId){
-    x.boosted=false;
-    x.boostedBy=null;
-    x.boostedAt=null;
-    x.boostedUntil=null;
-   }
-  });
- });
+function proRemainingDays(user){
+
+    if(!isPro(user)){
+        return 0;
+    }
+
+    return Math.ceil(
+        (user.proExpiresAt - now()) /
+        dayMs()
+    );
+
 }
 
-function proCheck(u=me()){
- if(!u)return false;
- expirePro(u);
- if(u.plan!=="pro")return false;
-
- if(u.proPlan==="yearly"){
-  const key=new Date().getFullYear()+"-"+new Date().getMonth();
-  if(u.proCycleKey!==key){
-   clearUserBoosts(u.id);
-   u.proCycleKey=key;
-   u.proBoostUsed=0;
-   saveAll();
-  }
- }
- return true;
-}
-
-function proCycleEnd(u){
- if(u.proPlan==="monthly")return u.proExpiresAt;
- const d=new Date();
- return new Date(d.getFullYear(),d.getMonth()+1,1,0,0,0,0).getTime();
-}
+/* =========================================================
+   PRO AKTİVASYONU
+   ========================================================= */
 
 function activatePro(type){
- const u=me();
- if(!u)return;
- const t=now();
- u.plan="pro";
- u.proPlan=type;
- u.proStartedAt=t;
- u.proExpiresAt=type==="monthly"?addMonth(t):addYear(t);
- u.proBoostUsed=0;
- u.proCycleKey=new Date().getFullYear()+"-"+new Date().getMonth();
- clearUserBoosts(u.id);
- saveAll();
- activity("pro",`MYM PRO ${type==="monthly"?"Aylık":"Yıllık"} etkinleştirildi`);
- toast("PRO etkinleştirildi");
- render();
+
+    const user = currentUser();
+
+    if(!user){
+        toast("Önce giriş yapmalısın.");
+        return;
+    }
+
+    if(!PRO[type]){
+        return;
+    }
+
+    const started = now();
+
+    const duration =
+        PRO[type].days * dayMs();
+
+    const expires =
+        started + duration;
+
+    updateUser(user.id,u => {
+
+        u.plan = "pro";
+        u.proPlan = type;
+        u.proStartedAt = started;
+        u.proExpiresAt = expires;
+        u.proBoostUsed = 0;
+
+        /*
+           Yıllık PRO aktif olduğu anda
+           ilk 10 hakkı verir.
+        */
+
+        u.proCycleKey = monthKey(started);
+
+    });
+
+    activity(
+        "pro_activate",
+        `${type === "monthly" ? "Aylık" : "Yıllık"} PRO aktif edildi.`
+    );
+
+    toast(
+        `${type === "monthly" ? "Aylık" : "Yıllık"} PRO aktif edildi.`
+    );
+
+    render();
+
 }
 
-function boost(type,id){
- const u=me();
- if(!proCheck(u)){toast("Bu özellik için PRO gerekli");return}
- if(u.proBoostUsed>=10){toast("Bu ay 10 öne çıkarma hakkını kullandın");return}
+/* =========================================================
+   ÖNE ÇIKARMA
+   ========================================================= */
 
- const maps={post:posts,reel:reels,song:songs,shop:shop};
- const list=maps[type];
- const item=list.find(x=>x.id===id);
- if(!item||item.userId!==u.id){toast("Bu içeriği öne çıkaramazsın");return}
- if(item.boosted){toast("Bu içerik zaten öne çıkarılmış");return}
+function remainingBoosts(user){
 
- item.boosted=true;
- item.boostedBy=u.id;
- item.boostedAt=now();
- item.boostedUntil=proCycleEnd(u);
- u.proBoostUsed++;
- saveAll();
- activity("boost",`${type} içeriği öne çıkarıldı`);
- toast("İçerik öne çıkarıldı");
- render();
+    if(!isPro(user)){
+        return 0;
+    }
+
+    const plan = PRO[user.proPlan];
+
+    return Math.max(
+        0,
+        plan.boosts - (user.proBoostUsed || 0)
+    );
+
 }
 
-function boostAll(){
- const u=me();
- if(!proCheck(u)){toast("PRO gerekli");return}
- const lists=[
-  ["post",posts],["song",songs],["reel",reels],["shop",shop]
- ];
- let left=10-u.proBoostUsed;
- let count=0;
+function boostContent(type,id){
 
- for(const [type,list] of lists){
-  for(const item of list.filter(x=>x.userId===u.id&&!x.boosted).sort((a,b)=>b.createdAt-a.createdAt)){
-   if(left<=0)break;
-   item.boosted=true;
-   item.boostedBy=u.id;
-   item.boostedAt=now();
-   item.boostedUntil=proCycleEnd(u);
-   u.proBoostUsed++;
-   left--;
-   count++;
-  }
- }
- saveAll();
- if(count)activity("boost",`${count} içerik öne çıkarıldı`);
- toast(count?`${count} içerik öne çıkarıldı`:"Öne çıkarılacak yeni içerik yok");
- render();
+    const user = currentUser();
+
+    if(!user){
+        toast("Giriş yapmalısın.");
+        return;
+    }
+
+    if(!isPro(user)){
+        toast("Bu özellik PRO hesap gerektiriyor.");
+        navigate("pro");
+        return;
+    }
+
+    if(remainingBoosts(user) <= 0){
+
+        toast(
+            user.proPlan === "yearly"
+            ? "Bu ayki 10 öne çıkarma hakkın bitti."
+            : "10 öne çıkarma hakkının tamamını kullandın."
+        );
+
+        return;
+    }
+
+    const keyMap = {
+        post:DB.posts,
+        reel:DB.reels,
+        song:DB.songs,
+        shop:DB.shop
+    };
+
+    const key = keyMap[type];
+
+    if(!key){
+        return;
+    }
+
+    const items = read(key,[]);
+
+    const itemIndex = items.findIndex(
+        x => x.id === id
+    );
+
+    if(itemIndex === -1){
+        return;
+    }
+
+    if(items[itemIndex].userId !== user.id){
+
+        toast("Sadece kendi içeriğini öne çıkarabilirsin.");
+        return;
+
+    }
+
+    if(items[itemIndex].featured){
+
+        toast("Bu içerik zaten öne çıkarılmış.");
+        return;
+
+    }
+
+    items[itemIndex].featured = true;
+    items[itemIndex].featuredAt = now();
+    items[itemIndex].featuredBy = user.id;
+
+    write(key,items);
+
+    updateUser(user.id,u => {
+
+        u.proBoostUsed =
+            (u.proBoostUsed || 0) + 1;
+
+    });
+
+    activity(
+        "boost",
+        `${type} içeriği öne çıkarıldı.`
+    );
+
+    toast("İçerik öne çıkarıldı.");
+
+    render();
+
 }
 
-function boostHTML(type,id,userId,boosted){
- const u=me();
- if(!u||userId!==u.id||!proCheck(u))return "";
- if(boosted)return `<span class="featured-label">ÖNE ÇIKARILDI</span>`;
- if(u.proBoostUsed>=10)return `<span class="muted small">Öne çıkarma hakkı doldu</span>`;
- return `<button data-boost="${type}:${id}">Öne Çıkar</button>`;
+function clearExpiredFeaturedForUser(userId){
+
+    [
+        DB.posts,
+        DB.reels,
+        DB.songs,
+        DB.shop
+    ].forEach(key => {
+
+        const items = read(key,[]);
+
+        let changed = false;
+
+        items.forEach(item => {
+
+            if(
+                item.userId === userId &&
+                item.featured
+            ){
+
+                item.featured = false;
+                item.featuredAt = null;
+                item.featuredBy = null;
+
+                changed = true;
+
+            }
+
+        });
+
+        if(changed){
+            write(key,items);
+        }
+
+    });
+
 }
 
-function avatar(u,size=""){
- if(u?.avatar)return `<img class="avatar ${size}" src="${esc(u.avatar)}">`;
- return `<div class="avatar ${size}">${esc((u?.name||"?").slice(0,1).toUpperCase())}</div>`;
+/* =========================================================
+   GENEL VERİ
+   ========================================================= */
+
+function getPosts(){
+
+    return read(DB.posts,[]);
+
 }
 
-function header(){
- const u=me();
- return `<header class="top">
- <div class="logo">MYM SOUND</div>
- <input class="search" id="globalSearch" placeholder="Ara..." value="${esc(state.search)}">
- <div class="user-mini">${avatar(u)}<span>${esc(u?.name||"")}</span></div>
- </header>`;
+function getReels(){
+
+    return read(DB.reels,[]);
+
 }
 
-function nav(){
- const items=[
-  ["home","Ana Sayfa"],["reels","Reels"],["channels","Kanallar"],
-  ["shop","Shop"],["messages","Mesajlar"],["profile","Profil"],
-  ["settings","Ayarlar"],["pro","MYM PRO"]
- ];
- if(isAdmin())items.push(["admin","Admin Paneli"]);
- return `<aside class="side">${items.map(x=>
- `<button class="navbtn ${state.page===x[0]?"active":""}" data-page="${x[0]}">${x[1]}</button>`
- ).join("")}</aside>`;
+function getSongs(){
+
+    return read(DB.songs,[]);
+
 }
 
-function shell(content){
- return `<div class="app">${header()}<div class="layout">${nav()}<main class="main">${content}</main></div></div>`;
+function getShop(){
+
+    return read(DB.shop,[]);
+
 }
 
-function postCard(p){
- const u=userById(p.userId);
- if(!u)return "";
- const featured=p.boosted&&p.boostedUntil>now();
- return `<article class="card ${featured?"featured":""}">
- <div class="row between">
-  <div class="row">${avatar(u)}<div><b>${esc(u.name)}</b><div class="small muted">@${esc(u.username)}</div></div></div>
-  ${featured?`<span class="featured-label">ÖNE ÇIKAN</span>`:""}
- </div>
- <p>${esc(p.text)}</p>
- <div class="small muted">${fmt(p.createdAt)}</div>
- <div class="actions">
-  ${boostHTML("post",p.id,p.userId,featured)}
-  ${p.userId===me()?.id?`<button class="danger" data-delete-post="${p.id}">Sil</button>`:""}
- </div>
- </article>`;
+function getNotifications(){
+
+    return read(DB.notifications,[]);
+
 }
 
-function songCard(s){
- const u=userById(s.userId);
- const featured=s.boosted&&s.boostedUntil>now();
- return `<article class="card ${featured?"featured":""}">
- <div class="row between"><b>${esc(s.name)}</b>${featured?`<span class="featured-label">ÖNE ÇIKAN</span>`:""}</div>
- <div class="muted small">${esc(u?.name||"")}</div>
- ${s.cover?`<img class="cover" src="${esc(s.cover)}">`:""}
- ${s.audio?`<audio controls src="${esc(s.audio)}"></audio>`:""}
- <p class="muted">${esc(s.description)}</p>
- <div class="actions">
-  ${boostHTML("song",s.id,s.userId,featured)}
-  ${s.userId===me()?.id?`<button class="danger" data-delete-song="${s.id}">Sil</button>`:""}
- </div>
- </article>`;
+function getMessages(){
+
+    return read(DB.messages,[]);
+
 }
 
-function reelCard(r){
- const u=userById(r.userId);
- const featured=r.boosted&&r.boostedUntil>now();
- return `<article class="card ${featured?"featured":""}">
- <div class="row between"><b>${esc(r.title||"Reel")}</b>${featured?`<span class="featured-label">ÖNE ÇIKAN</span>`:""}</div>
- <div class="muted small">${esc(u?.name||"")}</div>
- ${r.video?`<video controls style="width:100%;border-radius:12px;margin-top:10px" src="${esc(r.video)}"></video>`:""}
- <div class="actions">${boostHTML("reel",r.id,r.userId,featured)}</div>
- </article>`;
+/* =========================================================
+   AKTİVİTE
+   ========================================================= */
+
+function activity(type,text){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const list =
+        read(DB.activities,[]);
+
+    list.unshift({
+
+        id:uid("act"),
+        userId:user.id,
+        type,
+        text,
+        createdAt:now()
+
+    });
+
+    write(
+        DB.activities,
+        list.slice(0,1000)
+    );
+
 }
 
-function shopCard(x){
- const u=userById(x.userId);
- const featured=x.boosted&&x.boostedUntil>now();
- return `<article class="card ${featured?"featured":""}">
- <div class="row between"><b>${esc(x.name)}</b>${featured?`<span class="featured-label">ÖNE ÇIKAN</span>`:""}</div>
- <div class="small muted">${esc(x.type)} · ${esc(u?.name||"")}</div>
- <p>${esc(x.description)}</p>
- <b>${Number(x.price||0).toLocaleString("tr-TR")} TL</b>
- ${x.audio?`<audio controls src="${esc(x.audio)}"></audio>`:""}
- <div class="actions">
-  ${boostHTML("shop",x.id,x.userId,featured)}
-  ${x.userId===me()?.id?`<button class="danger" data-delete-shop="${x.id}">Sil</button>`:""}
- </div>
- </article>`;
+/* =========================================================
+   BİLDİRİM
+   ========================================================= */
+
+function notification(
+    userId,
+    text,
+    type="system"
+){
+
+    const list =
+        read(DB.notifications,[]);
+
+    list.unshift({
+
+        id:uid("not"),
+        userId,
+        text,
+        type,
+        read:false,
+        createdAt:now()
+
+    });
+
+    write(
+        DB.notifications,
+        list.slice(0,2000)
+    );
+
 }
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function toast(text){
+
+    const area =
+        document.getElementById("toastArea");
+
+    const element =
+        document.createElement("div");
+
+    element.className = "toast";
+
+    element.textContent = text;
+
+    area.appendChild(element);
+
+    setTimeout(() => {
+
+        element.remove();
+
+    },3500);
+
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+function openModal(html){
+
+    const layer =
+        document.getElementById("modalLayer");
+
+    const box =
+        document.getElementById("modalBox");
+
+    box.innerHTML = html;
+
+    layer.classList.add("open");
+
+}
+
+function closeModal(){
+
+    document
+        .getElementById("modalLayer")
+        .classList.remove("open");
+
+}
+
+document
+    .getElementById("modalLayer")
+    .addEventListener("click",e => {
+
+        if(e.target.id === "modalLayer"){
+            closeModal();
+        }
+
+    });
+
+/* =========================================================
+   TARİH
+   ========================================================= */
+
+function dateText(timestamp){
+
+    if(!timestamp){
+        return "-";
+    }
+
+    return new Date(timestamp)
+        .toLocaleString(
+            "tr-TR",
+            {
+                dateStyle:"medium",
+                timeStyle:"short"
+            }
+        );
+
+}
+
+function timeAgo(timestamp){
+
+    const diff =
+        Math.max(
+            0,
+            now() - timestamp
+        );
+
+    const minute =
+        60 * 1000;
+
+    const hour =
+        60 * minute;
+
+    const day =
+        24 * hour;
+
+    if(diff < minute){
+        return "az önce";
+    }
+
+    if(diff < hour){
+        return Math.floor(diff/minute) + " dk";
+    }
+
+    if(diff < day){
+        return Math.floor(diff/hour) + " sa";
+    }
+
+    return Math.floor(diff/day) + " gün";
+
+}
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+function avatarHTML(user,small=false){
+
+    if(!user){
+        return "";
+    }
+
+    const cls =
+        small
+        ? "avatar small-avatar"
+        : "avatar";
+
+    if(user.avatar){
+
+        return `
+            <div class="${cls}">
+                <img src="${escapeAttr(user.avatar)}">
+            </div>
+        `;
+
+    }
+
+    return `
+        <div class="${cls}">
+            ${escapeHTML(
+                (user.name || "?")
+                .charAt(0)
+                .toUpperCase()
+            )}
+        </div>
+    `;
+
+}
+
+/* =========================================================
+   USER BADGE
+   ========================================================= */
+
+function badgeHTML(user){
+
+    if(!user){
+        return "";
+    }
+
+    if(user.role === "admin"){
+
+        return `
+            <span class="pro-badge admin-badge">
+                ADMIN
+            </span>
+        `;
+
+    }
+
+    if(
+        user.plan === "pro" &&
+        user.proPlan === "monthly"
+    ){
+
+        return `
+            <span class="pro-badge pro-monthly">
+                MOR PRO
+            </span>
+        `;
+
+    }
+
+    if(
+        user.plan === "pro" &&
+        user.proPlan === "yearly"
+    ){
+
+        return `
+            <span class="pro-badge pro-yearly">
+                MAVİ PRO
+            </span>
+        `;
+
+    }
+
+    return "";
+
+}
+
+/* =========================================================
+   ESCAPE
+   ========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+function escapeAttr(value){
+
+    return escapeHTML(value);
+
+}
+
+/* =========================================================
+   TEMA SİSTEMİ
+   ========================================================= */
+
+const THEMES = [
+
+    {
+        name:"Mor Gece",
+        p:"#7c3aed",
+        p2:"#a855f7",
+        a:"#c084fc",
+        bg:"#08080d",
+        panel:"#12121c"
+    },
+
+    {
+        name:"Mavi Gece",
+        p:"#2563eb",
+        p2:"#3b82f6",
+        a:"#60a5fa",
+        bg:"#050912",
+        panel:"#0d1422"
+    },
+
+    {
+        name:"Kırmızı",
+        p:"#dc2626",
+        p2:"#ef4444",
+        a:"#f87171",
+        bg:"#0d0708",
+        panel:"#1b1012"
+    },
+
+    {
+        name:"Yeşil",
+        p:"#16a34a",
+        p2:"#22c55e",
+        a:"#4ade80",
+        bg:"#050d08",
+        panel:"#0d1811"
+    },
+
+    {
+        name:"Turuncu",
+        p:"#ea580c",
+        p2:"#f97316",
+        a:"#fb923c",
+        bg:"#100804",
+        panel:"#1b1009"
+    },
+
+    {
+        name:"Pembe",
+        p:"#db2777",
+        p2:"#ec4899",
+        a:"#f472b6",
+        bg:"#10060c",
+        panel:"#1d0d17"
+    },
+
+    {
+        name:"Camgöbeği",
+        p:"#0891b2",
+        p2:"#06b6d4",
+        a:"#22d3ee",
+        bg:"#041013",
+        panel:"#0b1a1e"
+    },
+
+    {
+        name:"Sarı",
+        p:"#ca8a04",
+        p2:"#eab308",
+        a:"#facc15",
+        bg:"#0d0b04",
+        panel:"#191608"
+    },
+
+    {
+        name:"Indigo",
+        p:"#4f46e5",
+        p2:"#6366f1",
+        a:"#818cf8",
+        bg:"#080812",
+        panel:"#11111e"
+    },
+
+    {
+        name:"Lacivert",
+        p:"#1d4ed8",
+        p2:"#1e40af",
+        a:"#60a5fa",
+        bg:"#040914",
+        panel:"#0b1424"
+    },
+
+    {
+        name:"Eflatun",
+        p:"#9333ea",
+        p2:"#c026d3",
+        a:"#e879f9",
+        bg:"#0b0510",
+        panel:"#170d1d"
+    },
+
+    {
+        name:"Mint",
+        p:"#059669",
+        p2:"#10b981",
+        a:"#34d399",
+        bg:"#03100b",
+        panel:"#0a1912"
+    },
+
+    {
+        name:"Deniz",
+        p:"#0f766e",
+        p2:"#14b8a6",
+        a:"#2dd4bf",
+        bg:"#03100f",
+        panel:"#0b1a18"
+    },
+
+    {
+        name:"Bronz",
+        p:"#a16207",
+        p2:"#d97706",
+        a:"#f59e0b",
+        bg:"#100b04",
+        panel:"#1c1509"
+    },
+
+    {
+        name:"Gümüş",
+        p:"#64748b",
+        p2:"#94a3b8",
+        a:"#cbd5e1",
+        bg:"#090b0e",
+        panel:"#15191e"
+    },
+
+    {
+        name:"Gece Moru",
+        p:"#6d28d9",
+        p2:"#8b5cf6",
+        a:"#a78bfa",
+        bg:"#06050b",
+        panel:"#100e19"
+    },
+
+    {
+        name:"Koyu Kırmızı",
+        p:"#991b1b",
+        p2:"#b91c1c",
+        a:"#f87171",
+        bg:"#0b0505",
+        panel:"#170a0a"
+    },
+
+    {
+        name:"Koyu Yeşil",
+        p:"#166534",
+        p2:"#15803d",
+        a:"#4ade80",
+        bg:"#040a06",
+        panel:"#0a150d"
+    },
+
+    {
+        name:"Royal",
+        p:"#4338ca",
+        p2:"#7c3aed",
+        a:"#a78bfa",
+        bg:"#07070f",
+        panel:"#11111d"
+    },
+
+    {
+        name:"Neon",
+        p:"#9333ea",
+        p2:"#06b6d4",
+        a:"#22d3ee",
+        bg:"#05050a",
+        panel:"#10101a"
+    }
+
+];
+
+function applyTheme(user){
+
+    const themeIndex =
+        Number(
+            user?.settings?.theme ?? 0
+        );
+
+    const theme =
+        THEMES[themeIndex] ||
+        THEMES[0];
+
+    const root =
+        document.documentElement;
+
+    root.style.setProperty(
+        "--p",
+        theme.p
+    );
+
+    root.style.setProperty(
+        "--p2",
+        theme.p2
+    );
+
+    root.style.setProperty(
+        "--a",
+        theme.a
+    );
+
+    root.style.setProperty(
+        "--bg",
+        theme.bg
+    );
+
+    root.style.setProperty(
+        "--panel",
+        theme.panel
+    );
+
+}
+
+function saveTheme(index){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    updateUser(user.id,u => {
+
+        if(!u.settings){
+            u.settings = {};
+        }
+
+        u.settings.theme = index;
+
+    });
+
+    applyTheme(
+        getUser(user.id)
+    );
+
+    render();
+
+}
+
+/* =========================================================
+   KULLANICI DEFAULT
+   ========================================================= */
+
+function createUserObject(
+    name,
+    email,
+    username,
+    password,
+    role
+){
+
+    return {
+
+        id:uid("usr"),
+
+        name:name.trim(),
+
+        email:email.trim().toLowerCase(),
+
+        username:username
+            .trim()
+            .toLowerCase(),
+
+        password,
+
+        role,
+
+        plan:"free",
+
+        proPlan:null,
+
+        proStartedAt:null,
+
+        proExpiresAt:null,
+
+        proCycleKey:null,
+
+        proBoostUsed:0,
+
+        avatar:null,
+
+        profileBackground:null,
+
+        shopBackground:null,
+
+        bio:"",
+
+        followers:[],
+
+        following:[],
+
+        blockedUsers:[],
+
+        nameChanges:[],
+
+        banned:false,
+
+        online:true,
+
+        lastSeen:now(),
+
+        createdAt:now(),
+
+        settings:{
+
+            theme:0,
+
+            notifications:true,
+
+            autoplay:false,
+
+            privateProfile:false
+
+        }
+
+    };
+
+}
+
+/* =========================================================
+   KAYIT
+   ========================================================= */
+
+function registerUser(data){
+
+    const users = getUsers();
+
+    const name =
+        data.name.trim();
+
+    const email =
+        data.email.trim().toLowerCase();
+
+    const username =
+        data.username
+            .trim()
+            .toLowerCase();
+
+    const password =
+        data.password;
+
+    const role =
+        data.role;
+
+    if(
+        !name ||
+        !email ||
+        !username ||
+        !password
+    ){
+
+        toast("Tüm alanları doldur.");
+        return false;
+
+    }
+
+    if(password.length < 6){
+
+        toast(
+            "Şifre en az 6 karakter olmalı."
+        );
+
+        return false;
+
+    }
+
+    if(
+        users.some(
+            u => u.email === email
+        )
+    ){
+
+        toast(
+            "Bu e-posta ile zaten hesap var."
+        );
+
+        return false;
+
+    }
+
+    if(
+        users.some(
+            u => u.username === username
+        )
+    ){
+
+        toast(
+            "Bu kullanıcı adı zaten alınmış."
+        );
+
+        return false;
+
+    }
+
+    const allowedRoles = [
+
+        "Dinleyici",
+        "Sanatçı",
+        "Beat Maker",
+        "Mix Engineer",
+        "Prodüktör"
+
+    ];
+
+    if(!allowedRoles.includes(role)){
+
+        toast("Geçersiz hesap türü.");
+        return false;
+
+    }
+
+    const user =
+        createUserObject(
+            name,
+            email,
+            username,
+            password,
+            role
+        );
+
+    users.push(user);
+
+    saveUsers(users);
+
+    write(
+        DB.current,
+        user.id
+    );
+
+    activity(
+        "register",
+        "Hesap oluşturuldu."
+    );
+
+    toast("Hesap oluşturuldu.");
+
+    render();
+
+    return true;
+
+}
+
+/* =========================================================
+   GİRİŞ
+   ========================================================= */
+
+function loginUser(identifier,password){
+
+    const value =
+        identifier
+            .trim()
+            .toLowerCase();
+
+    const user =
+        getUsers().find(
+            u =>
+                (
+                    u.email === value ||
+                    u.username === value
+                )
+                &&
+                u.password === password
+        );
+
+    if(!user){
+
+        toast(
+            "Kullanıcı adı/e-posta veya şifre yanlış."
+        );
+
+        return false;
+
+    }
+
+    if(user.banned){
+
+        toast(
+            "Bu hesap yönetici tarafından engellenmiş."
+        );
+
+        return false;
+
+    }
+
+    write(
+        DB.current,
+        user.id
+    );
+
+    updateUser(user.id,u => {
+
+        u.online = true;
+        u.lastSeen = now();
+
+    });
+
+    toast("Giriş yapıldı.");
+
+    render();
+
+    return true;
+
+}
+
+/* =========================================================
+   ÇIKIŞ
+   ========================================================= */
+
+function logout(){
+
+    const user = currentUser();
+
+    if(user){
+
+        updateUser(user.id,u => {
+
+            u.online = false;
+            u.lastSeen = now();
+
+        });
+
+    }
+
+    localStorage.removeItem(
+        DB.current
+    );
+
+    render();
+
+}
+
+/* =========================================================
+   FOLLOW
+   ========================================================= */
+
+function isFollowing(
+    followerId,
+    targetId
+){
+
+    const user =
+        getUser(followerId);
+
+    return !!(
+        user &&
+        user.following.includes(targetId)
+    );
+
+}
+
+function followUser(targetId){
+
+    const me = currentUser();
+
+    if(!me){
+        toast("Giriş yapmalısın.");
+        return;
+    }
+
+    if(me.id === targetId){
+        return;
+    }
+
+    const target =
+        getUser(targetId);
+
+    if(!target){
+        return;
+    }
+
+    if(
+        me.blockedUsers.includes(targetId) ||
+        target.blockedUsers.includes(me.id)
+    ){
+
+        toast(
+            "Bu kullanıcıyla etkileşim kuramazsın."
+        );
+
+        return;
+
+    }
+
+    const already =
+        me.following.includes(targetId);
+
+    updateUser(me.id,u => {
+
+        if(already){
+
+            u.following =
+                u.following.filter(
+                    id => id !== targetId
+                );
+
+        }else{
+
+            u.following.push(targetId);
+
+        }
+
+    });
+
+    updateUser(targetId,u => {
+
+        if(already){
+
+            u.followers =
+                u.followers.filter(
+                    id => id !== me.id
+                );
+
+        }else{
+
+            if(!u.followers.includes(me.id)){
+
+                u.followers.push(me.id);
+
+            }
+
+        }
+
+    });
+
+    if(!already){
+
+        notification(
+            targetId,
+            `${me.name} seni takip etmeye başladı.`,
+            "follow"
+        );
+
+    }
+
+    render();
+
+}
+
+/* =========================================================
+   ENGELLEME
+   ========================================================= */
+
+function toggleBlock(targetId){
+
+    const me = currentUser();
+
+    if(!me || me.id === targetId){
+        return;
+    }
+
+    const blocked =
+        me.blockedUsers.includes(targetId);
+
+    updateUser(me.id,u => {
+
+        if(blocked){
+
+            u.blockedUsers =
+                u.blockedUsers.filter(
+                    id => id !== targetId
+                );
+
+        }else{
+
+            u.blockedUsers.push(targetId);
+
+        }
+
+    });
+
+    toast(
+        blocked
+        ? "Engel kaldırıldı."
+        : "Kullanıcı engellendi."
+    );
+
+    render();
+
+}
+
+/* =========================================================
+   PROFİL DEĞİŞİKLİK LİMİTİ
+   ========================================================= */
+
+function canChangeName(user){
+
+    const limit =
+        7 * dayMs();
+
+    const cutoff =
+        now() - limit;
+
+    const recent =
+        (user.nameChanges || [])
+            .filter(
+                x => x.at >= cutoff
+            );
+
+    return recent.length < 3;
+
+}
+
+function registerNameChange(
+    user,
+    type,
+    oldValue,
+    newValue
+){
+
+    if(oldValue === newValue){
+        return true;
+    }
+
+    if(!canChangeName(user)){
+
+        toast(
+            "7 gün içinde en fazla 3 isim/kullanıcı adı değişikliği yapabilirsin."
+        );
+
+        return false;
+
+    }
+
+    updateUser(user.id,u => {
+
+        if(!u.nameChanges){
+            u.nameChanges = [];
+        }
+
+        u.nameChanges.push({
+
+            type,
+            oldValue,
+            newValue,
+            at:now()
+
+        });
+
+    });
+
+    return true;
+
+}
+
+/* =========================================================
+   SHOP KONTROLLERİ
+   ========================================================= */
+
+function shopCount(userId){
+
+    return getShop()
+        .filter(
+            item => item.userId === userId
+        )
+        .length;
+
+}
+
+function canUploadShop(user){
+
+    if(!user){
+        return false;
+    }
+
+    if(
+        user.plan === "pro" &&
+        user.proExpiresAt > now()
+    ){
+
+        return true;
+
+    }
+
+    return shopCount(user.id) < 20;
+
+}
+
+function allowedShopTypes(role){
+
+    switch(role){
+
+        case "Beat Maker":
+            return ["Beat"];
+
+        case "Mix Engineer":
+            return ["Mix"];
+
+        case "Prodüktör":
+            return ["Beat","Mix"];
+
+        default:
+            return [];
+
+    }
+
+}
+
+/* =========================================================
+   POST OLUŞTURMA
+   ========================================================= */
+
+function createPost(){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    openModal(`
+
+        <div class="modal-head">
+            <h2>Yeni Gönderi</h2>
+            <button
+                class="modal-close"
+                data-action="close-modal"
+            >X</button>
+        </div>
+
+        <form id="postForm">
+
+            <div class="form-group">
+
+                <label>Gönderi</label>
+
+                <textarea
+                    name="text"
+                    class="input"
+                    maxlength="5000"
+                    placeholder="Ne paylaşmak istiyorsun?"
+                    required
+                ></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Görsel / video bağlantısı</label>
+
+                <input
+                    name="media"
+                    class="input"
+                    placeholder="İsteğe bağlı"
+                >
+
+            </div>
+
+            <button
+                class="btn primary full"
+                type="submit"
+            >
+                Gönderiyi Paylaş
+            </button>
+
+        </form>
+
+    `);
+
+}
+
+function savePost(text,media){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const posts =
+        getPosts();
+
+    posts.unshift({
+
+        id:uid("post"),
+
+        userId:user.id,
+
+        text:text.trim(),
+
+        media:media.trim(),
+
+        likes:[],
+
+        comments:[],
+
+        featured:false,
+
+        featuredAt:null,
+
+        featuredBy:null,
+
+        createdAt:now()
+
+    });
+
+    write(
+        DB.posts,
+        posts
+    );
+
+    activity(
+        "post",
+        "Yeni gönderi oluşturuldu."
+    );
+
+    toast("Gönderi paylaşıldı.");
+
+    render();
+
+}
+
+/* =========================================================
+   POST BEĞENİ
+   ========================================================= */
+
+function likePost(postId){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const posts =
+        getPosts();
+
+    const post =
+        posts.find(
+            p => p.id === postId
+        );
+
+    if(!post){
+        return;
+    }
+
+    const index =
+        post.likes.indexOf(user.id);
+
+    if(index === -1){
+
+        post.likes.push(user.id);
+
+        if(post.userId !== user.id){
+
+            notification(
+                post.userId,
+                `${user.name} gönderini beğendi.`,
+                "like"
+            );
+
+        }
+
+    }else{
+
+        post.likes.splice(
+            index,
+            1
+        );
+
+    }
+
+    write(
+        DB.posts,
+        posts
+    );
+
+    render();
+
+}
+
+/* =========================================================
+   ŞARKI
+   ========================================================= */
+
+function createSong(){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    openModal(`
+
+        <div class="modal-head">
+            <h2>Yeni Şarkı</h2>
+
+            <button
+                class="modal-close"
+                data-action="close-modal"
+            >X</button>
+        </div>
+
+        <form id="songForm">
+
+            <div class="form-group">
+                <label>Şarkı adı</label>
+
+                <input
+                    class="input"
+                    name="title"
+                    required
+                    maxlength="150"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Sanatçı / açıklama</label>
+
+                <input
+                    class="input"
+                    name="description"
+                    maxlength="500"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Ses dosyası URL</label>
+
+                <input
+                    class="input"
+                    name="audio"
+                    placeholder="https://..."
+                    required
+                >
+            </div>
+
+            <button
+                class="btn primary full"
+                type="submit"
+            >
+                Şarkıyı Yayınla
+            </button>
+
+        </form>
+
+    `);
+
+}
+
+function saveSong(data){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const songs =
+        getSongs();
+
+    songs.unshift({
+
+        id:uid("song"),
+
+        userId:user.id,
+
+        title:data.title.trim(),
+
+        description:data.description.trim(),
+
+        audio:data.audio.trim(),
+
+        likes:[],
+
+        plays:0,
+
+        featured:false,
+
+        featuredAt:null,
+
+        featuredBy:null,
+
+        createdAt:now()
+
+    });
+
+    write(
+        DB.songs,
+        songs
+    );
+
+    activity(
+        "song",
+        "Yeni şarkı yayınlandı."
+    );
+
+    toast("Şarkı yayınlandı.");
+
+    render();
+
+}
+
+/* =========================================================
+   REELS
+   ========================================================= */
+
+function createReel(){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    openModal(`
+
+        <div class="modal-head">
+            <h2>Yeni Reel</h2>
+
+            <button
+                class="modal-close"
+                data-action="close-modal"
+            >X</button>
+        </div>
+
+        <form id="reelForm">
+
+            <div class="form-group">
+                <label>Açıklama</label>
+
+                <textarea
+                    class="input"
+                    name="text"
+                    maxlength="1000"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Video URL</label>
+
+                <input
+                    class="input"
+                    name="video"
+                    placeholder="https://..."
+                    required
+                >
+            </div>
+
+            <button
+                class="btn primary full"
+                type="submit"
+            >
+                Reel Yayınla
+            </button>
+
+        </form>
+
+    `);
+
+}
+
+function saveReel(data){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const reels =
+        getReels();
+
+    reels.unshift({
+
+        id:uid("reel"),
+
+        userId:user.id,
+
+        text:data.text.trim(),
+
+        video:data.video.trim(),
+
+        likes:[],
+
+        comments:[],
+
+        views:0,
+
+        featured:false,
+
+        featuredAt:null,
+
+        featuredBy:null,
+
+        createdAt:now()
+
+    });
+
+    write(
+        DB.reels,
+        reels
+    );
+
+    activity(
+        "reel",
+        "Yeni reel yayınlandı."
+    );
+
+    toast("Reel yayınlandı.");
+
+    render();
+
+}
+
+/* =========================================================
+   SHOP OLUŞTUR
+   ========================================================= */
+
+function createShopItem(){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    if(!canUploadShop(user)){
+
+        toast(
+            "Ücretsiz hesaplarda Vitrin limiti 20 üründür."
+        );
+
+        navigate("pro");
+
+        return;
+
+    }
+
+    const types =
+        allowedShopTypes(user.role);
+
+    if(types.length === 0){
+
+        toast(
+            "Bu hesap türünün Vitrin'e ürün yükleme yetkisi yok."
+        );
+
+        return;
+
+    }
+
+    openModal(`
+
+        <div class="modal-head">
+
+            <h2>Vitrine Ürün Ekle</h2>
+
+            <button
+                class="modal-close"
+                data-action="close-modal"
+            >X</button>
+
+        </div>
+
+        <form id="shopForm">
+
+            <div class="form-group">
+
+                <label>Ürün türü</label>
+
+                <select
+                    class="input"
+                    name="type"
+                >
+
+                    ${types.map(
+                        t =>
+                        `<option value="${escapeAttr(t)}">
+                            ${escapeHTML(t)}
+                        </option>`
+                    ).join("")}
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Ürün adı</label>
+
+                <input
+                    class="input"
+                    name="title"
+                    required
+                    maxlength="150"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Açıklama</label>
+
+                <textarea
+                    class="input"
+                    name="description"
+                    maxlength="2000"
+                ></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Fiyat</label>
+
+                <input
+                    class="input"
+                    name="price"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Ses dosyası URL</label>
+
+                <input
+                    class="input"
+                    name="audio"
+                    placeholder="https://..."
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Kapak görseli URL</label>
+
+                <input
+                    class="input"
+                    name="image"
+                    placeholder="İsteğe bağlı"
+                >
+
+            </div>
+
+            <button
+                class="btn primary full"
+                type="submit"
+            >
+                Vitrine Ekle
+            </button>
+
+        </form>
+
+    `);
+
+}
+
+function saveShopItem(data){
+
+    const user = currentUser();
+
+    if(!user){
+        return;
+    }
+
+    if(!canUploadShop(user)){
+
+        toast(
+            "Vitrin yükleme limitine ulaştın."
+        );
+
+        return;
+
+    }
+
+    const allowed =
+        allowedShopTypes(user.role);
+
+    if(!allowed.includes(data.type)){
+
+        toast(
+            "Bu ürün türünü yüklemeye yetkin yok."
+        );
+
+        return;
+
+    }
+
+    const items =
+        getShop();
+
+    items.unshift({
+
+        id:uid("shop"),
+
+        userId:user.id,
+
+        type:data.type,
+
+        title:data.title.trim(),
+
+        description:data.description.trim(),
+
+        price:Number(data.price),
+
+        audio:data.audio.trim(),
+
+        image:data.image.trim(),
+
+        featured:false,
+
+        featuredAt:null,
+
+        featuredBy:null,
+
+        createdAt:now()
+
+    });
+
+    write(
+        DB.shop,
+        items
+    );
+
+    activity(
+        "shop",
+        "Vitrine yeni ürün eklendi."
+    );
+
+    toast("Ürün Vitrine eklendi.");
+
+    render();
+
+}
+
+/* =========================================================
+   MESAJ
+   ========================================================= */
+
+function conversationKey(a,b){
+
+    return [a,b]
+        .sort()
+        .join("_");
+
+}
+
+function sendMessage(targetId,text){
+
+    const me = currentUser();
+
+    if(!me){
+        return;
+    }
+
+    const target =
+        getUser(targetId);
+
+    if(!target){
+        return;
+    }
+
+    if(
+        me.blockedUsers.includes(targetId) ||
+        target.blockedUsers.includes(me.id)
+    ){
+
+        toast(
+            "Bu kullanıcıya mesaj gönderemezsin."
+        );
+
+        return;
+
+    }
+
+    const messages =
+        getMessages();
+
+    messages.push({
+
+        id:uid("msg"),
+
+        conversation:
+            conversationKey(
+                me.id,
+                targetId
+            ),
+
+        from:me.id,
+
+        to:targetId,
+
+        text:text.trim(),
+
+        createdAt:now(),
+
+        read:false
+
+    });
+
+    write(
+        DB.messages,
+        messages
+    );
+
+    notification(
+        targetId,
+        `${me.name} sana yeni bir mesaj gönderdi.`,
+        "message"
+    );
+
+    render();
+
+}
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+function isAdmin(user){
+
+    return !!(
+        user &&
+        user.role === "admin"
+    );
+
+}
+
+function adminLog(
+    action,
+    targetId,
+    description
+){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    const logs =
+        read(DB.adminLogs,[]);
+
+    logs.unshift({
+
+        id:uid("adminlog"),
+
+        adminId:admin.id,
+
+        action,
+
+        targetId,
+
+        description,
+
+        createdAt:now()
+
+    });
+
+    write(
+        DB.adminLogs,
+        logs.slice(0,3000)
+    );
+
+}
+
+function adminBanUser(userId){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    if(userId === admin.id){
+        return;
+    }
+
+    const target =
+        getUser(userId);
+
+    if(!target){
+        return;
+    }
+
+    updateUser(
+        userId,
+        u => {
+            u.banned = true;
+            u.online = false;
+        }
+    );
+
+    adminLog(
+        "ban",
+        userId,
+        `${target.username} engellendi.`
+    );
+
+    toast("Kullanıcı engellendi.");
+
+    render();
+
+}
+
+function adminUnbanUser(userId){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    updateUser(
+        userId,
+        u => {
+            u.banned = false;
+        }
+    );
+
+    adminLog(
+        "unban",
+        userId,
+        "Kullanıcı engeli kaldırıldı."
+    );
+
+    toast("Kullanıcı engeli kaldırıldı.");
+
+    render();
+
+}
+
+function adminDeleteUser(userId){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    if(userId === admin.id){
+        return;
+    }
+
+    let users =
+        getUsers();
+
+    users =
+        users.filter(
+            u => u.id !== userId
+        );
+
+    saveUsers(users);
+
+    [
+        DB.posts,
+        DB.reels,
+        DB.songs,
+        DB.shop
+    ].forEach(key => {
+
+        const items =
+            read(key,[]);
+
+        write(
+            key,
+            items.filter(
+                x => x.userId !== userId
+            )
+        );
+
+    });
+
+    adminLog(
+        "delete_user",
+        userId,
+        "Kullanıcı hesabı silindi."
+    );
+
+    toast("Hesap silindi.");
+
+    render();
+
+}
+
+function adminGivePro(
+    userId,
+    type
+){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    const config =
+        PRO[type];
+
+    if(!config){
+        return;
+    }
+
+    const started =
+        now();
+
+    updateUser(
+        userId,
+        u => {
+
+            u.plan = "pro";
+
+            u.proPlan = type;
+
+            u.proStartedAt =
+                started;
+
+            u.proExpiresAt =
+                started +
+                config.days *
+                dayMs();
+
+            u.proBoostUsed = 0;
+
+            u.proCycleKey =
+                monthKey(started);
+
+        }
+    );
+
+    adminLog(
+        "give_pro",
+        userId,
+        `${type} PRO verildi.`
+    );
+
+    notification(
+        userId,
+        `Yönetici hesabına ${type} PRO tanımladı.`,
+        "pro"
+    );
+
+    toast("PRO tanımlandı.");
+
+    render();
+
+}
+
+function adminRemovePro(userId){
+
+    const admin =
+        currentUser();
+
+    if(!isAdmin(admin)){
+        return;
+    }
+
+    updateUser(
+        userId,
+        u => {
+
+            u.plan = "free";
+            u.proPlan = null;
+            u.proStartedAt = null;
+            u.proExpiresAt = null;
+            u.proCycleKey = null;
+            u.proBoostUsed = 0;
+
+        }
+    );
+
+    clearExpiredFeaturedForUser(
+        userId
+    );
+
+    adminLog(
+        "remove_pro",
+        userId,
+        "PRO kaldırıldı."
+    );
+
+    toast("PRO kaldırıldı.");
+
+    render();
+
+}
+
+/* =========================================================
+   NAVİGASYON
+   ========================================================= */
+
+let state = {
+
+    page:"home",
+
+    profileUserId:null,
+
+    messageUserId:null,
+
+    channelTab:"posts",
+
+    shopTab:"my"
+
+};
+
+function navigate(page){
+
+    state.page = page;
+
+    render();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+function navHTML(){
+
+    const user =
+        currentUser();
+
+    if(!user){
+        return "";
+    }
+
+    const items = [
+
+        ["home","Ana Sayfa","⌂"],
+        ["posts","Gönderiler","+"],
+        ["reels","Reels","▶"],
+        ["songs","Şarkılar","♪"],
+        ["channels","Kanallar","◎"],
+        ["shop","Vitrin","$"],
+        ["messages","Mesajlar","✉"],
+        ["notifications","Bildirimler","!"],
+        ["pro","PRO","P"]
+
+    ];
+
+    if(isAdmin(user)){
+
+        items.push(
+            ["admin","Admin","A"]
+        );
+
+    }
+
+    items.push(
+        ["profile","Profil","U"],
+        ["settings","Ayarlar","S"]
+    );
+
+    return `
+
+        <aside class="sidebar">
+
+            <div class="sidebar-menu card">
+
+                ${items.map(
+                    item => `
+
+                        <button
+                            class="
+                                nav-item
+                                ${
+                                    state.page === item[0]
+                                    ? "active"
+                                    : ""
+                                }
+                            "
+                            data-nav="${item[0]}"
+                        >
+
+                            <strong>
+                                ${item[2]}
+                            </strong>
+
+                            <span>
+                                ${item[1]}
+                            </span>
+
+                        </button>
+
+                    `
+                ).join("")}
+
+                <button
+                    class="nav-item"
+                    data-action="logout"
+                >
+                    <strong>↪</strong>
+                    <span>Çıkış</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+    `;
+
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+function headerHTML(){
+
+    const user =
+        currentUser();
+
+    if(!user){
+        return "";
+    }
+
+    return `
+
+        <header class="topbar">
+
+            <div class="container topbar-inner">
+
+                <button
+                    class="logo"
+                    data-nav="home"
+                    style="border:0;background:none;color:white"
+                >
+
+                    <span class="logo-mark">
+                        M
+                    </span>
+
+                    <span>
+                        MYM SOUND
+                    </span>
+
+                </button>
+
+                <div class="header-search">
+
+                    <input
+                        id="globalSearch"
+                        placeholder="Kullanıcı, kanal, şarkı ara..."
+                    >
+
+                </div>
+
+                <div class="header-actions">
+
+                    <button
+                        class="icon-btn"
+                        data-nav="notifications"
+                    >
+                        !
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        data-nav="messages"
+                    >
+                        ✉
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        data-nav="profile"
+                    >
+                        ${escapeHTML(
+                            user.name.charAt(0)
+                        )}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+    `;
+
+}
+
+/* =========================================================
+   POST CARD
+   ========================================================= */
+
+function postCard(post){
+
+    const owner =
+        getUser(post.userId);
+
+    if(!owner){
+        return "";
+    }
+
+    const me =
+        currentUser();
+
+    const liked =
+        me &&
+        post.likes.includes(me.id);
+
+    const featured =
+        post.featured;
+
+    return `
+
+        <article class="post-card card">
+
+            <div class="post-head">
+
+                <div class="user-line">
+
+                    ${avatarHTML(owner,true)}
+
+                    <div class="user-info">
+
+                        <strong>
+
+                            <button
+                                data-profile="${owner.id}"
+                                style="
+                                    border:0;
+                                    background:none;
+                                    color:white;
+                                    padding:0;
+                                "
+                            >
+                                ${escapeHTML(owner.name)}
+                            </button>
+
+                            ${badgeHTML(owner)}
+
+                        </strong>
+
+                        <span>
+                            @${escapeHTML(owner.username)}
+                            ·
+                            ${timeAgo(post.createdAt)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                ${
+                    featured
+                    ? `
+                        <span class="pro-badge pro-monthly">
+                            ÖNE ÇIKAN
+                        </span>
+                    `
+                    : ""
+                }
+
+            </div>
+
+            <div class="post-content">
+
+                ${escapeHTML(post.text)}
+
+            </div>
+
+            ${
+                post.media
+                ? `
+                    <img
+                        class="post-media"
+                        src="${escapeAttr(post.media)}"
+                        onerror="this.style.display='none'"
+                    >
+                `
+                : ""
+            }
+
+            <div class="post-actions">
+
+                <button
+                    class="action-btn"
+                    data-like-post="${post.id}"
+                >
+                    ${liked ? "Beğenildi" : "Beğen"}
+                    ·
+                    ${post.likes.length}
+                </button>
+
+                <button
+                    class="action-btn"
+                    data-action="comment"
+                    data-id="${post.id}"
+                >
+                    Yorum
+                    ·
+                    ${post.comments.length}
+                </button>
+
+                ${
+                    me &&
+                    me.id === owner.id
+                    ? `
+                        <button
+                            class="action-btn"
+                            data-boost="post"
+                            data-id="${post.id}"
+                        >
+                            Öne Çıkar
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+/* =========================================================
+   SONG CARD
+   ========================================================= */
+
+function songCard(song){
+
+    const owner =
+        getUser(song.userId);
+
+    if(!owner){
+        return "";
+    }
+
+    const me =
+        currentUser();
+
+    return `
+
+        <article class="song-card card">
+
+            <div class="song-cover">
+                ${
+                    owner.avatar
+                    ? `
+                        <img
+                            src="${escapeAttr(owner.avatar)}"
+                        >
+                    `
+                    : ""
+                }
+            </div>
+
+            <div class="song-main">
+
+                <strong>
+
+                    ${escapeHTML(song.title)}
+
+                    ${badgeHTML(owner)}
+
+                </strong>
+
+                <span class="muted small">
+
+                    @${escapeHTML(owner.username)}
+
+                    ${
+                        song.featured
+                        ? " · Öne çıkan"
+                        : ""
+                    }
+
+                </span>
+
+                <audio
+                    controls
+                    preload="none"
+                    src="${escapeAttr(song.audio)}"
+                ></audio>
+
+            </div>
+
+            ${
+                me &&
+                me.id === owner.id
+                ? `
+                    <button
+                        class="btn"
+                        data-boost="song"
+                        data-id="${song.id}"
+                    >
+                        Öne Çıkar
+                    </button>
+                `
+                : ""
+            }
+
+        </article>
+
+    `;
+
+}
+
+/* =========================================================
+   REEL CARD
+   ========================================================= */
+
+function reelCard(reel){
+
+    const owner =
+        getUser(reel.userId);
+
+    if(!owner){
+        return "";
+    }
+
+    const me =
+        currentUser();
+
+    return `
+
+        <article class="reel-card">
+
+            <video
+                src="${escapeAttr(reel.video)}"
+                controls
+                playsinline
+                preload="metadata"
+            ></video>
+
+            <div class="reel-info">
+
+                <strong>
+                    ${escapeHTML(owner.name)}
+                    ${badgeHTML(owner)}
+                </strong>
+
+                <div style="margin-top:7px">
+
+                    ${escapeHTML(reel.text)}
+
+                </div>
+
+                ${
+                    me &&
+                    me.id === owner.id
+                    ? `
+                        <button
+                            class="btn"
+                            style="margin-top:10px"
+                            data-boost="reel"
+                            data-id="${reel.id}"
+                        >
+                            Öne Çıkar
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+/* =========================================================
+   SHOP CARD
+   ========================================================= */
+
+function shopCard(item){
+
+    const owner =
+        getUser(item.userId);
+
+    if(!owner){
+        return "";
+    }
+
+    const me =
+        currentUser();
+
+    return `
+
+        <article class="shop-card card">
+
+            <div class="shop-image">
+
+                ${
+                    item.image
+                    ? `
+                        <img
+                            src="${escapeAttr(item.image)}"
+                        >
+                    `
+                    : `
+                        <div style="
+                            height:100%;
+                            display:grid;
+                            place-items:center;
+                            font-size:35px;
+                            background:
+                                linear-gradient(
+                                    135deg,
+                                    var(--p),
+                                    var(--p2)
+                                );
+                        ">
+                            ${item.type === "Beat" ? "B" : "M"}
+                        </div>
+                    `
+                }
+
+            </div>
+
+            <span class="role-tag">
+                ${escapeHTML(item.type)}
+            </span>
+
+            <h3 style="margin-top:8px">
+
+                ${escapeHTML(item.title)}
+
+            </h3>
+
+            <p class="muted" style="margin-top:7px">
+
+                ${escapeHTML(item.description)}
+
+            </p>
+
+            <div class="price">
+
+                ${Number(item.price).toLocaleString("tr-TR")}
+                TL
+
+            </div>
+
+            <audio
+                controls
+                preload="none"
+                src="${escapeAttr(item.audio)}"
+                style="width:100%;margin-top:12px"
+            ></audio>
+
+            ${
+                me &&
+                me.id === owner.id
+                ? `
+                    <button
+                        class="btn"
+                        style="margin-top:10px"
+                        data-boost="shop"
+                        data-id="${item.id}"
+                    >
+                        Öne Çıkar
+                    </button>
+                `
+                : ""
+            }
+
+        </article>
+
+    `;
+
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
 
 function renderHome(){
- let all=[
-  ...posts.map(x=>({...x,_type:"post"})),
-  ...songs.map(x=>({...x,_type:"song"}))
- ];
- const u=me();
 
- all=all.filter(x=>!u.blockedUsers?.includes(x.userId));
+    const posts =
+        getPosts()
+            .sort(
+                (a,b) =>
+                    Number(b.featured) -
+                    Number(a.featured) ||
+                    b.createdAt -
+                    a.createdAt
+            );
 
- if(state.feed==="following")
-  all=all.filter(x=>u.following.includes(x.userId));
- if(state.feed==="new")
-  all.sort((a,b)=>b.createdAt-a.createdAt);
- if(state.feed==="popular")
-  all.sort((a,b)=>(b.likes?.length||0)-(a.likes?.length||0));
+    return `
 
- all.sort((a,b)=>{
-  const af=a.boosted&&a.boostedUntil>now();
-  const bf=b.boosted&&b.boostedUntil>now();
-  if(af&&!bf)return -1;
-  if(!af&&bf)return 1;
-  return b.createdAt-a.createdAt;
- });
+        <div class="page-header">
 
- return `<div class="page-title">Ana Sayfa</div>
- <div class="tabs">
- ${["all","following","new","popular"].map(x=>`<button class="tab ${state.feed===x?"active":""}" data-feed="${x}">${{all:"Tümü",following:"Takip",new:"Yeni",popular:"Popüler"}[x]}</button>`).join("")}
- </div>
- <div class="actions"><button data-new-post>Gönderi Oluştur</button><button data-new-song>Şarkı Ekle</button></div>
- <div class="grid" style="margin-top:18px">${all.length?all.map(x=>x._type==="post"?postCard(x):songCard(x)).join(""):`<div class="card muted">Henüz içerik yok.</div>`}</div>`;
+            <div>
+                <h1>Ana Sayfa</h1>
+                <p>MYM SOUND topluluğundan son içerikler.</p>
+            </div>
+
+        </div>
+
+        <div class="post-create card">
+
+            <div class="post-create-row">
+
+                ${avatarHTML(currentUser())}
+
+                <div
+                    class="fake-input"
+                    data-action="create-post"
+                >
+                    Bir şeyler paylaş...
+                </div>
+
+            </div>
+
+        </div>
+
+        ${
+            posts.length
+            ? posts.map(postCard).join("")
+            : `
+                <div class="card center" style="padding:40px">
+                    Henüz gönderi yok.
+                </div>
+            `
+        }
+
+    `;
+
 }
+
+/* =========================================================
+   REELS SAYFASI
+   ========================================================= */
 
 function renderReels(){
- const arr=reels.filter(x=>!me().blockedUsers.includes(x.userId))
- .sort((a,b)=>{
-  const aa=a.boosted&&a.boostedUntil>now(),bb=b.boosted&&b.boostedUntil>now();
-  return aa===bb?b.createdAt-a.createdAt:aa?-1:1;
- });
- return `<div class="page-title">Reels</div>
- <button data-new-reel>Reel Ekle</button>
- <div class="grid" style="margin-top:18px">${arr.map(reelCard).join("")}</div>`;
+
+    const reels =
+        getReels()
+            .sort(
+                (a,b) =>
+                    Number(b.featured) -
+                    Number(a.featured) ||
+                    b.createdAt -
+                    a.createdAt
+            );
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Reels</h1>
+                <p>Kısa videolar ve müzik içerikleri.</p>
+            </div>
+
+            <button
+                class="btn primary"
+                data-action="create-reel"
+            >
+                + Reel
+            </button>
+
+        </div>
+
+        <div class="reels-grid">
+
+            ${
+                reels.length
+                ? reels.map(reelCard).join("")
+                : `
+                    <div
+                        class="card center"
+                        style="
+                            padding:40px;
+                            grid-column:1/-1
+                        "
+                    >
+                        Henüz reel yok.
+                    </div>
+                `
+            }
+
+        </div>
+
+    `;
+
 }
 
-function renderChannels(){
- return `<div class="page-title">Kanallar</div>
- <div class="grid">${users.filter(u=>u.id!==me().id).map(u=>{
-  const postsN=posts.filter(x=>x.userId===u.id).length;
-  const songsN=songs.filter(x=>x.userId===u.id).length;
-  const reelsN=reels.filter(x=>x.userId===u.id).length;
-  const following=me().following.includes(u.id);
-  return `<article class="card">
-   <div class="row">${avatar(u)}<div><b>${esc(u.name)}</b><div class="muted">@${esc(u.username)}</div></div></div>
-   <p>${esc(u.bio||"MYM SOUND kullanıcısı")}</p>
-   <div class="small muted">Gönderi ${postsN} · Şarkı ${songsN} · Reel ${reelsN}</div>
-   <div class="actions">
-    <button data-channel="${u.id}">Kanala Git</button>
-    <button data-follow="${u.id}">${following?"Takipten Çık":"Takip Et"}</button>
-   </div>
-  </article>`;
- }).join("")}</div>`;
+/* =========================================================
+   ŞARKILAR
+   ========================================================= */
+
+function renderSongs(){
+
+    const songs =
+        getSongs()
+            .sort(
+                (a,b) =>
+                    Number(b.featured) -
+                    Number(a.featured) ||
+                    b.createdAt -
+                    a.createdAt
+            );
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Şarkılar</h1>
+                <p>MYM SOUND müzik arşivi.</p>
+            </div>
+
+            <button
+                class="btn primary"
+                data-action="create-song"
+            >
+                + Şarkı
+            </button>
+
+        </div>
+
+        ${
+            songs.length
+            ? songs.map(songCard).join("")
+            : `
+                <div class="card center" style="padding:40px">
+                    Henüz şarkı yok.
+                </div>
+            `
+        }
+
+    `;
+
 }
 
-function renderChannel(id){
- const u=userById(id);
- if(!u)return renderChannels();
- const ps=posts.filter(x=>x.userId===id);
- const ss=songs.filter(x=>x.userId===id);
- const rs=reels.filter(x=>x.userId===id);
- const sh=shop.filter(x=>x.userId===id);
- return `<button data-page="channels">← Kanallar</button>
- <div class="card" style="margin-top:15px">
-  <div class="row">${avatar(u)}<div><h2>${esc(u.name)}</h2><span class="muted">@${esc(u.username)}</span></div></div>
-  <p>${esc(u.bio||"")}</p>
-  <button data-follow="${u.id}">${me().following.includes(u.id)?"Takipten Çık":"Takip Et"}</button>
- </div>
- <h2>Gönderiler</h2><div class="grid">${ps.map(postCard).join("")}</div>
- <h2>Şarkılar</h2><div class="grid">${ss.map(songCard).join("")}</div>
- <h2>Reels</h2><div class="grid">${rs.map(reelCard).join("")}</div>
- <h2>Shop</h2><div class="grid">${sh.map(shopCard).join("")}</div>`;
-}
+/* =========================================================
+   SHOP SAYFASI
+   ========================================================= */
 
 function renderShop(){
- const mine=shop.filter(x=>x.userId===me().id);
- const others=shop.filter(x=>x.userId!==me().id&&!me().blockedUsers.includes(x.userId));
- return `<div class="page-title">Shop</div>
- <div class="tabs"><button class="tab active">Benim Vitrinim</button><button class="tab">Vitrinler</button></div>
- <div class="card">
-  <h3>Benim Vitrinim</h3>
-  <p class="muted">Beat Maker ve Mix Engineer/Prodüktör hesapları içerik yükleyebilir.</p>
-  <button data-new-shop>Shop İçeriği Ekle</button>
- </div>
- <div class="grid" style="margin-top:15px">${mine.map(shopCard).join("")}</div>
- <h2>Vitrinler</h2>
- <div class="grid">${others.map(shopCard).join("")}</div>`;
+
+    const user =
+        currentUser();
+
+    const all =
+        getShop();
+
+    const myItems =
+        all.filter(
+            x => x.userId === user.id
+        );
+
+    const vitrines =
+        [...new Set(
+            all.map(x => x.userId)
+        )];
+
+    const visible =
+        state.shopTab === "my"
+        ? myItems
+        : all;
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Vitrin</h1>
+                <p>
+                    Beat, Mix ve prodüksiyon ürünleri.
+                </p>
+            </div>
+
+            <button
+                class="btn primary"
+                data-action="create-shop"
+            >
+                + Ürün
+            </button>
+
+        </div>
+
+        <div class="card" style="padding:8px;margin-bottom:18px">
+
+            <button
+                class="btn ${
+                    state.shopTab === "my"
+                    ? "primary"
+                    : ""
+                }"
+                data-shop-tab="my"
+            >
+                Benim Vitrinim
+            </button>
+
+            <button
+                class="btn ${
+                    state.shopTab === "all"
+                    ? "primary"
+                    : ""
+                }"
+                data-shop-tab="all"
+            >
+                Vitrinler
+            </button>
+
+        </div>
+
+        ${
+            state.shopTab === "my"
+            ? `
+                <div class="shop-hero">
+
+                    <div>
+
+                        <h2>
+                            ${escapeHTML(user.name)}
+                            ${badgeHTML(user)}
+                        </h2>
+
+                        <p>
+                            @${escapeHTML(user.username)}
+                        </p>
+
+                        <p class="muted" style="margin-top:7px">
+                            ${escapeHTML(user.bio || "Vitrin açıklaması eklenmemiş.")}
+                        </p>
+
+                        <p style="margin-top:10px">
+                            ${myItems.length}
+                            / 
+                            ${
+                                isPro(user)
+                                ? "∞"
+                                : "20"
+                            }
+                            ürün
+                        </p>
+
+                    </div>
+
+                </div>
+            `
+            : ""
+        }
+
+        ${
+            state.shopTab === "all"
+            ? `
+                <div class="card" style="padding:15px;margin-bottom:18px">
+
+                    <strong>
+                        ${vitrines.length}
+                        aktif Vitrin
+                    </strong>
+
+                </div>
+            `
+            : ""
+        }
+
+        <div class="shop-items">
+
+            ${
+                visible.length
+                ? visible.map(shopCard).join("")
+                : `
+                    <div
+                        class="card center"
+                        style="
+                            padding:40px;
+                            grid-column:1/-1
+                        "
+                    >
+                        Vitrinde henüz ürün yok.
+                    </div>
+                `
+            }
+
+        </div>
+
+    `;
+
 }
 
-function renderProfile(id=me().id){
- const u=userById(id);
- const own=u.id===me().id;
- return `<div class="page-title">Profil</div>
- <div class="card">
-  <div class="row">${avatar(u)}<div><h2>${esc(u.name)}</h2><div class="muted">@${esc(u.username)}</div></div></div>
-  <p>${esc(u.bio||"")}</p>
-  <div class="row">
-   <span>Takipçi <b>${u.followers.length}</b></span>
-   <span>Takip <b>${u.following.length}</b></span>
-  </div>
-  ${own?`<div class="actions"><button data-profile-settings>Profil Ayarları</button></div>`:
-  `<div class="actions"><button data-follow="${u.id}">${me().following.includes(u.id)?"Takipten Çık":"Takip Et"}</button>
-   <button data-message-user="${u.id}">Mesaj</button>
-  </div>`}
- </div>
- <h2>Gönderiler</h2><div class="grid">${posts.filter(x=>x.userId===u.id).map(postCard).join("")}</div>
- <h2>Şarkılar</h2><div class="grid">${songs.filter(x=>x.userId===u.id).map(songCard).join("")}</div>`;
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+function renderProfile(){
+
+    const user =
+        state.profileUserId
+        ? getUser(state.profileUserId)
+        : currentUser();
+
+    if(!user){
+        return "<div>Profil bulunamadı.</div>";
+    }
+
+    const me =
+        currentUser();
+
+    const own =
+        me.id === user.id;
+
+    const posts =
+        getPosts()
+            .filter(
+                x => x.userId === user.id
+            );
+
+    const songs =
+        getSongs()
+            .filter(
+                x => x.userId === user.id
+            );
+
+    const reels =
+        getReels()
+            .filter(
+                x => x.userId === user.id
+            );
+
+    const shop =
+        getShop()
+            .filter(
+                x => x.userId === user.id
+            );
+
+    return `
+
+        <div class="card">
+
+            <div
+                class="channel-cover"
+                style="
+                    ${
+                        user.profileBackground
+                        ? `background-image:url('${escapeAttr(user.profileBackground)}')`
+                        : ""
+                    }
+                "
+            ></div>
+
+            <div class="channel-header">
+
+                <div class="channel-profile-row">
+
+                    <div class="channel-large-avatar">
+
+                        ${
+                            user.avatar
+                            ? `
+                                <img
+                                    src="${escapeAttr(user.avatar)}"
+                                >
+                            `
+                            : escapeHTML(
+                                user.name
+                                    .charAt(0)
+                                    .toUpperCase()
+                            )
+                        }
+
+                    </div>
+
+                    <div style="flex:1">
+
+                        <h1>
+
+                            ${escapeHTML(user.name)}
+
+                            ${badgeHTML(user)}
+
+                        </h1>
+
+                        <div class="muted">
+
+                            @${escapeHTML(user.username)}
+
+                        </div>
+
+                        <div class="role-tag" style="margin-top:7px">
+
+                            ${escapeHTML(user.role)}
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        own
+                        ? `
+                            <button
+                                class="btn"
+                                data-nav="settings"
+                            >
+                                Profili Düzenle
+                            </button>
+                        `
+                        : `
+                            <div class="flex gap10">
+
+                                <button
+                                    class="btn primary"
+                                    data-follow="${user.id}"
+                                >
+                                    ${
+                                        isFollowing(
+                                            me.id,
+                                            user.id
+                                        )
+                                        ? "Takibi Bırak"
+                                        : "Takip Et"
+                                    }
+                                </button>
+
+                                <button
+                                    class="btn"
+                                    data-message="${user.id}"
+                                >
+                                    Mesaj
+                                </button>
+
+                                <button
+                                    class="btn danger"
+                                    data-block="${user.id}"
+                                >
+                                    ${
+                                        me.blockedUsers.includes(user.id)
+                                        ? "Engeli Kaldır"
+                                        : "Engelle"
+                                    }
+                                </button>
+
+                            </div>
+                        `
+                    }
+
+                </div>
+
+                <p style="margin-top:15px">
+
+                    ${escapeHTML(user.bio || "Henüz biyografi eklenmemiş.")}
+
+                </p>
+
+                <div class="channel-stats">
+
+                    <span>
+                        <strong>
+                            ${user.followers.length}
+                        </strong>
+                        takipçi
+                    </span>
+
+                    <span>
+                        <strong>
+                            ${user.following.length}
+                        </strong>
+                        takip
+                    </span>
+
+                    <span>
+                        <strong>
+                            ${posts.length}
+                        </strong>
+                        gönderi
+                    </span>
+
+                    <span>
+                        <strong>
+                            ${songs.length}
+                        </strong>
+                        şarkı
+                    </span>
+
+                    <span>
+                        <strong>
+                            ${reels.length}
+                        </strong>
+                        reel
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="margin-top:18px">
+
+            <div class="channel-tabs">
+
+                <button
+                    class="channel-tab ${
+                        state.channelTab === "posts"
+                        ? "active"
+                        : ""
+                    }"
+                    data-channel-tab="posts"
+                >
+                    Gönderiler
+                </button>
+
+                <button
+                    class="channel-tab ${
+                        state.channelTab === "songs"
+                        ? "active"
+                        : ""
+                    }"
+                    data-channel-tab="songs"
+                >
+                    Şarkılar
+                </button>
+
+                <button
+                    class="channel-tab ${
+                        state.channelTab === "reels"
+                        ? "active"
+                        : ""
+                    }"
+                    data-channel-tab="reels"
+                >
+                    Reels
+                </button>
+
+                <button
+                    class="channel-tab ${
+                        state.channelTab === "shop"
+                        ? "active"
+                        : ""
+                    }"
+                    data-channel-tab="shop"
+                >
+                    Vitrin
+                </button>
+
+            </div>
+
+        </div>
+
+        <div style="margin-top:18px">
+
+            ${
+                state.channelTab === "posts"
+                ? posts.map(postCard).join("")
+                : ""
+            }
+
+            ${
+                state.channelTab === "songs"
+                ? songs.map(songCard).join("")
+                : ""
+            }
+
+            ${
+                state.channelTab === "reels"
+                ? `
+                    <div class="reels-grid">
+                        ${reels.map(reelCard).join("")}
+                    </div>
+                `
+                : ""
+            }
+
+            ${
+                state.channelTab === "shop"
+                ? `
+                    <div class="shop-items">
+                        ${shop.map(shopCard).join("")}
+                    </div>
+                `
+                : ""
+            }
+
+        </div>
+
+    `;
+
 }
+
+/* =========================================================
+   KANALLAR
+   ========================================================= */
+
+function renderChannels(){
+
+    const users =
+        getUsers()
+            .filter(
+                u =>
+                    !u.banned &&
+                    u.id !== currentUser().id
+            );
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Kanallar</h1>
+                <p>Her MYM SOUND hesabı kendi kanalına sahiptir.</p>
+            </div>
+
+        </div>
+
+        <div class="search-results">
+
+            ${
+                users.map(
+                    user => `
+
+                        <div class="search-result card">
+
+                            ${avatarHTML(user)}
+
+                            <div style="flex:1">
+
+                                <strong>
+
+                                    ${escapeHTML(user.name)}
+
+                                    ${badgeHTML(user)}
+
+                                </strong>
+
+                                <div class="muted">
+
+                                    @${escapeHTML(user.username)}
+                                    ·
+                                    ${escapeHTML(user.role)}
+
+                                </div>
+
+                                <div class="small muted">
+
+                                    ${user.followers.length}
+                                    takipçi
+
+                                </div>
+
+                            </div>
+
+                            <button
+                                class="btn primary"
+                                data-profile="${user.id}"
+                            >
+                                Kanala Git
+                            </button>
+
+                        </div>
+
+                    `
+                ).join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   MESAJLAR SAYFASI
+   ========================================================= */
 
 function renderMessages(){
- const u=me();
- const others=users.filter(x=>x.id!==u.id&&!u.blockedUsers.includes(x.id));
- return `<div class="page-title">Mesajlaşma</div>
- <div class="grid">
- ${others.map(x=>`<article class="card">
-  <div class="row">${avatar(x)}<b>${esc(x.name)}</b></div>
-  <button data-message-user="${x.id}" style="margin-top:12px">Mesaj Gönder</button>
- </article>`).join("")}
- </div>`;
+
+    const me =
+        currentUser();
+
+    const users =
+        getUsers()
+            .filter(
+                u =>
+                    u.id !== me.id &&
+                    !me.blockedUsers.includes(u.id)
+            );
+
+    const selected =
+        state.messageUserId
+        ? getUser(state.messageUserId)
+        : null;
+
+    const conversation =
+        selected
+        ? getMessages()
+            .filter(
+                m =>
+                    m.conversation ===
+                    conversationKey(
+                        me.id,
+                        selected.id
+                    )
+            )
+            .sort(
+                (a,b) =>
+                    a.createdAt -
+                    b.createdAt
+            )
+        : [];
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Mesajlar</h1>
+                <p>Kullanıcılarla özel mesajlaş.</p>
+            </div>
+
+        </div>
+
+        <div class="messages-layout card">
+
+            <div class="message-users">
+
+                ${
+                    users.map(
+                        user => `
+
+                            <div
+                                class="
+                                    message-user
+                                    ${
+                                        selected?.id === user.id
+                                        ? "active"
+                                        : ""
+                                    }
+                                "
+                                data-message-user="${user.id}"
+                            >
+
+                                ${avatarHTML(user,true)}
+
+                                <div>
+
+                                    <strong>
+                                        ${escapeHTML(user.name)}
+                                    </strong>
+
+                                    <div class="small muted">
+
+                                        @${escapeHTML(user.username)}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `
+                    ).join("")
+                }
+
+            </div>
+
+            <div class="chat">
+
+                ${
+                    selected
+                    ? `
+
+                        <div class="chat-head">
+
+                            <strong>
+                                ${escapeHTML(selected.name)}
+                                ${badgeHTML(selected)}
+                            </strong>
+
+                            <div class="small muted">
+
+                                @${escapeHTML(selected.username)}
+
+                            </div>
+
+                        </div>
+
+                        <div class="chat-messages">
+
+                            ${
+                                conversation.map(
+                                    message => `
+
+                                        <div
+                                            class="
+                                                message
+                                                ${
+                                                    message.from === me.id
+                                                    ? "mine"
+                                                    : ""
+                                                }
+                                            "
+                                        >
+                                            ${escapeHTML(message.text)}
+
+                                            <div
+                                                class="small"
+                                                style="
+                                                    opacity:.65;
+                                                    margin-top:4px
+                                                "
+                                            >
+                                                ${dateText(message.createdAt)}
+                                            </div>
+
+                                        </div>
+
+                                    `
+                                ).join("")
+                            }
+
+                        </div>
+
+                        <form
+                            id="messageForm"
+                            class="chat-send"
+                        >
+
+                            <input
+                                class="input"
+                                name="text"
+                                placeholder="Mesaj yaz..."
+                                autocomplete="off"
+                                required
+                            >
+
+                            <button
+                                class="btn primary"
+                            >
+                                Gönder
+                            </button>
+
+                        </form>
+
+                    `
+                    : `
+                        <div
+                            class="center muted"
+                            style="
+                                margin:auto;
+                                padding:40px
+                            "
+                        >
+                            Mesajlaşmak için bir kullanıcı seç.
+                        </div>
+                    `
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
-function renderSettings(){
- const u=me();
- let body="";
- if(state.settings==="account"){
-  body=`<div class="card"><h3>Hesap</h3>
-   <p>E-posta: <b>${esc(u.email||"Tanımlanmamış")}</b></p>
-   <p>Kullanıcı adı: <b>@${esc(u.username)}</b></p>
-   <p>Rol: <b>${esc(u.role)}</b></p>
-   <button data-logout class="danger">Çıkış Yap</button>
-  </div>`;
- }
- if(state.settings==="appearance"){
-  body=`<div class="card"><h3>Renk Kombinasyonu</h3>
-  <p class="muted">20 farklı tema arasından seçim yap.</p>
-  <div class="theme-grid">${THEMES.map(t=>`
-   <button class="theme ${u.settings.theme===t.id?"selected":""}" data-theme="${t.id}">
-    <div class="theme-color" style="background:linear-gradient(135deg,${t.primary},${t.secondary})"></div>
-    ${esc(t.name)}
-   </button>`).join("")}</div></div>`;
- }
- if(state.settings==="privacy"){
-  body=`<div class="card"><h3>Gizlilik</h3>
-   <label><input type="checkbox" data-private ${u.settings.privateProfile?"checked":""}> Gizli profil</label>
-   <h3>Engellenenler</h3>
-   ${u.blockedUsers.map(id=>{const x=userById(id);return x?`<div class="row between"><span>${esc(x.name)}</span><button data-unblock="${id}">Engeli Kaldır</button></div>`:""}).join("")||"<span class='muted'>Yok</span>"}
-  </div>`;
- }
- if(state.settings==="notifications"){
-  body=`<div class="card"><h3>Bildirimler</h3>
-  <label><input type="checkbox" data-notify ${u.settings.notifications?"checked":""}> Bildirimleri aç</label></div>`;
- }
- if(state.settings==="pro"){
-  body=renderPro();
- }
- return `<div class="page-title">Ayarlar</div>
- <div class="tabs">
-  ${[["account","Hesap"],["appearance","Renkler"],["privacy","Gizlilik"],["notifications","Bildirimler"],["pro","PRO"]].map(x=>
-  `<button class="tab ${state.settings===x[0]?"active":""}" data-settings="${x[0]}">${x[1]}</button>`).join("")}
- </div>${body}`;
+/* =========================================================
+   BİLDİRİMLER
+   ========================================================= */
+
+function renderNotifications(){
+
+    const user =
+        currentUser();
+
+    const notifications =
+        getNotifications()
+            .filter(
+                n => n.userId === user.id
+            );
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+                <h1>Bildirimler</h1>
+                <p>Hesabındaki son hareketler.</p>
+            </div>
+
+            <button
+                class="btn"
+                data-action="read-notifications"
+            >
+                Hepsini okundu yap
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            ${
+                notifications.length
+                ? notifications.map(
+                    n => `
+
+                        <div
+                            class="
+                                notification
+                                ${
+                                    n.read
+                                    ? ""
+                                    : "unread"
+                                }
+                            "
+                        >
+
+                            <div>
+                                ${escapeHTML(n.text)}
+                            </div>
+
+                            <div class="small muted">
+
+                                ${timeAgo(n.createdAt)}
+
+                            </div>
+
+                        </div>
+
+                    `
+                ).join("")
+                : `
+                    <div
+                        class="center muted"
+                        style="padding:40px"
+                    >
+                        Bildirim yok.
+                    </div>
+                `
+            }
+
+        </div>
+
+    `;
+
 }
+
+/* =========================================================
+   PRO SAYFASI
+   ========================================================= */
 
 function renderPro(){
- const u=me();
- const active=proCheck(u);
- const remaining=Math.max(0,10-u.proBoostUsed);
- return `<div class="page-title">MYM PRO</div>
- <div class="grid">
-  <div class="card ${active&&u.proPlan==="monthly"?"featured":""}">
-   <h2>MYM PRO Aylık</h2>
-   <div class="stat">200 TL / ay</div>
-   <p>Şimdilik ücretsiz demo.</p>
-   <ul><li>Gönderi öne çıkarma</li><li>Reel öne çıkarma</li><li>Şarkı öne çıkarma</li><li>Shop içeriği öne çıkarma</li><li>Aylık 10 hak</li></ul>
-   ${active&&u.proPlan==="monthly"?`<span class="badge">AKTİF</span>`:
-   `<button data-pro="monthly">Demo olarak etkinleştir</button>`}
-  </div>
-  <div class="card ${active&&u.proPlan==="yearly"?"featured":""}">
-   <h2>MYM PRO Yıllık</h2>
-   <div class="stat">Demo</div>
-   <p>Şimdilik ücretsiz demo.</p>
-   <ul><li>Tüm PRO özellikleri</li><li>Her ay 00:00'da 10 yeni öne çıkarma</li><li>1 yıl aktiflik</li></ul>
-   ${active&&u.proPlan==="yearly"?`<span class="badge">AKTİF</span>`:
-   `<button data-pro="yearly">Demo olarak etkinleştir</button>`}
-  </div>
- </div>
- ${active?`<div class="card" style="margin-top:15px">
-  <h3>Aktif PRO</h3>
-  <p>Plan: <b>${u.proPlan==="monthly"?"Aylık":"Yıllık"}</b></p>
-  <p>Bitış: <b>${fmt(u.proExpiresAt)}</b></p>
-  <p>Öne çıkarma: <b>${remaining}/10</b></p>
-  <button data-boost-all>Tüm içerikleri öne çıkar</button>
-  <button class="danger" data-pro-off>PRO'yu Kapat</button>
- </div>`:""}`;
+
+    const user =
+        currentUser();
+
+    checkPro(user);
+
+    const fresh =
+        getUser(user.id);
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>MYM SOUND PRO</h1>
+
+                <p>
+                    İçeriklerini öne çıkar ve Vitrin limitini kaldır.
+                </p>
+
+            </div>
+
+        </div>
+
+        ${
+            isPro(fresh)
+            ? `
+
+                <div class="card pro-current">
+
+                    <strong>
+                        Aktif ${fresh.proPlan === "monthly" ? "Aylık" : "Yıllık"} PRO
+                    </strong>
+
+                    <p class="muted" style="margin-top:6px">
+
+                        Kalan süre:
+                        ${proRemainingDays(fresh)} gün
+
+                    </p>
+
+                    <p style="margin-top:6px">
+
+                        Kalan öne çıkarma:
+                        <strong>
+                            ${remainingBoosts(fresh)}
+                        </strong>
+                        / 10
+
+                    </p>
+
+                    <p class="small muted" style="margin-top:8px">
+
+                        Başlangıç:
+                        ${dateText(fresh.proStartedAt)}
+
+                        <br>
+
+                        Bitiş:
+                        ${dateText(fresh.proExpiresAt)}
+
+                    </p>
+
+                </div>
+
+            `
+            : ""
+        }
+
+        <div class="pro-grid" style="margin-top:18px">
+
+            <div class="pro-card card monthly">
+
+                <span class="pro-badge pro-monthly">
+                    MOR PRO
+                </span>
+
+                <h2 style="margin-top:15px">
+                    Aylık PRO
+                </h2>
+
+                <div class="pro-price">
+                    50 TL
+                </div>
+
+                <div class="muted">
+                    Tam 30 gün
+                </div>
+
+                <ul class="pro-list">
+
+                    <li>
+                        30 gün boyunca PRO
+                    </li>
+
+                    <li>
+                        10 öne çıkarma hakkı
+                    </li>
+
+                    <li>
+                        Mor PRO rozeti
+                    </li>
+
+                    <li>
+                        Vitrin yükleme limiti yok
+                    </li>
+
+                    <li>
+                        Süre aktivasyon anından itibaren başlar
+                    </li>
+
+                    <li>
+                        Takvim ayına göre yenilenmez
+                    </li>
+
+                </ul>
+
+                <button
+                    class="btn primary full"
+                    data-buy-pro="monthly"
+                >
+                    50 TL — Aylık PRO
+                </button>
+
+            </div>
+
+            <div class="pro-card card yearly">
+
+                <span class="pro-badge pro-yearly">
+                    MAVİ PRO
+                </span>
+
+                <h2 style="margin-top:15px">
+                    Yıllık PRO
+                </h2>
+
+                <div class="pro-price">
+                    200 TL
+                </div>
+
+                <div class="muted">
+                    Tam 365 gün
+                </div>
+
+                <ul class="pro-list">
+
+                    <li>
+                        365 gün boyunca PRO
+                    </li>
+
+                    <li>
+                        Her ay 10 öne çıkarma
+                    </li>
+
+                    <li>
+                        Mavi PRO rozeti
+                    </li>
+
+                    <li>
+                        Vitrin yükleme limiti yok
+                    </li>
+
+                    <li>
+                        Aylık 10 hak 00:00'da yenilenir
+                    </li>
+
+                    <li>
+                        Kullanılmayan haklar devretmez
+                    </li>
+
+                </ul>
+
+                <button
+                    class="btn primary full"
+                    data-buy-pro="yearly"
+                >
+                    200 TL — Yıllık PRO
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="padding:20px;margin-top:18px">
+
+            <h3>PRO sistemi nasıl çalışır?</h3>
+
+            <p class="muted" style="margin-top:10px;line-height:1.7">
+
+                Aylık PRO satın alındığında süre tam 30 gün olarak
+                aktivasyon zamanından hesaplanır. 10 öne çıkarma hakkı
+                bu dönem içinde kullanılabilir.
+
+                <br><br>
+
+                Yıllık PRO satın alındığında PRO hesabı tam 365 gün
+                aktif kalır. Öne çıkarma hakkı ise her takvim ayının
+                00:00 döneminde 10 olarak yenilenir. Önceki aydan
+                kullanılmayan haklar yeni aya aktarılmaz.
+
+            </p>
+
+        </div>
+
+    `;
+
 }
+
+/* =========================================================
+   AYARLAR
+   ========================================================= */
+
+function renderSettings(){
+
+    const user =
+        currentUser();
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>Ayarlar</h1>
+
+                <p>
+                    Profilini, görünümünü ve hesap tercihlerini yönet.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="settings-grid">
+
+            <div class="settings-menu card">
+
+                <button
+                    class="nav-item active"
+                    data-settings-tab="profile"
+                >
+                    Profil
+                </button>
+
+                <button
+                    class="nav-item"
+                    data-settings-tab="appearance"
+                >
+                    Görünüm
+                </button>
+
+                <button
+                    class="nav-item"
+                    data-settings-tab="account"
+                >
+                    Hesap
+                </button>
+
+            </div>
+
+            <div
+                class="settings-content card"
+                id="settingsContent"
+            >
+
+                ${renderProfileSettings(user)}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function renderProfileSettings(user){
+
+    return `
+
+        <h2>Profil Ayarları</h2>
+
+        <form id="profileSettingsForm" style="margin-top:18px">
+
+            <div class="form-group">
+
+                <label>İsim</label>
+
+                <input
+                    class="input"
+                    name="name"
+                    value="${escapeAttr(user.name)}"
+                    maxlength="80"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Kullanıcı adı</label>
+
+                <input
+                    class="input"
+                    name="username"
+                    value="${escapeAttr(user.username)}"
+                    maxlength="30"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Biyografi</label>
+
+                <textarea
+                    class="input"
+                    name="bio"
+                    maxlength="500"
+                >${escapeHTML(user.bio)}</textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Profil fotoğrafı URL</label>
+
+                <input
+                    class="input"
+                    name="avatar"
+                    value="${escapeAttr(user.avatar || "")}"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Profil arka planı URL</label>
+
+                <input
+                    class="input"
+                    name="profileBackground"
+                    value="${escapeAttr(user.profileBackground || "")}"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Vitrin arka planı URL</label>
+
+                <input
+                    class="input"
+                    name="shopBackground"
+                    value="${escapeAttr(user.shopBackground || "")}"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+            <button class="btn primary">
+                Değişiklikleri Kaydet
+            </button>
+
+        </form>
+
+        <div
+            class="card"
+            style="
+                margin-top:20px;
+                padding:15px;
+                background:var(--panel2)
+            "
+        >
+
+            <strong>
+                İsim/kullanıcı adı değişikliği
+            </strong>
+
+            <p class="muted small" style="margin-top:6px">
+
+                7 günlük dönemde toplam en fazla
+                3 isim veya kullanıcı adı değişikliği yapılabilir.
+
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   TEMA AYARLARI
+   ========================================================= */
+
+function renderAppearanceSettings(){
+
+    const user =
+        currentUser();
+
+    const current =
+        Number(
+            user.settings?.theme ?? 0
+        );
+
+    return `
+
+        <h2>20 Tema</h2>
+
+        <p class="muted" style="margin:7px 0 18px">
+
+            Tema; butonları, panelleri, PRO alanlarını ve
+            ana renkleri birlikte değiştirir.
+
+        </p>
+
+        <div class="theme-grid">
+
+            ${
+                THEMES.map(
+                    (theme,index) => `
+
+                        <div
+                            class="
+                                theme-option
+                                ${
+                                    current === index
+                                    ? "selected"
+                                    : ""
+                                }
+                            "
+                            data-theme="${index}"
+                        >
+
+                            <div
+                                class="theme-preview"
+                                style="
+                                    background:
+                                        linear-gradient(
+                                            135deg,
+                                            ${theme.p},
+                                            ${theme.p2}
+                                        )
+                                "
+                            ></div>
+
+                            <strong>
+                                ${escapeHTML(theme.name)}
+                            </strong>
+
+                        </div>
+
+                    `
+                ).join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   ADMIN SAYFASI
+   ========================================================= */
 
 function renderAdmin(){
- if(!isAdmin())return `<div class="card">Yetkisiz erişim.</div>`;
- const proUsers=users.filter(x=>proCheck(x)).length;
- return `<div class="page-title">Admin Paneli</div>
- <div class="grid">
-  <div class="card"><div class="muted">Kullanıcı</div><div class="stat">${users.length}</div></div>
-  <div class="card"><div class="muted">PRO</div><div class="stat">${proUsers}</div></div>
-  <div class="card"><div class="muted">Gönderi</div><div class="stat">${posts.length}</div></div>
-  <div class="card"><div class="muted">Şarkı</div><div class="stat">${songs.length}</div></div>
-  <div class="card"><div class="muted">Reel</div><div class="stat">${reels.length}</div></div>
-  <div class="card"><div class="muted">Shop</div><div class="stat">${shop.length}</div></div>
- </div>
 
- <div class="card admin" style="margin-top:18px">
- <h2>Admin İşlemleri</h2>
- <div class="actions">
-  <button data-admin-create>Admin Kullanıcısı Oluştur</button>
-  <button data-admin-pro>Seçili Kullanıcıya PRO Ver</button>
- </div>
- </div>
+    const admin =
+        currentUser();
 
- <div class="card" style="margin-top:18px;overflow:auto">
- <h3>Kullanıcılar</h3>
- <table class="table">
- <thead><tr><th>Kullanıcı</th><th>E-posta</th><th>Rol</th><th>Plan</th><th>İşlem</th></tr></thead>
- <tbody>${users.map(x=>`
- <tr>
-  <td>${esc(x.name)}<br><span class="small muted">@${esc(x.username)}</span></td>
-  <td>${esc(x.email)}</td>
-  <td>${esc(x.role)}</td>
-  <td>${x.plan==="pro"?`PRO ${esc(x.proPlan||"")}`:"Free"}</td>
-  <td>
-   <div class="actions">
-    ${x.id!==me().id?`<button data-admin-pro-user="${x.id}">PRO</button>
-    <button class="danger" data-admin-delete-user="${x.id}">Sil</button>`:""}
-   </div>
-  </td>
- </tr>`).join("")}</tbody>
- </table></div>
+    if(!isAdmin(admin)){
 
- <div class="card" style="margin-top:18px">
- <h3>Tüm İçerikler</h3>
- <div class="actions">
-  <button class="danger" data-admin-clear-posts>Gönderileri Temizle</button>
-  <button class="danger" data-admin-clear-songs>Şarkıları Temizle</button>
-  <button class="danger" data-admin-clear-reels>Reels Temizle</button>
-  <button class="danger" data-admin-clear-shop>Shop'u Temizle</button>
- </div>
- </div>`;
+        return `
+
+            <div class="card center" style="padding:50px">
+
+                <h2>Yetkisiz erişim</h2>
+
+                <p class="muted" style="margin-top:8px">
+                    Bu sayfa yalnızca yönetici hesaplarına açıktır.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+    const users =
+        getUsers();
+
+    const posts =
+        getPosts();
+
+    const reels =
+        getReels();
+
+    const songs =
+        getSongs();
+
+    const shop =
+        getShop();
+
+    return `
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>Admin Paneli</h1>
+
+                <p>
+                    MYM SOUND yönetim merkezi.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="admin-stats">
+
+            <div class="stat-card card">
+
+                <div class="muted">
+                    Kullanıcı
+                </div>
+
+                <div class="stat-number">
+                    ${users.length}
+                </div>
+
+            </div>
+
+            <div class="stat-card card">
+
+                <div class="muted">
+                    Gönderi
+                </div>
+
+                <div class="stat-number">
+                    ${posts.length}
+                </div>
+
+            </div>
+
+            <div class="stat-card card">
+
+                <div class="muted">
+                    Reel
+                </div>
+
+                <div class="stat-number">
+                    ${reels.length}
+                </div>
+
+            </div>
+
+            <div class="stat-card card">
+
+                <div class="muted">
+                    Vitrin ürünü
+                </div>
+
+                <div class="stat-number">
+                    ${shop.length}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="padding:18px">
+
+            <h2>Kullanıcı Yönetimi</h2>
+
+            <div
+                class="admin-table-wrap"
+                style="margin-top:15px"
+            >
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Kullanıcı</th>
+                            <th>Rol</th>
+                            <th>Plan</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${
+                            users.map(
+                                user => `
+
+                                    <tr>
+
+                                        <td>
+
+                                            <strong>
+                                                ${escapeHTML(user.name)}
+                                            </strong>
+
+                                            <div class="small muted">
+                                                @${escapeHTML(user.username)}
+                                            </div>
+
+                                        </td>
+
+                                        <td>
+                                            ${escapeHTML(user.role)}
+                                        </td>
+
+                                        <td>
+
+                                            ${
+                                                user.plan === "pro"
+                                                ? `
+                                                    ${user.proPlan}
+                                                    <div class="small muted">
+                                                        ${proRemainingDays(user)} gün
+                                                    </div>
+                                                `
+                                                : "Free"
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            ${
+                                                user.banned
+                                                ? `
+                                                    <span style="color:#ff7b86">
+                                                        Engelli
+                                                    </span>
+                                                `
+                                                : `
+                                                    <span style="color:#6ee7a0">
+                                                        Aktif
+                                                    </span>
+                                                `
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            <div
+                                                class="flex gap5"
+                                                style="flex-wrap:wrap"
+                                            >
+
+                                                ${
+                                                    user.banned
+                                                    ? `
+                                                        <button
+                                                            class="btn success"
+                                                            data-admin-unban="${user.id}"
+                                                        >
+                                                            Engel Aç
+                                                        </button>
+                                                    `
+                                                    : `
+                                                        <button
+                                                            class="btn warning"
+                                                            data-admin-ban="${user.id}"
+                                                        >
+                                                            Banla
+                                                        </button>
+                                                    `
+                                                }
+
+                                                <button
+                                                    class="btn"
+                                                    data-admin-pro="monthly"
+                                                    data-id="${user.id}"
+                                                >
+                                                    + Aylık
+                                                </button>
+
+                                                <button
+                                                    class="btn"
+                                                    data-admin-pro="yearly"
+                                                    data-id="${user.id}"
+                                                >
+                                                    + Yıllık
+                                                </button>
+
+                                                <button
+                                                    class="btn danger"
+                                                    data-admin-remove-pro="${user.id}"
+                                                >
+                                                    PRO Sil
+                                                </button>
+
+                                                ${
+                                                    user.id !== admin.id
+                                                    ? `
+                                                        <button
+                                                            class="btn danger"
+                                                            data-admin-delete="${user.id}"
+                                                        >
+                                                            Hesabı Sil
+                                                        </button>
+                                                    `
+                                                    : ""
+                                                }
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                `
+                            ).join("")
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="padding:18px;margin-top:18px">
+
+            <h2>İçerik Yönetimi</h2>
+
+            <div class="admin-table-wrap">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Tür</th>
+                            <th>İçerik</th>
+                            <th>Sahip</th>
+                            <th>İşlem</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${posts.map(
+                            item => adminContentRow(
+                                "Gönderi",
+                                item.id,
+                                item.text,
+                                item.userId
+                            )
+                        ).join("")}
+
+                        ${reels.map(
+                            item => adminContentRow(
+                                "Reel",
+                                item.id,
+                                item.text,
+                                item.userId
+                            )
+                        ).join("")}
+
+                        ${songs.map(
+                            item => adminContentRow(
+                                "Şarkı",
+                                item.id,
+                                item.title,
+                                item.userId
+                            )
+                        ).join("")}
+
+                        ${shop.map(
+                            item => adminContentRow(
+                                "Vitrin",
+                                item.id,
+                                item.title,
+                                item.userId
+                            )
+                        ).join("")}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="card" style="padding:18px;margin-top:18px">
+
+            <h2>Admin İşlem Geçmişi</h2>
+
+            <div style="margin-top:12px">
+
+                ${
+                    read(DB.adminLogs,[])
+                        .slice(0,50)
+                        .map(
+                            log => `
+
+                                <div
+                                    style="
+                                        padding:10px 0;
+                                        border-bottom:1px solid var(--border)
+                                    "
+                                >
+
+                                    <strong>
+                                        ${escapeHTML(log.action)}
+                                    </strong>
+
+                                    <div class="muted small">
+                                        ${escapeHTML(log.description)}
+                                    </div>
+
+                                    <div class="muted small">
+                                        ${dateText(log.createdAt)}
+                                    </div>
+
+                                </div>
+
+                            `
+                        ).join("")
+                    ||
+                    `
+                        <div class="muted">
+                            Henüz admin işlemi yok.
+                        </div>
+                    `
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
-function render(){
- const u=me();
- if(!u){
-  document.getElementById("app").innerHTML=authHTML();
-  themeApply();
-  return;
- }
- expirePro(u);
- themeApply();
+function adminContentRow(
+    type,
+    id,
+    text,
+    userId
+){
 
- let content="";
- if(state.page==="home")content=renderHome();
- if(state.page==="reels")content=renderReels();
- if(state.page==="channels")content=state.channel?renderChannel(state.channel):renderChannels();
- if(state.page==="shop")content=renderShop();
- if(state.page==="profile")content=renderProfile(state.profileId||u.id);
- if(state.page==="messages")content=renderMessages();
- if(state.page==="settings")content=renderSettings();
- if(state.page==="pro")content=renderPro();
- if(state.page==="admin")content=renderAdmin();
+    const owner =
+        getUser(userId);
 
- document.getElementById("app").innerHTML=shell(content);
+    return `
+
+        <tr>
+
+            <td>
+                ${escapeHTML(type)}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    String(text || "").slice(0,100)
+                )}
+            </td>
+
+            <td>
+                @${escapeHTML(
+                    owner?.username || "silinmiş"
+                )}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn danger"
+                    data-admin-delete-content="${id}"
+                    data-content-type="${escapeAttr(type)}"
+                >
+                    Sil
+                </button>
+
+            </td>
+
+        </tr>
+
+    `;
+
 }
+
+function adminDeleteContent(
+    type,
+    id
+){
+
+    const map = {
+
+        "Gönderi":DB.posts,
+        "Reel":DB.reels,
+        "Şarkı":DB.songs,
+        "Vitrin":DB.shop
+
+    };
+
+    const key =
+        map[type];
+
+    if(!key){
+        return;
+    }
+
+    const items =
+        read(key,[]);
+
+    write(
+        key,
+        items.filter(
+            x => x.id !== id
+        )
+    );
+
+    adminLog(
+        "delete_content",
+        id,
+        `${type} içeriği silindi.`
+    );
+
+    toast("İçerik silindi.");
+
+    render();
+
+}
+
+/* =========================================================
+   ARAMA
+   ========================================================= */
+
+function renderSearch(query){
+
+    const q =
+        query.trim().toLowerCase();
+
+    if(!q){
+        return "";
+    }
+
+    const users =
+        getUsers()
+            .filter(
+                u =>
+                    u.username.includes(q) ||
+                    u.name.toLowerCase().includes(q)
+            )
+            .slice(0,20);
+
+    const songs =
+        getSongs()
+            .filter(
+                s =>
+                    s.title.toLowerCase().includes(q)
+            )
+            .slice(0,20);
+
+    return `
+
+        <div
+            class="card"
+            style="
+                position:absolute;
+                top:55px;
+                left:0;
+                right:0;
+                z-index:500;
+                padding:8px;
+            "
+            id="searchDropdown"
+        >
+
+            ${
+                users.length
+                ? users.map(
+                    u => `
+
+                        <button
+                            style="
+                                width:100%;
+                                border:0;
+                                background:transparent;
+                                color:white;
+                                padding:10px;
+                                text-align:left;
+                                display:flex;
+                                gap:10px;
+                                align-items:center;
+                            "
+                            data-profile="${u.id}"
+                        >
+
+                            ${avatarHTML(u,true)}
+
+                            <span>
+
+                                <strong>
+                                    ${escapeHTML(u.name)}
+                                </strong>
+
+                                <small
+                                    style="
+                                        display:block;
+                                        color:var(--muted)
+                                    "
+                                >
+                                    @${escapeHTML(u.username)}
+                                </small>
+
+                            </span>
+
+                        </button>
+
+                    `
+                ).join("")
+                : ""
+            }
+
+            ${
+                songs.length
+                ? `
+                    <div
+                        style="
+                            padding:8px;
+                            color:var(--muted)
+                        "
+                    >
+                        Şarkılar
+                    </div>
+
+                    ${songs.map(
+                        s => `
+
+                            <div
+                                style="
+                                    padding:10px;
+                                    border-top:1px solid var(--border)
+                                "
+                            >
+
+                                ${escapeHTML(s.title)}
+
+                            </div>
+
+                        `
+                    ).join("")}
+
+                `
+                : ""
+            }
+
+            ${
+                !users.length &&
+                !songs.length
+                ? `
+                    <div
+                        class="muted"
+                        style="padding:15px"
+                    >
+                        Sonuç bulunamadı.
+                    </div>
+                `
+                : ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   AUTH SAYFASI
+   ========================================================= */
 
 function authHTML(){
- return `<div class="auth"><div class="authbox">
- <h1>MYM SOUND</h1>
- <div class="tabs">
-  <button class="tab ${state.auth==="login"?"active":""}" data-auth="login">Giriş</button>
-  <button class="tab ${state.auth==="register"?"active":""}" data-auth="register">Kayıt</button>
- </div>
- ${state.auth==="login"?`
- <form id="loginForm" class="form">
-  <input name="identity" placeholder="Kullanıcı adı veya e-posta" required>
-  <input name="password" type="password" placeholder="Şifre" required>
-  <button>Giriş Yap</button>
- </form>`:`
- <form id="registerForm" class="form">
-  <input name="name" placeholder="Ad Soyad" required>
-  <input name="email" type="email" placeholder="E-posta" required>
-  <input name="username" placeholder="Kullanıcı adı" required>
-  <input name="password" type="password" placeholder="Şifre (min. 6)" required>
-  <input name="password2" type="password" placeholder="Şifre tekrar" required>
-  <select name="role">${ROLES.map(x=>`<option>${x}</option>`).join("")}</select>
-  <button>Kayıt Ol</button>
- </form>`}
- </div></div>`;
+
+    const mode =
+        state.authMode || "login";
+
+    return `
+
+        <div class="auth-page">
+
+            <div class="auth-box card">
+
+                <div class="auth-logo">
+
+                    <div class="logo-mark">
+                        M
+                    </div>
+
+                    <h1>
+                        MYM SOUND
+                    </h1>
+
+                    <p class="muted">
+                        Müzik, içerik ve Vitrin platformu
+                    </p>
+
+                </div>
+
+                ${
+                    mode === "login"
+                    ? loginForm()
+                    : registerForm()
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
-function register(f){
- const name=f.name.value.trim();
- const email=f.email.value.trim().toLowerCase();
- const username=f.username.value.trim();
- const password=f.password.value;
- const password2=f.password2.value;
- const role=f.role.value;
+function loginForm(){
 
- if(name.length<2)return toast("Adını doğru gir");
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return toast("Geçerli e-posta gir");
- if(users.some(x=>x.email.toLowerCase()===email))return toast("Bu e-posta ile zaten hesap var");
- if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(username))return toast("Kullanıcı adı 3-24 karakter olmalı");
- if(users.some(x=>x.username.toLowerCase()===username.toLowerCase()))return toast("Bu kullanıcı adı kullanımda");
- if(password.length<6)return toast("Şifre en az 6 karakter");
- if(password!==password2)return toast("Şifreler aynı değil");
+    return `
 
- const u=defaults({
-  id:uid(),name,email,username,password,role,
-  plan:"free",proPlan:null,proStartedAt:null,proExpiresAt:null,
-  proCycleKey:null,proBoostUsed:0,followers:[],following:[],
-  blockedUsers:[],nameChanges:[],avatar:null,bio:"",
-  createdAt:now()
- });
+        <form id="loginForm">
 
- users.push(u);
- saveAll();
- localStorage.setItem(KEY.current,u.id);
- toast("Hesap oluşturuldu");
- render();
+            <div class="form-group">
+
+                <label>
+                    Kullanıcı adı veya e-posta
+                </label>
+
+                <input
+                    class="input"
+                    name="identifier"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Şifre
+                </label>
+
+                <input
+                    class="input"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+            <button
+                class="btn primary full"
+            >
+                Giriş Yap
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+
+            Hesabın yok mu?
+
+            <button
+                data-auth="register"
+            >
+                Kayıt Ol
+            </button>
+
+        </div>
+
+    `;
+
 }
 
-function login(f){
- const id=f.identity.value.trim().toLowerCase();
- const pw=f.password.value;
- const u=users.find(x=(
-  x.username.toLowerCase()===id||
-  (x.email&&x.email.toLowerCase()===id)
- )&&x.password===pw);
+function registerForm(){
 
- if(!u)return toast("Kullanıcı adı/e-posta veya şifre hatalı");
- if(u.banned)return toast("Bu hesap engellenmiş");
- localStorage.setItem(KEY.current,u.id);
- u.online=true;u.lastSeen=now();
- saveAll();render();
+    return `
+
+        <form id="registerForm">
+
+            <div class="form-group">
+
+                <label>Ad Soyad</label>
+
+                <input
+                    class="input"
+                    name="name"
+                    maxlength="80"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>E-posta</label>
+
+                <input
+                    class="input"
+                    name="email"
+                    type="email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Kullanıcı adı</label>
+
+                <input
+                    class="input"
+                    name="username"
+                    pattern="[A-Za-z0-9_.-]+"
+                    maxlength="30"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Şifre</label>
+
+                <input
+                    class="input"
+                    name="password"
+                    type="password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Hesap türü</label>
+
+                <select
+                    class="input"
+                    name="role"
+                >
+
+                    <option>Dinleyici</option>
+                    <option>Sanatçı</option>
+                    <option>Beat Maker</option>
+                    <option>Mix Engineer</option>
+                    <option>Prodüktör</option>
+
+                </select>
+
+            </div>
+
+            <button
+                class="btn primary full"
+            >
+                Hesap Oluştur
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+
+            Zaten hesabın var mı?
+
+            <button
+                data-auth="login"
+            >
+                Giriş Yap
+            </button>
+
+        </div>
+
+    `;
+
 }
 
-function newPost(){
- modal(`<h2>Gönderi Oluştur</h2>
- <form id="postForm" class="form">
- <textarea name="text" placeholder="Ne düşünüyorsun?" required></textarea>
- <button>Paylaş</button>
- <button type="button" data-close-modal>Vazgeç</button>
- </form>`);
+/* =========================================================
+   ANA RENDER
+   ========================================================= */
+
+function render(){
+
+    const user =
+        currentUser();
+
+    if(user){
+
+        checkPro(user);
+
+        applyTheme(
+            getUser(user.id)
+        );
+
+    }
+
+    const app =
+        document.getElementById("app");
+
+    if(!user){
+
+        app.innerHTML =
+            authHTML();
+
+        return;
+
+    }
+
+    let pageHTML = "";
+
+    switch(state.page){
+
+        case "home":
+            pageHTML = renderHome();
+            break;
+
+        case "posts":
+            pageHTML = renderHome();
+            break;
+
+        case "reels":
+            pageHTML = renderReels();
+            break;
+
+        case "songs":
+            pageHTML = renderSongs();
+            break;
+
+        case "channels":
+            pageHTML = renderChannels();
+            break;
+
+        case "shop":
+            pageHTML = renderShop();
+            break;
+
+        case "profile":
+            pageHTML = renderProfile();
+            break;
+
+        case "messages":
+            pageHTML = renderMessages();
+            break;
+
+        case "notifications":
+            pageHTML = renderNotifications();
+            break;
+
+        case "pro":
+            pageHTML = renderPro();
+            break;
+
+        case "settings":
+            pageHTML = renderSettings();
+            break;
+
+        case "admin":
+            pageHTML = renderAdmin();
+            break;
+
+        default:
+            pageHTML = renderHome();
+
+    }
+
+    app.innerHTML = `
+
+        ${headerHTML()}
+
+        <div class="container main-layout">
+
+            ${navHTML()}
+
+            <main class="content">
+
+                ${pageHTML}
+
+            </main>
+
+        </div>
+
+    `;
+
 }
 
-function newSong(){
- modal(`<h2>Şarkı Ekle</h2>
- <form id="songForm" class="form">
- <input name="name" placeholder="Şarkı adı" required>
- <textarea name="description" placeholder="Açıklama"></textarea>
- <input name="cover" type="file" accept="image/*" required>
- <input name="audio" type="file" accept="audio/*" required>
- <button>Ekle</button>
- </form>`);
-}
+/* =========================================================
+   EVENT SYSTEM
+   ========================================================= */
 
-function newReel(){
- modal(`<h2>Reel Ekle</h2>
- <form id="reelForm" class="form">
- <input name="title" placeholder="Reel başlığı">
- <input name="video" type="file" accept="video/*" required>
- <button>Paylaş</button>
- </form>`);
-}
+document.addEventListener(
+    "click",
+    function(e){
 
-function newShop(){
- const u=me();
- if(!["Beat Maker","Mix Engineer","Prodüktör"].includes(u.role))
-  return toast("Shop'a içerik eklemek için uygun rol gerekli");
+        const nav =
+            e.target.closest("[data-nav]");
 
- const count=shop.filter(x=>x.userId===u.id).length;
- const freeLimit=50;
- if(u.plan!=="pro"&&count>=freeLimit)
-  return toast("Free hesapta Shop limiti 50");
+        if(nav){
 
- modal(`<h2>Shop İçeriği</h2>
- <form id="shopForm" class="form">
- <select name="type">
-  <option>Beat</option><option>Mix</option>
- </select>
- <input name="name" placeholder="İçerik adı" required>
- <textarea name="description" placeholder="Açıklama"></textarea>
- <input name="price" type="number" min="0" placeholder="Fiyat (TL)" required>
- <input name="audio" type="file" accept="audio/*" required>
- <button>Yükle</button>
- </form>`);
-}
+            navigate(
+                nav.dataset.nav
+            );
 
-function fileData(file){
- return new Promise((resolve,reject)=>{
-  const r=new FileReader();
-  r.onload=()=>resolve(r.result);
-  r.onerror=reject;
-  r.readAsDataURL(file);
- });
-}
+            return;
 
-function follow(id){
- const u=me(),x=userById(id);
- if(!x||x.id===u.id)return;
- const i=u.following.indexOf(id);
- if(i>=0){
-  u.following.splice(i,1);
-  x.followers=x.followers.filter(a=>a!==u.id);
-  toast("Takipten çıkıldı");
- }else{
-  u.following.push(id);
-  x.followers.push(u.id);
-  toast("Takip edildi");
- }
- saveAll();render();
-}
+        }
 
-function sendMessage(id){
- const x=userById(id);
- modal(`<h2>${esc(x.name)} kişisine mesaj</h2>
- <form id="messageForm" class="form">
- <textarea name="text" required placeholder="Mesaj"></textarea>
- <button>Gönder</button>
- </form>`);
- document.getElementById("messageForm").dataset.to=id;
-}
+        const auth =
+            e.target.closest("[data-auth]");
 
-function profileSettings(){
- const u=me();
- modal(`<h2>Profil Ayarları</h2>
- <form id="profileForm" class="form">
- <input name="name" value="${esc(u.name)}" placeholder="Ad Soyad" required>
- <input name="username" value="${esc(u.username)}" placeholder="Kullanıcı adı" required>
- <input name="email" value="${esc(u.email)}" type="email" placeholder="E-posta" required>
- <textarea name="bio" placeholder="Bio">${esc(u.bio)}</textarea>
- <input name="avatar" type="file" accept="image/*">
- <button>Kaydet</button>
- </form>`);
-}
+        if(auth){
 
-function adminCreate(){
- modal(`<h2>Admin hesabı oluştur</h2>
- <form id="adminForm" class="form">
- <input name="name" placeholder="Ad" required>
- <input name="email" type="email" placeholder="E-posta" required>
- <input name="username" placeholder="Kullanıcı adı" required>
- <input name="password" type="password" placeholder="Şifre" required>
- <button>Oluştur</button>
- </form>`);
-}
+            state.authMode =
+                auth.dataset.auth;
 
-document.addEventListener("click",e=>{
- const b=e.target.closest("button");
- if(!b)return;
+            render();
 
- if(b.dataset.auth){
-  state.auth=b.dataset.auth;render();return;
- }
- if(b.dataset.page){
-  state.page=b.dataset.page;
-  state.channel=null;
-  render();return;
- }
- if(b.dataset.feed){
-  state.feed=b.dataset.feed;render();return;
- }
- if(b.dataset.settings){
-  state.settings=b.dataset.settings;render();return;
- }
- if(b.dataset.channel){
-  state.page="channels";state.channel=b.dataset.channel;render();return;
- }
- if(b.dataset.follow){follow(b.dataset.follow);return}
- if(b.dataset.messageUser){sendMessage(b.dataset.messageUser);return}
- if(b.dataset.profileSettings){profileSettings();return}
- if(b.dataset.newPost){newPost();return}
- if(b.dataset.newSong){newSong();return}
- if(b.dataset.newReel){newReel();return}
- if(b.dataset.newShop){newShop();return}
- if(b.dataset.closeModal){closeModal();return}
- if(b.dataset.pro){activatePro(b.dataset.pro);return}
- if(b.dataset.proOff){
-  const u=me();u.plan="free";u.proPlan=null;u.proStartedAt=null;u.proExpiresAt=null;
-  clearUserBoosts(u.id);saveAll();toast("PRO kapatıldı");render();return;
- }
- if(b.dataset.boost){
-  const [type,id]=b.dataset.boost.split(":");boost(type,id);return;
- }
- if(b.dataset.boostAll){boostAll();return}
- if(b.dataset.deletePost){
-  posts=posts.filter(x=>x.id!==b.dataset.deletePost);saveAll();render();return;
- }
- if(b.dataset.deleteSong){
-  songs=songs.filter(x=>x.id!==b.dataset.deleteSong);saveAll();render();return;
- }
- if(b.dataset.deleteShop){
-  shop=shop.filter(x=>x.id!==b.dataset.deleteShop);saveAll();render();return;
- }
- if(b.dataset.theme){
-  const u=me();u.settings.theme=b.dataset.theme;saveAll();themeApply();render();return;
- }
- if(b.dataset.unblock){
-  const u=me();u.blockedUsers=u.blockedUsers.filter(x=>x!==b.dataset.unblock);
-  saveAll();render();return;
- }
- if(b.dataset.logout){
-  const u=me();if(u){u.online=false;u.lastSeen=now();saveAll()}
-  localStorage.removeItem(KEY.current);render();return;
- }
- if(b.dataset.adminCreate){adminCreate();return}
- if(b.dataset.adminPro){
-  const target=prompt("PRO verilecek kullanıcı adı:");
-  const x=users.find(a=>a.username===target);
-  if(!x)return toast("Kullanıcı bulunamadı");
-  x.plan="pro";x.proPlan="yearly";x.proStartedAt=now();x.proExpiresAt=addYear(now());
-  x.proCycleKey=new Date().getFullYear()+"-"+new Date().getMonth();x.proBoostUsed=0;
-  saveAll();toast("PRO verildi");render();return;
- }
- if(b.dataset.adminProUser){
-  const x=userById(b.dataset.adminProUser);
-  if(x){
-   x.plan="pro";x.proPlan="yearly";x.proStartedAt=now();x.proExpiresAt=addYear(now());
-   x.proCycleKey=new Date().getFullYear()+"-"+new Date().getMonth();x.proBoostUsed=0;
-   saveAll();toast("PRO verildi");render();
-  }return;
- }
- if(b.dataset.adminDeleteUser){
-  const id=b.dataset.adminDeleteUser;
-  users=users.filter(x=>x.id!==id);
-  posts=posts.filter(x=>x.userId!==id);
-  songs=songs.filter(x=>x.userId!==id);
-  reels=reels.filter(x=>x.userId!==id);
-  shop=shop.filter(x=>x.userId!==id);
-  saveAll();render();return;
- }
- if(b.dataset.adminClearPosts){posts=[];saveAll();render();return}
- if(b.dataset.adminClearSongs){songs=[];saveAll();render();return}
- if(b.dataset.adminClearReels){reels=[];saveAll();render();return}
- if(b.dataset.adminClearShop){shop=[];saveAll();render();return}
-});
+            return;
 
-document.addEventListener("submit",async e=>{
- const f=e.target;
+        }
 
- if(f.id==="loginForm"){
-  e.preventDefault();login(f);return;
- }
- if(f.id==="registerForm"){
-  e.preventDefault();register(f);return;
- }
- if(f.id==="postForm"){
-  e.preventDefault();
-  posts.unshift({id:uid(),userId:me().id,text:f.text.value,createdAt:now(),likes:[],boosted:false});
-  saveAll();closeModal();render();return;
- }
- if(f.id==="songForm"){
-  e.preventDefault();
-  const cover=await fileData(f.cover.files[0]);
-  const audio=await fileData(f.audio.files[0]);
-  songs.unshift({
-   id:uid(),userId:me().id,name:f.name.value,
-   description:f.description.value,cover,audio,createdAt:now(),
-   boosted:false
-  });
-  saveAll();closeModal();render();return;
- }
- if(f.id==="reelForm"){
-  e.preventDefault();
-  const video=await fileData(f.video.files[0]);
-  reels.unshift({id:uid(),userId:me().id,title:f.title.value,video,createdAt:now(),boosted:false});
-  saveAll();closeModal();render();return;
- }
- if(f.id==="shopForm"){
-  e.preventDefault();
-  const audio=await fileData(f.audio.files[0]);
-  shop.unshift({
-   id:uid(),userId:me().id,type:f.type.value,name:f.name.value,
-   description:f.description.value,price:Number(f.price.value),
-   audio,createdAt:now(),boosted:false
-  });
-  saveAll();closeModal();render();return;
- }
- if(f.id==="messageForm"){
-  e.preventDefault();
-  messages.push({id:uid(),from:me().id,to:f.dataset.to,text:f.text.value,createdAt:now()});
-  saveAll();closeModal();toast("Mesaj gönderildi");return;
- }
- if(f.id==="profileForm"){
-  e.preventDefault();
-  const u=me();
-  const email=f.email.value.trim().toLowerCase();
-  const username=f.username.value.trim();
+        const profile =
+            e.target.closest("[data-profile]");
 
-  if(users.some(x=>x.id!==u.id&&x.email.toLowerCase()===email))
-   return toast("Bu e-posta başka hesapta kullanılıyor");
-  if(users.some(x=>x.id!==u.id&&x.username.toLowerCase()===username.toLowerCase()))
-   return toast("Bu kullanıcı adı kullanımda");
+        if(profile){
 
-  u.name=f.name.value.trim();
-  u.username=username;
-  u.email=email;
-  u.bio=f.bio.value;
+            state.profileUserId =
+                profile.dataset.profile;
 
-  if(f.avatar.files[0])u.avatar=await fileData(f.avatar.files[0]);
-  saveAll();closeModal();render();return;
- }
- if(f.id==="adminForm"){
-  e.preventDefault();
-  const email=f.email.value.trim().toLowerCase();
-  const username=f.username.value.trim();
+            state.channelTab =
+                "posts";
 
-  if(users.some(x=>x.email.toLowerCase()===email))return toast("E-posta kullanımda");
-  if(users.some(x=>x.username.toLowerCase()===username.toLowerCase()))return toast("Kullanıcı adı kullanımda");
+            navigate("profile");
 
-  users.push(defaults({
-   id:uid(),name:f.name.value,email,username,password:f.password.value,
-   role:"admin",createdAt:now(),plan:"pro",proPlan:"yearly",
-   proStartedAt:now(),proExpiresAt:addYear(now()),
-   proCycleKey:new Date().getFullYear()+"-"+new Date().getMonth()
-  }));
-  saveAll();closeModal();toast("Admin oluşturuldu");render();return;
- }
-});
+            return;
 
-document.addEventListener("change",e=>{
- if(e.target.dataset.private!==undefined){
-  const u=me();u.settings.privateProfile=e.target.checked;saveAll();
- }
- if(e.target.dataset.notify!==undefined){
-  const u=me();u.settings.notifications=e.target.checked;saveAll();
- }
-});
+        }
 
-document.addEventListener("input",e=>{
- if(e.target.id==="globalSearch"){
-  state.search=e.target.value;
-  const q=state.search.toLowerCase();
-  if(q.length>=2){
-   const found=users.filter(x=>x.name.toLowerCase().includes(q)||x.username.toLowerCase().includes(q));
-   if(found.length){
-    state.page="channels";
+        const follow =
+            e.target.closest("[data-follow]");
+
+        if(follow){
+
+            followUser(
+                follow.dataset.follow
+            );
+
+            return;
+
+        }
+
+        const block =
+            e.target.closest("[data-block]");
+
+        if(block){
+
+            toggleBlock(
+                block.dataset.block
+            );
+
+            return;
+
+        }
+
+        const message =
+            e.target.closest("[data-message]");
+
+        if(message){
+
+            state.messageUserId =
+                message.dataset.message;
+
+            navigate("messages");
+
+            return;
+
+        }
+
+        const messageUser =
+            e.target.closest(
+                "[data-message-user]"
+            );
+
+        if(messageUser){
+
+            state.messageUserId =
+                messageUser.dataset.messageUser;
+
+            render();
+
+            return;
+
+        }
+
+        const like =
+            e.target.closest(
+                "[data-like-post]"
+            );
+
+        if(like){
+
+            likePost(
+                like.dataset.likePost
+            );
+
+            return;
+
+        }
+
+        const action =
+            e.target.closest(
+                "[data-action]"
+            );
+
+        if(action){
+
+            const type =
+                action.dataset.action;
+
+            if(type === "logout"){
+                logout();
+                return;
+            }
+
+            if(type === "close-modal"){
+                closeModal();
+                return;
+            }
+
+            if(type === "create-post"){
+                createPost();
+                return;
+            }
+
+            if(type === "create-song"){
+                createSong();
+                return;
+            }
+
+            if(type === "create-reel"){
+                createReel();
+                return;
+            }
+
+            if(type === "create-shop"){
+                createShopItem();
+                return;
+            }
+
+            if(type === "read-notifications"){
+
+                const user =
+                    currentUser();
+
+                const notifications =
+                    getNotifications();
+
+                notifications.forEach(
+                    n => {
+
+                        if(
+                            n.userId === user.id
+                        ){
+                            n.read = true;
+                        }
+
+                    }
+                );
+
+                write(
+                    DB.notifications,
+                    notifications
+                );
+
+                render();
+
+                return;
+
+            }
+
+        }
+
+        const boost =
+            e.target.closest("[data-boost]");
+
+        if(boost){
+
+            boostContent(
+                boost.dataset.boost,
+                boost.dataset.id
+            );
+
+            return;
+
+        }
+
+        const buy =
+            e.target.closest("[data-buy-pro]");
+
+        if(buy){
+
+            const type =
+                buy.dataset.buyPro;
+
+            openModal(`
+
+                <div class="modal-head">
+
+                    <h2>
+                        PRO Aktivasyonu
+                    </h2>
+
+                    <button
+                        class="modal-close"
+                        data-action="close-modal"
+                    >
+                        X
+                    </button>
+
+                </div>
+
+                <p class="muted" style="line-height:1.7">
+
+                    Bu demo sürümünde gerçek ödeme alınmaz.
+                    Onayladığında ${type === "monthly" ? "50 TL Aylık PRO" : "200 TL Yıllık PRO"}
+                    yerel olarak hesabına tanımlanır.
+
+                </p>
+
+                <button
+                    class="btn primary full"
+                    style="margin-top:18px"
+                    data-confirm-pro="${type}"
+                >
+                    PRO'yu Aktifleştir
+                </button>
+
+            `);
+
+            return;
+
+        }
+
+        const confirmPro =
+            e.target.closest(
+                "[data-confirm-pro]"
+            );
+
+        if(confirmPro){
+
+            activatePro(
+                confirmPro.dataset.confirmPro
+            );
+
+            closeModal();
+
+            return;
+
+        }
+
+        const shopTab =
+            e.target.closest(
+                "[data-shop-tab]"
+            );
+
+        if(shopTab){
+
+            state.shopTab =
+                shopTab.dataset.shopTab;
+
+            render();
+
+            return;
+
+        }
+
+        const channelTab =
+            e.target.closest(
+                "[data-channel-tab]"
+            );
+
+        if(channelTab){
+
+            state.channelTab =
+                channelTab.dataset.channelTab;
+
+            render();
+
+            return;
+
+        }
+
+        const theme =
+            e.target.closest(
+                "[data-theme]"
+            );
+
+        if(theme){
+
+            saveTheme(
+                Number(theme.dataset.theme)
+            );
+
+            return;
+
+        }
+
+        const adminBan =
+            e.target.closest(
+                "[data-admin-ban]"
+            );
+
+        if(adminBan){
+
+            adminBanUser(
+                adminBan.dataset.adminBan
+            );
+
+            return;
+
+        }
+
+        const adminUnban =
+            e.target.closest(
+                "[data-admin-unban]"
+            );
+
+        if(adminUnban){
+
+            adminUnbanUser(
+                adminUnban.dataset.adminUnban
+            );
+
+            return;
+
+        }
+
+        const adminDelete =
+            e.target.closest(
+                "[data-admin-delete]"
+            );
+
+        if(adminDelete){
+
+            if(
+                confirm(
+                    "Bu hesabı ve içeriklerini silmek istediğine emin misin?"
+                )
+            ){
+
+                adminDeleteUser(
+                    adminDelete.dataset.adminDelete
+                );
+
+            }
+
+            return;
+
+        }
+
+        const adminPro =
+            e.target.closest(
+                "[data-admin-pro]"
+            );
+
+        if(adminPro){
+
+            adminGivePro(
+                adminPro.dataset.id,
+                adminPro.dataset.adminPro
+            );
+
+            return;
+
+        }
+
+        const removePro =
+            e.target.closest(
+                "[data-admin-remove-pro]"
+            );
+
+        if(removePro){
+
+            adminRemovePro(
+                removePro.dataset.adminRemovePro
+            );
+
+            return;
+
+        }
+
+        const deleteContent =
+            e.target.closest(
+                "[data-admin-delete-content]"
+            );
+
+        if(deleteContent){
+
+            adminDeleteContent(
+                deleteContent.dataset.contentType,
+                deleteContent.dataset.adminDeleteContent
+            );
+
+            return;
+
+        }
+
+    }
+);
+
+/* =========================================================
+   FORM EVENTLERİ
+   ========================================================= */
+
+document.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+        if(e.target.id === "loginForm"){
+
+            const form =
+                new FormData(e.target);
+
+            loginUser(
+                form.get("identifier"),
+                form.get("password")
+            );
+
+            return;
+
+        }
+
+        if(e.target.id === "registerForm"){
+
+            const form =
+                new FormData(e.target);
+
+            registerUser({
+
+                name:form.get("name"),
+                email:form.get("email"),
+                username:form.get("username"),
+                password:form.get("password"),
+                role:form.get("role")
+
+            });
+
+            return;
+
+        }
+
+        if(e.target.id === "postForm"){
+
+            const form =
+                new FormData(e.target);
+
+            savePost(
+                form.get("text"),
+                form.get("media")
+            );
+
+            closeModal();
+
+            return;
+
+        }
+
+        if(e.target.id === "songForm"){
+
+            const form =
+                new FormData(e.target);
+
+            saveSong({
+
+                title:form.get("title"),
+                description:form.get("description"),
+                audio:form.get("audio")
+
+            });
+
+            closeModal();
+
+            return;
+
+        }
+
+        if(e.target.id === "reelForm"){
+
+            const form =
+                new FormData(e.target);
+
+            saveReel({
+
+                text:form.get("text"),
+                video:form.get("video")
+
+            });
+
+            closeModal();
+
+            return;
+
+        }
+
+        if(e.target.id === "shopForm"){
+
+            const form =
+                new FormData(e.target);
+
+            saveShopItem({
+
+                type:form.get("type"),
+                title:form.get("title"),
+                description:form.get("description"),
+                price:form.get("price"),
+                audio:form.get("audio"),
+                image:form.get("image")
+
+            });
+
+            closeModal();
+
+            return;
+
+        }
+
+        if(e.target.id === "messageForm"){
+
+            const form =
+                new FormData(e.target);
+
+            sendMessage(
+                state.messageUserId,
+                form.get("text")
+            );
+
+            return;
+
+        }
+
+        if(
+            e.target.id ===
+            "profileSettingsForm"
+        ){
+
+            saveProfileSettings(
+                new FormData(e.target)
+            );
+
+            return;
+
+        }
+
+    }
+);
+
+/* =========================================================
+   PROFİL AYARLARINI KAYDET
+   ========================================================= */
+
+function saveProfileSettings(form){
+
+    const user =
+        currentUser();
+
+    if(!user){
+        return;
+    }
+
+    const newName =
+        String(
+            form.get("name") || ""
+        ).trim();
+
+    const newUsername =
+        String(
+            form.get("username") || ""
+        )
+        .trim()
+        .toLowerCase();
+
+    const bio =
+        String(
+            form.get("bio") || ""
+        ).trim();
+
+    const avatar =
+        String(
+            form.get("avatar") || ""
+        ).trim();
+
+    const profileBackground =
+        String(
+            form.get("profileBackground") || ""
+        ).trim();
+
+    const shopBackground =
+        String(
+            form.get("shopBackground") || ""
+        ).trim();
+
+    if(!newName || !newUsername){
+
+        toast(
+            "İsim ve kullanıcı adı boş bırakılamaz."
+        );
+
+        return;
+
+    }
+
+    const users =
+        getUsers();
+
+    const usernameTaken =
+        users.some(
+            u =>
+                u.id !== user.id &&
+                u.username === newUsername
+        );
+
+    if(usernameTaken){
+
+        toast(
+            "Bu kullanıcı adı zaten kullanılıyor."
+        );
+
+        return;
+
+    }
+
+    if(
+        (
+            newName !== user.name ||
+            newUsername !== user.username
+        ) &&
+        !canChangeName(user)
+    ){
+
+        toast(
+            "7 gün içinde toplam 3 değişiklik sınırına ulaştın."
+        );
+
+        return;
+
+    }
+
+    if(newName !== user.name){
+
+        if(
+            !registerNameChange(
+                user,
+                "name",
+                user.name,
+                newName
+            )
+        ){
+            return;
+        }
+
+    }
+
+    if(newUsername !== user.username){
+
+        if(
+            !registerNameChange(
+                user,
+                "username",
+                user.username,
+                newUsername
+            )
+        ){
+            return;
+        }
+
+    }
+
+    updateUser(
+        user.id,
+        u => {
+
+            u.name = newName;
+
+            u.username =
+                newUsername;
+
+            u.bio = bio;
+
+            u.avatar =
+                avatar || null;
+
+            u.profileBackground =
+                profileBackground || null;
+
+            u.shopBackground =
+                shopBackground || null;
+
+        }
+    );
+
+    toast(
+        "Profil güncellendi."
+    );
+
     render();
-   }
-  }
- }
-});
 
-setInterval(()=>{
- const u=me();
- if(u){
-  const before=u.plan;
-  proCheck(u);
-  if(before!==u.plan)render();
- }
-},30000);
+}
 
-themeApply();
-render();
+/* =========================================================
+   SEARCH EVENT
+   ========================================================= */
+
+document.addEventListener(
+    "input",
+    function(e){
+
+        if(
+            e.target.id !==
+            "globalSearch"
+        ){
+            return;
+        }
+
+        const query =
+            e.target.value;
+
+        const parent =
+            e.target.parentElement;
+
+        const old =
+            document.getElementById(
+                "searchDropdown"
+            );
+
+        if(old){
+            old.remove();
+        }
+
+        if(!query.trim()){
+            return;
+        }
+
+        parent.insertAdjacentHTML(
+            "beforeend",
+            renderSearch(query)
+        );
+
+    }
+);
+
+/* =========================================================
+   SETTINGS TAB
+   ========================================================= */
+
+document.addEventListener(
+    "click",
+    function(e){
+
+        const tab =
+            e.target.closest(
+                "[data-settings-tab]"
+            );
+
+        if(!tab){
+            return;
+        }
+
+        const content =
+            document.getElementById(
+                "settingsContent"
+            );
+
+        if(!content){
+            return;
+        }
+
+        const user =
+            currentUser();
+
+        if(
+            tab.dataset.settingsTab ===
+            "appearance"
+        ){
+
+            content.innerHTML =
+                renderAppearanceSettings();
+
+        }
+
+        if(
+            tab.dataset.settingsTab ===
+            "profile"
+        ){
+
+            content.innerHTML =
+                renderProfileSettings(
+                    user
+                );
+
+        }
+
+        if(
+            tab.dataset.settingsTab ===
+            "account"
+        ){
+
+            content.innerHTML = `
+
+                <h2>Hesap</h2>
+
+                <div
+                    class="card"
+                    style="
+                        padding:15px;
+                        margin-top:15px;
+                        background:var(--panel2)
+                    "
+                >
+
+                    <p>
+                        E-posta:
+                        <strong>
+                            ${escapeHTML(user.email)}
+                        </strong>
+                    </p>
+
+                    <p style="margin-top:8px">
+                        Hesap türü:
+                        <strong>
+                            ${escapeHTML(user.role)}
+                        </strong>
+                    </p>
+
+                    <p style="margin-top:8px">
+                        Plan:
+                        <strong>
+                            ${user.plan === "pro" ? "PRO" : "Free"}
+                        </strong>
+                    </p>
+
+                    <p style="margin-top:8px">
+                        Hesap oluşturma:
+                        <strong>
+                            ${dateText(user.createdAt)}
+                        </strong>
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+);
+
+/* =========================================================
+   GECE YARISI PRO KONTROLÜ
+   ========================================================= */
+
+function scheduleMidnightCheck(){
+
+    const current =
+        new Date();
+
+    const next =
+        new Date(current);
+
+    next.setHours(
+        24,
+        0,
+        5,
+        0
+    );
+
+    const delay =
+        next.getTime() -
+        current.getTime();
+
+    setTimeout(
+        () => {
+
+            const user =
+                currentUser();
+
+            if(user){
+
+                checkPro(user);
+
+                render();
+
+            }
+
+            scheduleMidnightCheck();
+
+        },
+        Math.max(
+            1000,
+            delay
+        )
+    );
+
+}
+
+/* =========================================================
+   OTOMATİK PRO KONTROL
+   ========================================================= */
+
+setInterval(
+    () => {
+
+        const user =
+            currentUser();
+
+        if(user){
+
+            checkPro(user);
+
+        }
+
+    },
+    30000
+);
+
+/* =========================================================
+   İLK ÇALIŞTIRMA
+   ========================================================= */
+
+(function init(){
+
+    const user =
+        currentUser();
+
+    if(user){
+
+        updateUser(
+            user.id,
+            u => {
+
+                u.online = true;
+                u.lastSeen = now();
+
+            }
+        );
+
+    }
+
+    /*
+       İlk yönetici hesabı otomatik oluşturulmuyor.
+       Admin hesabı gerçek sistemde backend tarafından
+       güvenli biçimde atanmalıdır.
+    */
+
+    state.authMode =
+        "login";
+
+    applyTheme(
+        user
+    );
+
+    render();
+
+    scheduleMidnightCheck();
+
+})();
+
 </script>
+
 </body>
 </html>
