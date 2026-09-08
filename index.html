@@ -2,4908 +2,3489 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MYM SOUND</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-    --bg:#080808;
-    --panel:#111;
-    --panel2:#171717;
-    --border:#292929;
-    --text:#fff;
-    --muted:#8d8d8d;
-    --purple:#8b5cf6;
-    --purple2:#6d28d9;
-    --danger:#ef4444;
-    --success:#22c55e;
+ --bg:#08080d;
+ --panel:#11111a;
+ --panel2:#171721;
+ --border:#292938;
+ --purple:#8b5cf6;
+ --purple2:#6d28d9;
+ --text:#fff;
+ --muted:#9b9baa;
+ --danger:#ef4444;
+ --green:#22c55e;
 }
-
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
 }
-
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+.auth{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:
+ radial-gradient(circle at top,#241044 0,transparent 38%),
+ var(--bg);
 }
-
-::-webkit-scrollbar{width:7px;height:7px}
-::-webkit-scrollbar-thumb{background:#333;border-radius:10px}
-
-/* AUTH */
-
-.auth-screen{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:
-        radial-gradient(circle at top,#291344 0,#0b0810 35%,#050505 75%);
-}
-
 .auth-box{
-    width:100%;
-    max-width:450px;
-    background:#111;
-    border:1px solid #333;
-    border-radius:22px;
-    padding:30px;
-    box-shadow:0 25px 80px #000;
+ width:420px;
+ max-width:100%;
+ background:rgba(17,17,26,.96);
+ border:1px solid var(--border);
+ border-radius:22px;
+ padding:30px;
+ box-shadow:0 25px 80px #000;
 }
-
-.logo-big{
-    text-align:center;
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:2px;
-    margin-bottom:7px;
+.logo{
+ font-size:30px;
+ font-weight:900;
+ letter-spacing:2px;
 }
-
-.logo-big span,
 .logo span{color:var(--purple)}
-
-.auth-sub{
-    color:#888;
-    text-align:center;
-    margin-bottom:25px;
-}
-
+.auth-logo{text-align:center;margin-bottom:25px}
 .auth-tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:18px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+ margin-bottom:20px;
 }
-
-.auth-tabs button{
-    flex:1;
-    padding:12px;
-    border-radius:11px;
-    border:1px solid var(--border);
-    background:#151515;
-    color:#aaa;
+.auth-tabs button,.nav-btn,.btn{
+ border:1px solid var(--border);
+ background:var(--panel2);
+ color:var(--text);
+ border-radius:10px;
+ padding:11px 15px;
+ transition:.2s;
 }
-
-.auth-tabs button.active{
-    background:var(--purple);
-    border-color:var(--purple);
-    color:#fff;
+.auth-tabs button.active,.btn.primary,.nav-btn.active{
+ background:var(--purple);
+ border-color:var(--purple);
 }
-
-.auth-form{
-    display:flex;
-    flex-direction:column;
-    gap:11px;
+.field{margin-bottom:14px}
+.field label{
+ display:block;
+ color:var(--muted);
+ font-size:13px;
+ margin-bottom:7px;
 }
-
-.auth-form input,
-.auth-form select{
-    width:100%;
-    padding:13px;
-    background:#090909;
-    color:#fff;
-    border:1px solid var(--border);
-    border-radius:11px;
-    outline:none;
+.field input,.field textarea,.field select{
+ width:100%;
+ border:1px solid var(--border);
+ background:#0c0c13;
+ color:#fff;
+ border-radius:10px;
+ padding:12px;
+ outline:none;
 }
-
-.auth-form input:focus,
-.auth-form select:focus{
-    border-color:var(--purple);
+.field input:focus,.field textarea:focus,.field select:focus{
+ border-color:var(--purple);
 }
-
-.primary{
-    background:var(--purple)!important;
-    border-color:var(--purple)!important;
-    color:#fff!important;
+textarea{min-height:100px;resize:vertical}
+.auth-submit{width:100%;margin-top:8px}
+.switch{text-align:center;color:var(--muted);font-size:13px;margin-top:16px}
+.switch button{
+ border:0;background:none;color:var(--purple);
 }
-
-.auth-note{
-    color:#666;
-    font-size:12px;
-    text-align:center;
-    margin-top:14px;
-}
-
-/* TOP */
 
 .topbar{
-    height:64px;
-    position:sticky;
-    top:0;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:0 18px;
-    background:rgba(8,8,8,.95);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid var(--border);
+ height:68px;
+ border-bottom:1px solid var(--border);
+ background:rgba(8,8,13,.94);
+ backdrop-filter:blur(15px);
+ display:flex;
+ align-items:center;
+ gap:20px;
+ padding:0 20px;
+ position:sticky;
+ top:0;
+ z-index:50;
 }
-
-.logo{
-    font-size:21px;
-    font-weight:900;
-    white-space:nowrap;
-}
-
+.topbar .logo{font-size:22px;white-space:nowrap}
 .search{
-    flex:1;
-    max-width:520px;
+ flex:1;
+ max-width:650px;
+ position:relative;
 }
-
 .search input{
-    width:100%;
-    padding:11px 14px;
-    border-radius:11px;
-    border:1px solid var(--border);
-    background:#111;
-    color:#fff;
-    outline:none;
+ width:100%;
+ padding:11px 16px;
+ border:1px solid var(--border);
+ border-radius:12px;
+ background:var(--panel);
+ color:white;
+ outline:none;
 }
-
-.top-actions{
-    margin-left:auto;
-    display:flex;
-    gap:7px;
-}
-
+.top-actions{margin-left:auto;display:flex;gap:8px}
 .icon-btn{
-    width:40px;
-    height:40px;
-    border:1px solid var(--border);
-    background:#111;
-    color:#fff;
-    border-radius:10px;
-    position:relative;
+ width:42px;
+ height:42px;
+ border-radius:11px;
+ border:1px solid var(--border);
+ background:var(--panel);
+ color:#fff;
+}
+.badge{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ min-width:18px;
+ height:18px;
+ padding:0 5px;
+ border-radius:20px;
+ background:var(--danger);
+ font-size:10px;
+ position:absolute;
+ top:-3px;
+ right:-3px;
 }
 
-.icon-btn:hover{
-    border-color:var(--purple);
-}
-
-.count{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:var(--danger);
-    min-width:17px;
-    height:17px;
-    border-radius:50%;
-    font-size:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* LAYOUT */
-
-.layout{
-    display:flex;
-    min-height:calc(100vh - 64px);
-}
-
+.layout{display:flex;min-height:calc(100vh - 68px)}
 .sidebar{
-    width:235px;
-    flex-shrink:0;
-    border-right:1px solid var(--border);
-    background:#090909;
-    padding:14px;
-    position:sticky;
-    top:64px;
-    height:calc(100vh - 64px);
-    overflow:auto;
+ width:230px;
+ border-right:1px solid var(--border);
+ padding:15px;
+ position:sticky;
+ top:68px;
+ height:calc(100vh - 68px);
+ overflow:auto;
+ background:#0b0b11;
 }
-
-.nav-title{
-    color:#666;
-    font-size:11px;
-    margin:12px 10px 7px;
-    text-transform:uppercase;
+.nav{
+ display:flex;
+ flex-direction:column;
+ gap:6px;
 }
-
 .nav-btn{
-    width:100%;
-    text-align:left;
-    border:0;
-    background:transparent;
-    color:#aaa;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:3px;
+ text-align:left;
+ width:100%;
+ border-color:transparent;
+ background:transparent;
+ color:#bbb;
 }
-
-.nav-btn:hover,
-.nav-btn.active{
-    background:#1c1428;
-    color:#fff;
+.nav-btn:hover{background:var(--panel)}
+.nav-btn.active{color:#fff}
+.nav-title{
+ color:#666675;
+ font-size:11px;
+ text-transform:uppercase;
+ letter-spacing:1px;
+ margin:20px 10px 8px;
 }
-
 .main{
-    width:100%;
-    max-width:1100px;
-    margin:auto;
-    padding:25px;
+ flex:1;
+ min-width:0;
+ padding:24px;
+ padding-bottom:110px;
 }
+.container{max-width:1200px;margin:auto}
 
 .page-title{
-    font-size:28px;
-    font-weight:900;
-    margin-bottom:7px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ margin-bottom:22px;
 }
-
-.page-subtitle{
-    color:#777;
-    margin-bottom:20px;
-}
-
-/* GENERAL */
+.page-title h1{font-size:28px}
+.page-title p{color:var(--muted);margin-top:5px}
 
 .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:17px;
-    padding:18px;
-    margin-bottom:15px;
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:15px;
 }
-
-.row{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+ gap:15px;
 }
-
-.between{justify-content:space-between}
-.wrap{flex-wrap:wrap}
-.flex1{flex:1}
-.muted{color:var(--muted)}
-.small{font-size:12px}
-
-.btn{
-    border:1px solid var(--border);
-    background:#171717;
-    color:#fff;
-    padding:9px 13px;
-    border-radius:10px;
-}
-
-.btn:hover{border-color:var(--purple)}
-.btn-danger{
-    color:#ff7777;
-    background:#291010;
-    border-color:#612020;
-}
-.btn-success{
-    color:#6ee58b;
-    background:#102415;
-    border-color:#20592d;
-}
-
 .empty{
-    text-align:center;
-    padding:45px 15px;
-    color:#666;
+ padding:50px 20px;
+ text-align:center;
+ color:var(--muted);
+ background:var(--panel);
+ border:1px dashed var(--border);
+ border-radius:16px;
 }
-
-.field,
-.form-input,
-.form-select,
-textarea{
-    width:100%;
-    background:#090909;
-    color:#fff;
-    border:1px solid var(--border);
-    border-radius:11px;
-    padding:12px;
-    outline:none;
-}
-
-.field:focus,
-.form-input:focus,
-.form-select:focus,
-textarea:focus{
-    border-color:var(--purple);
-}
-
-textarea{
-    resize:vertical;
-    min-height:110px;
-}
-
-.form-group{
-    margin-bottom:13px;
-}
-
-.form-group label{
-    display:block;
-    color:#aaa;
-    font-size:13px;
-    margin-bottom:6px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-/* AVATAR */
 
 .avatar{
-    width:44px;
-    height:44px;
-    min-width:44px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#7c3aed,#111);
-    border:1px solid #444;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
+ width:44px;
+ height:44px;
+ min-width:44px;
+ border-radius:50%;
+ background:linear-gradient(135deg,var(--purple),#31145f);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:800;
+ overflow:hidden;
+ background-size:cover;
+ background-position:center;
 }
+.avatar.xs{width:32px;height:32px;min-width:32px;font-size:11px}
+.avatar.sm{width:38px;height:38px;min-width:38px;font-size:13px}
+.avatar.lg{width:100px;height:100px;min-width:100px;font-size:28px}
+.avatar img{width:100%;height:100%;object-fit:cover}
 
-.avatar.small{
-    width:34px;
-    height:34px;
-    min-width:34px;
-    font-size:12px;
-}
-
-.avatar.large{
-    width:100px;
-    height:100px;
-    min-width:100px;
-    font-size:28px;
-    border:3px solid #111;
-}
-
-.avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-/* USER */
-
-.user-line{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.user-name{
-    font-weight:800;
-}
-
+.row{display:flex;align-items:center;gap:12px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
 .role{
-    color:#888;
-    font-size:12px;
+ display:inline-block;
+ border:1px solid #493476;
+ color:#c4adff;
+ background:#211537;
+ padding:4px 8px;
+ border-radius:20px;
+ font-size:11px;
 }
-
-.online-dot{
-    display:inline-block;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#555;
-    margin-right:4px;
+.pro{
+ color:#fff;
+ background:linear-gradient(90deg,#8b5cf6,#c084fc);
+ border:0;
 }
-
-.online-dot.on{background:var(--success)}
-
-.plan{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:6px;
-    font-size:10px;
-    font-weight:900;
+.online{
+ display:inline-block;
+ width:8px;
+ height:8px;
+ border-radius:50%;
+ background:var(--green);
+ margin-right:5px;
 }
-
-.plan-free{
-    background:#242424;
-    color:#aaa;
-}
-
-.plan-pro{
-    background:var(--purple);
-    color:#fff;
-}
-
-/* TABS */
 
 .tabs{
-    display:flex;
-    gap:7px;
-    overflow-x:auto;
-    margin-bottom:15px;
-    scrollbar-width:none;
+ display:flex;
+ gap:8px;
+ overflow:auto;
+ margin-bottom:18px;
 }
-
-.tabs button{
-    white-space:nowrap;
+.tab{
+ padding:9px 15px;
+ white-space:nowrap;
+ border:1px solid var(--border);
+ border-radius:10px;
+ background:var(--panel);
+ color:#aaa;
 }
+.tab.active{background:var(--purple);color:#fff;border-color:var(--purple)}
 
-/* POSTS */
-
-.post{
-    background:#111;
-    border:1px solid var(--border);
-    border-radius:17px;
-    padding:17px;
-    margin-bottom:15px;
-}
-
-.post-head{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.post-text{
-    white-space:pre-wrap;
-    line-height:1.55;
-    margin:14px 0;
-}
-
+.post-header{display:flex;align-items:center;gap:10px}
+.post-user{font-weight:700}
+.post-content{margin:16px 0;line-height:1.6;white-space:pre-wrap}
 .post-media{
-    width:100%;
-    max-height:600px;
-    object-fit:contain;
-    background:#050505;
-    border-radius:12px;
+ width:100%;
+ max-height:500px;
+ object-fit:contain;
+ border-radius:12px;
+ background:#050509;
 }
-
 .post-actions{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin-top:12px;
+ display:flex;
+ gap:8px;
+ border-top:1px solid var(--border);
+ padding-top:12px;
 }
-
-.comment-box{
-    display:flex;
-    gap:7px;
-    margin-top:12px;
+.action{
+ border:0;
+ background:transparent;
+ color:#aaa;
+ padding:8px;
+ border-radius:8px;
 }
+.action:hover{background:var(--panel2);color:#fff}
+.action.liked{color:#ff5b85}
 
-.comment-box input{
-    flex:1;
-    background:#090909;
-    border:1px solid var(--border);
-    color:#fff;
-    padding:10px;
-    border-radius:10px;
-}
-
-.comment{
-    padding:8px 0;
-    border-bottom:1px solid #222;
-}
-
-/* SONG */
-
-.song{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
+.song-card{overflow:hidden}
 .cover{
-    width:75px;
-    height:75px;
-    min-width:75px;
-    border-radius:12px;
-    object-fit:cover;
-    background:#222;
+ width:100%;
+ aspect-ratio:1;
+ border-radius:12px;
+ background:linear-gradient(135deg,#241044,#08080d);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ margin-bottom:13px;
 }
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover-placeholder{font-size:38px;color:#777}
+.song-title{font-weight:800;font-size:17px}
+.song-desc{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.4}
+.song-meta{display:flex;justify-content:space-between;color:#777;font-size:12px;margin:10px 0}
 
-.song-info{
-    flex:1;
-    min-width:0;
+.shop-tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-bottom:20px;
 }
-
-.song-title{
-    font-weight:900;
-    font-size:17px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+.shop-tab{
+ border:1px solid var(--border);
+ background:var(--panel);
+ color:#aaa;
+ border-radius:14px;
+ padding:16px;
+ text-align:left;
 }
+.shop-tab.active{border-color:var(--purple);background:#171025;color:white}
 
-.song-desc{
-    color:#777;
-    font-size:13px;
-    margin-top:4px;
+.shop-banner{
+ height:190px;
+ border-radius:18px;
+ background:
+ linear-gradient(90deg,#181126,#0e0e15);
+ background-size:cover;
+ background-position:center;
+ display:flex;
+ align-items:end;
+ padding:20px;
+ position:relative;
+ overflow:hidden;
+ margin-bottom:20px;
 }
-
-.song-actions{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
+.shop-banner:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(transparent,rgba(0,0,0,.85));
 }
-
-/* PROFILE */
-
-.profile-cover{
-    height:230px;
-    border-radius:18px;
-    border:1px solid var(--border);
-    background:linear-gradient(135deg,#241238,#0d0d0d);
-    background-size:cover;
-    background-position:center;
-}
-
-.profile-info{
-    position:relative;
-    margin-top:-50px;
-    padding:0 22px;
-    display:flex;
-    align-items:end;
-    gap:18px;
-}
-
-.profile-text{
-    padding-bottom:10px;
-}
-
-.profile-name{
-    font-size:25px;
-    font-weight:900;
-}
-
-.stats{
-    display:flex;
-    gap:25px;
-    margin-top:12px;
-}
-
-.stat b{display:block}
-.stat span{
-    color:#777;
-    font-size:12px;
-}
-
-/* CHANNEL */
-
-.channel-cover{
-    height:210px;
-    background:#1b1029;
-    background-size:cover;
-    background-position:center;
-}
-
-.channel-body{
-    padding:20px;
-}
-
-.channel-actions{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
-
-/* PEOPLE */
-
-.person{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:13px 0;
-    border-bottom:1px solid #222;
-}
-
-.person-info{flex:1}
-.person-actions{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-}
-
-/* SHOP */
-
-.shop-cover{
-    height:190px;
-    border-radius:17px;
-    background:linear-gradient(135deg,#29143f,#101010);
-    background-size:cover;
-    background-position:center;
-    border:1px solid var(--border);
-    display:flex;
-    align-items:end;
-    padding:20px;
-    margin-bottom:15px;
-}
-
-.shop-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.shop-item{
-    background:#111;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:15px;
-}
-
-.shop-type{
-    color:var(--purple);
-    font-size:11px;
-    font-weight:900;
-    text-transform:uppercase;
-}
-
+.shop-banner-content{position:relative;z-index:2}
 .price{
-    font-size:22px;
-    font-weight:900;
-    margin:10px 0;
+ font-size:18px;
+ font-weight:900;
+ color:#c4adff;
 }
 
-/* REELS */
+.channel-banner{
+ height:220px;
+ border-radius:18px;
+ background:linear-gradient(135deg,#21103e,#11111a);
+ background-size:cover;
+ background-position:center;
+ margin-bottom:-50px;
+}
+.channel-info{
+ padding:60px 20px 20px;
+}
+.channel-avatar{border:5px solid var(--panel)}
+.stats{
+ display:flex;
+ gap:25px;
+ flex-wrap:wrap;
+ margin:15px 0;
+}
+.stat strong{display:block;font-size:18px}
+.stat span{font-size:12px;color:var(--muted)}
+
+.profile-head{
+ display:flex;
+ gap:20px;
+ align-items:center;
+ padding:20px;
+}
+.profile-info h1{font-size:27px}
+.profile-info p{color:var(--muted);margin-top:6px}
+
+.people-list{display:flex;flex-direction:column;gap:8px}
+.person{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:12px;
+ border:1px solid var(--border);
+ background:var(--panel);
+ border-radius:13px;
+}
+.person-info{flex:1;min-width:0}
+.person-info strong{display:block}
+.person-info span{color:var(--muted);font-size:12px}
+
+.message-layout{
+ display:grid;
+ grid-template-columns:320px 1fr;
+ height:650px;
+ border:1px solid var(--border);
+ border-radius:16px;
+ overflow:hidden;
+ background:var(--panel);
+}
+.conversations{border-right:1px solid var(--border);overflow:auto}
+.conv{
+ padding:13px;
+ display:flex;
+ gap:10px;
+ align-items:center;
+ border-bottom:1px solid var(--border);
+ cursor:pointer;
+}
+.conv:hover,.conv.active{background:var(--panel2)}
+.chat{
+ display:flex;
+ flex-direction:column;
+ min-width:0;
+}
+.chat-head{padding:15px;border-bottom:1px solid var(--border)}
+.chat-messages{
+ flex:1;
+ overflow:auto;
+ padding:18px;
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+}
+.bubble{
+ max-width:70%;
+ padding:10px 13px;
+ border-radius:15px;
+ background:#22222d;
+ align-self:flex-start;
+}
+.bubble.mine{
+ align-self:flex-end;
+ background:var(--purple2);
+}
+.chat-form{
+ display:flex;
+ gap:8px;
+ padding:12px;
+ border-top:1px solid var(--border);
+}
+.chat-form input{flex:1}
 
 .reel{
-    max-width:650px;
-    margin:0 auto 20px;
-    background:#111;
-    border:1px solid var(--border);
-    border-radius:18px;
-    overflow:hidden;
+ background:#050507;
+ border:1px solid var(--border);
+ border-radius:18px;
+ overflow:hidden;
+ max-width:500px;
+ margin:auto;
 }
-
 .reel video{
-    width:100%;
-    max-height:720px;
-    background:#000;
-    display:block;
+ display:block;
+ width:100%;
+ max-height:650px;
+ background:#000;
 }
+.reel-info{padding:15px}
 
-.reel-body{
-    padding:15px;
+.settings-grid{
+ display:grid;
+ grid-template-columns:220px 1fr;
+ gap:15px;
 }
-
-/* SETTINGS */
-
-.settings-list{
-    display:flex;
-    flex-direction:column;
+.settings-menu{display:flex;flex-direction:column;gap:6px}
+.settings-menu button{
+ border:0;
+ background:transparent;
+ color:#aaa;
+ text-align:left;
+ padding:11px;
+ border-radius:9px;
 }
+.settings-menu button.active{background:var(--panel2);color:#fff}
 
-.setting-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:17px 5px;
-    border-bottom:1px solid #222;
+.modal-bg{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ background:rgba(0,0,0,.75);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
 }
-
-.setting-item:last-child{border-bottom:0}
-
-.setting-title{font-weight:800}
-.setting-desc{
-    color:#777;
-    font-size:12px;
-    margin-top:4px;
-}
-
-/* MODAL */
-
 .modal{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    background:rgba(0,0,0,.75);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
+ width:620px;
+ max-width:100%;
+ max-height:90vh;
+ overflow:auto;
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:22px;
 }
-
-.modal-box{
-    width:100%;
-    max-width:650px;
-    max-height:90vh;
-    overflow:auto;
-    background:#111;
-    border:1px solid #333;
-    border-radius:19px;
-    padding:20px;
+.modal h2{margin-bottom:18px}
+.modal-actions{
+ display:flex;
+ justify-content:flex-end;
+ gap:8px;
+ margin-top:20px;
 }
-
-.modal-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
-}
-
-.close{
-    width:36px;
-    height:36px;
-    border:1px solid var(--border);
-    background:#171717;
-    color:#fff;
-    border-radius:9px;
-}
-
-/* PLAYER */
-
-.player{
-    position:fixed;
-    bottom:0;
-    left:235px;
-    right:0;
-    height:72px;
-    z-index:150;
-    background:rgba(15,15,15,.97);
-    border-top:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:8px 15px;
-}
-
-.player-cover{
-    width:52px;
-    height:52px;
-    border-radius:8px;
-    object-fit:cover;
-}
-
-.player-info{
-    width:180px;
-    min-width:0;
-}
-
-.player-info b{
-    display:block;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.player-controls{
-    display:flex;
-    gap:5px;
-}
-
-.progress{
-    flex:1;
-}
-
-.progress input{
-    width:100%;
-}
-
-.volume{
-    width:100px;
-}
-
-/* TOAST */
 
 .toast{
-    position:fixed;
-    right:20px;
-    bottom:90px;
-    z-index:900;
-    background:#171717;
-    border:1px solid #444;
-    color:#fff;
-    padding:12px 16px;
-    border-radius:10px;
-    opacity:0;
-    transform:translateY(10px);
-    pointer-events:none;
-    transition:.2s;
+ position:fixed;
+ right:20px;
+ bottom:95px;
+ z-index:200;
+ background:#fff;
+ color:#000;
+ padding:12px 17px;
+ border-radius:10px;
+ transform:translateY(20px);
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
 }
+.toast.show{opacity:1;transform:translateY(0)}
 
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
+.player{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ height:72px;
+ z-index:60;
+ background:rgba(14,14,21,.97);
+ backdrop-filter:blur(15px);
+ border-top:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ gap:14px;
+ padding:8px 18px;
 }
-
-/* RESPONSIVE */
-
-@media(max-width:800px){
-    .sidebar{
-        position:fixed;
-        bottom:0;
-        top:auto;
-        left:0;
-        right:0;
-        width:100%;
-        height:65px;
-        z-index:300;
-        border-right:0;
-        border-top:1px solid var(--border);
-        display:flex;
-        overflow-x:auto;
-        padding:5px;
-    }
-
-    .nav-title{display:none}
-
-    .nav-group{
-        display:flex;
-        margin:0;
-    }
-
-    .nav-btn{
-        min-width:90px;
-        text-align:center;
-        margin:0;
-        padding:10px 7px;
-        font-size:11px;
-    }
-
-    .main{
-        padding:17px;
-        padding-bottom:90px;
-    }
-
-    .player{
-        left:0;
-        bottom:65px;
-        height:66px;
-    }
-
-    .player-info{width:130px}
-    .volume{display:none}
-
-    .shop-grid,
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .topbar{
-        padding:0 10px;
-        gap:8px;
-    }
-
-    .logo{font-size:17px}
-    .search{max-width:none}
-    .top-actions .icon-btn:nth-child(2){display:none}
-
-    .profile-info{
-        padding:0 10px;
-        gap:10px;
-    }
-
-    .profile-name{font-size:20px}
-
-    .avatar.large{
-        width:78px;
-        height:78px;
-        min-width:78px;
-    }
-
-    .song{
-        align-items:flex-start;
-    }
+.player-cover{
+ width:52px;
+ height:52px;
+ border-radius:8px;
+ overflow:hidden;
+ background:#222;
 }
+.player-cover img{width:100%;height:100%;object-fit:cover}
+.player-info{width:220px;min-width:120px}
+.player-info strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-info span{font-size:11px;color:#999}
+.player-controls{display:flex;gap:5px}
+.player-progress{flex:1}
+.player-progress input{width:100%}
+.player-volume{width:110px}
+.range{accent-color:var(--purple)}
 
-@media(max-width:500px){
-    .top-actions{display:none}
-    .page-title{font-size:24px}
-    .card{padding:14px}
-    .post{padding:14px}
+.file-label{
+ display:block;
+ border:1px dashed #51406e;
+ padding:15px;
+ text-align:center;
+ border-radius:10px;
+ color:#aaa;
+ cursor:pointer;
+}
+.file-label:hover{background:#171222}
+.file-label input{display:none}
+
+.checkbox{
+ display:flex;
+ align-items:center;
+ gap:9px;
+ margin:12px 0;
+ color:#aaa;
+}
+.checkbox input{accent-color:var(--purple)}
+
+@media(max-width:850px){
+ .sidebar{
+  width:100%;
+  height:auto;
+  position:fixed;
+  bottom:72px;
+  top:auto;
+  left:0;
+  right:0;
+  z-index:55;
+  border-right:0;
+  border-top:1px solid var(--border);
+  padding:7px;
+ }
+ .nav{
+  flex-direction:row;
+  overflow-x:auto;
+ }
+ .nav-btn{
+  min-width:max-content;
+  text-align:center;
+  padding:9px 12px;
+ }
+ .nav-title{display:none}
+ .layout{display:block}
+ .main{padding:15px;padding-bottom:160px}
+ .topbar{padding:0 10px;gap:8px}
+ .topbar .logo{font-size:17px}
+ .search{display:none}
+ .message-layout{grid-template-columns:1fr;height:600px}
+ .conversations{display:none}
+ .player{height:72px;padding:7px 10px}
+ .player-info{width:120px}
+ .player-volume{display:none}
+ .profile-head{align-items:flex-start;flex-direction:column}
+ .settings-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUTH -->
-
-<div id="authScreen" class="auth-screen">
-    <div class="auth-box">
-
-        <div class="logo-big">MYM <span>SOUND</span></div>
-        <div class="auth-sub">Müzik, içerik ve üreticiler için sosyal platform</div>
-
-        <div class="auth-tabs">
-            <button id="loginTab" class="active" onclick="showAuthMode('login')">Giriş Yap</button>
-            <button id="registerTab" onclick="showAuthMode('register')">Kayıt Ol</button>
-        </div>
-
-        <form id="loginForm" class="auth-form" onsubmit="loginUser(event)">
-            <input id="loginUsername" placeholder="Kullanıcı adı" required>
-            <input id="loginPassword" type="password" placeholder="Şifre" required>
-            <button class="auth-button primary">Giriş Yap</button>
-        </form>
-
-        <form id="registerForm" class="auth-form hidden" onsubmit="registerUser(event)">
-            <input id="registerName" placeholder="Ad Soyad" required>
-            <input id="registerUsername" placeholder="Kullanıcı adı" required>
-            <input id="registerPassword" type="password" placeholder="Şifre" required>
-            <input id="registerPassword2" type="password" placeholder="Şifre tekrar" required>
-
-            <select id="registerRole" required>
-                <option value="">Rol seç</option>
-                <option>Dinleyici</option>
-                <option>Sanatçı</option>
-                <option>Beat Maker</option>
-                <option>Mix Engineer</option>
-                <option>Prodüktör</option>
-            </select>
-
-            <button class="auth-button primary">Hesap Oluştur</button>
-        </form>
-
-        <div class="auth-note">
-            Bu sürüm tarayıcı üzerinde yerel demo olarak çalışır.
-        </div>
-    </div>
-</div>
-
-<!-- APP -->
-
-<div id="app" class="app hidden">
-
-    <header class="topbar">
-
-        <div class="logo">MYM <span>SOUND</span></div>
-
-        <div class="search">
-            <input id="globalSearch"
-                   placeholder="Kişi, şarkı, gönderi veya Shop ara..."
-                   oninput="globalSearch(this.value)">
-        </div>
-
-        <div class="top-actions">
-
-            <button class="icon-btn" onclick="openPage('messages')">
-                Mesaj
-                <span id="messageCount" class="count hidden"></span>
-            </button>
-
-            <button class="icon-btn" onclick="openPage('notifications')">
-                Bildirim
-                <span id="notificationCount" class="count hidden"></span>
-            </button>
-
-        </div>
-
-    </header>
-
-    <div class="layout">
-
-        <aside class="sidebar">
-
-            <div class="nav-group">
-                <div class="nav-title">MYM SOUND</div>
-
-                <button class="nav-btn active" data-page="home" onclick="openPage('home')">
-                    Ana Sayfa
-                </button>
-
-                <button class="nav-btn" data-page="reels" onclick="openPage('reels')">
-                    Reels
-                </button>
-
-                <button class="nav-btn" data-page="channels" onclick="openPage('channels')">
-                    Kanallar
-                </button>
-
-                <button class="nav-btn" data-page="shop" onclick="openPage('shop')">
-                    Shop
-                </button>
-
-                <button class="nav-btn" data-page="people" onclick="openPage('people')">
-                    Kişiler
-                </button>
-            </div>
-
-            <div class="nav-group">
-
-                <div class="nav-title">Ben</div>
-
-                <button class="nav-btn" data-page="profile" onclick="openPage('profile')">
-                    Profil
-                </button>
-
-                <button class="nav-btn" data-page="messages" onclick="openPage('messages')">
-                    Mesajlaşma
-                </button>
-
-                <button class="nav-btn" data-page="activity" onclick="openPage('activity')">
-                    Hareketlerim
-                </button>
-
-                <button class="nav-btn" data-page="archive" onclick="openPage('archive')">
-                    Arşiv
-                </button>
-            </div>
-
-            <div class="nav-group">
-
-                <div class="nav-title">Sistem</div>
-
-                <button class="nav-btn" data-page="settings" onclick="openPage('settings')">
-                    Ayarlar
-                </button>
-
-            </div>
-
-        </aside>
-
-        <main id="main" class="main"></main>
-
-    </div>
-
-    <div id="player" class="player hidden">
-
-        <img id="playerCover" class="player-cover">
-
-        <div class="player-info">
-            <b id="playerTitle">Şarkı yok</b>
-            <span id="playerArtist" class="small muted"></span>
-        </div>
-
-        <div class="player-controls">
-            <button class="btn btn-small" onclick="previousSong()">Önceki</button>
-            <button class="btn btn-small" onclick="togglePlayer()">Oynat</button>
-            <button class="btn btn-small" onclick="nextSong()">Sonraki</button>
-        </div>
-
-        <div class="progress">
-            <input id="playerProgress"
-                   type="range"
-                   min="0"
-                   max="100"
-                   value="0"
-                   oninput="seekPlayer(this.value)">
-        </div>
-
-        <input id="playerVolume"
-               class="volume"
-               type="range"
-               min="0"
-               max="1"
-               step=".01"
-               value=".8"
-               oninput="audio.volume=this.value">
-
-    </div>
-
-</div>
-
-<div id="modal" class="modal hidden" onclick="modalOutside(event)">
-    <div id="modalBox" class="modal-box"></div>
-</div>
-
 <div id="toast" class="toast"></div>
 
-<audio id="audio"></audio>
+<section id="authScreen" class="auth">
+ <div class="auth-box">
+  <div class="auth-logo">
+   <div class="logo">MYM <span>SOUND</span></div>
+   <p class="muted" style="margin-top:8px">Müzik topluluğuna giriş yap</p>
+  </div>
+
+  <div class="auth-tabs">
+   <button id="loginTab" class="active" onclick="showLogin()">Giriş Yap</button>
+   <button id="registerTab" onclick="showRegister()">Kayıt Ol</button>
+  </div>
+
+  <form id="loginForm">
+   <div class="field">
+    <label>Kullanıcı adı</label>
+    <input id="loginUsername" required autocomplete="username">
+   </div>
+   <div class="field">
+    <label>Şifre</label>
+    <input id="loginPassword" type="password" required autocomplete="current-password">
+   </div>
+   <button class="btn primary auth-submit" type="submit">Giriş Yap</button>
+  </form>
+
+  <form id="registerForm" class="hidden">
+   <div class="field">
+    <label>Ad Soyad</label>
+    <input id="registerName" required maxlength="40">
+   </div>
+   <div class="field">
+    <label>Kullanıcı adı</label>
+    <input id="registerUsername" required maxlength="24">
+   </div>
+   <div class="field">
+    <label>Şifre</label>
+    <input id="registerPassword" type="password" required minlength="6">
+   </div>
+   <div class="field">
+    <label>Şifre tekrar</label>
+    <input id="registerPassword2" type="password" required minlength="6">
+   </div>
+   <div class="field">
+    <label>Rol</label>
+    <select id="registerRole">
+     <option>Dinleyici</option>
+     <option>Sanatçı</option>
+     <option>Beat Maker</option>
+     <option>Mix Engineer</option>
+     <option>Prodüktör</option>
+    </select>
+   </div>
+   <button class="btn primary auth-submit" type="submit">Hesap Oluştur</button>
+  </form>
+
+  <div class="switch">Bu sürüm yerel demo olarak çalışır.</div>
+ </div>
+</section>
+
+<div id="app" class="hidden">
+
+ <header class="topbar">
+  <div class="logo">MYM <span>SOUND</span></div>
+
+  <div class="search">
+   <input id="globalSearch" placeholder="Kişi, şarkı, gönderi ara...">
+  </div>
+
+  <div class="top-actions">
+   <button class="icon-btn" data-page="notifications" title="Bildirimler" style="position:relative">
+    Bildirim
+    <span id="notificationBadge" class="badge hidden">0</span>
+   </button>
+   <button class="icon-btn" data-page="profile">Profil</button>
+  </div>
+ </header>
+
+ <div class="layout">
+
+  <aside class="sidebar">
+   <nav class="nav">
+    <button class="nav-btn active" data-page="home">Ana Sayfa</button>
+    <button class="nav-btn" data-page="reels">Reels</button>
+    <button class="nav-btn" data-page="channels">Kanallar</button>
+    <button class="nav-btn" data-page="shop">Shop</button>
+    <button class="nav-btn" data-page="people">Kişiler</button>
+    <button class="nav-btn" data-page="messages">Mesajlar</button>
+    <button class="nav-btn" data-page="profile">Profile</button>
+    <button class="nav-btn" data-page="settings">Ayarlar</button>
+    <button class="nav-btn" data-page="pro">MYM PRO</button>
+   </nav>
+
+   <div class="nav-title">Hızlı İşlemler</div>
+   <nav class="nav">
+    <button class="nav-btn" data-action="new-song">+ Şarkı Ekle</button>
+    <button class="nav-btn" data-action="new-post">+ Gönderi</button>
+    <button class="nav-btn" data-action="new-reel">+ Reel</button>
+    <button class="nav-btn" data-action="new-shop">+ Shop Ürünü</button>
+   </nav>
+  </aside>
+
+  <main id="main" class="main"></main>
+ </div>
+
+ <div id="modalRoot"></div>
+
+ <div id="player" class="player">
+  <div class="player-cover" id="playerCover"></div>
+  <div class="player-info">
+   <strong id="playerTitle">Şarkı seçilmedi</strong>
+   <span id="playerArtist">MYM SOUND</span>
+  </div>
+  <div class="player-controls">
+   <button class="icon-btn" data-action="prev">‹</button>
+   <button class="icon-btn" id="playPause" data-action="toggle-play">Play</button>
+   <button class="icon-btn" data-action="next">›</button>
+  </div>
+  <div class="player-progress">
+   <input id="progress" class="range" type="range" min="0" max="100" value="0">
+  </div>
+  <div class="player-volume">
+   <input id="volume" class="range" type="range" min="0" max="1" step=".01" value=".8">
+  </div>
+ </div>
+
+ <audio id="globalAudio"></audio>
+</div>
 
 <script>
-/* =========================================================
-   DATA
-========================================================= */
+"use strict";
 
-const KEYS = {
-    users:"mym_users",
-    posts:"mym_posts",
-    songs:"mym_songs",
-    reels:"mym_reels",
-    shop:"mym_shop",
-    comments:"mym_comments",
-    messages:"mym_messages",
-    activity:"mym_activity",
-    notifications:"mym_notifications",
-    archive:"mym_archive",
-    current:"mym_current_user",
-    media:"mym_media"
-};
-
-const state = {
-    page:"home",
-    feed:"all",
-    channelUser:null,
-    channelTab:"general",
-    chatUser:null,
-    playerSong:null,
-    queue:[],
-    queueIndex:0
-};
-
-let db;
-const audio = document.getElementById("audio");
-
-/* =========================================================
+/* =========================
    STORAGE
-========================================================= */
+========================= */
+
+const KEY = {
+ users:"mym_users",
+ posts:"mym_posts",
+ songs:"mym_songs",
+ reels:"mym_reels",
+ shop:"mym_shop_items",
+ messages:"mym_messages",
+ activities:"mym_activity",
+ notifications:"mym_notifications",
+ comments:"mym_comments",
+ current:"mym_current_user",
+ history:"mym_history"
+};
 
 function load(key,fallback=[]){
-    try{
-        const raw=localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-    }catch{
-        return fallback;
-    }
+ try{
+  const value=localStorage.getItem(key);
+  return value ? JSON.parse(value) : fallback;
+ }catch(e){return fallback}
 }
 
 function save(key,value){
-    localStorage.setItem(key,JSON.stringify(value));
+ localStorage.setItem(key,JSON.stringify(value));
 }
 
-function users(){return load(KEYS.users,[])}
-function posts(){return load(KEYS.posts,[])}
-function songs(){return load(KEYS.songs,[])}
-function reels(){return load(KEYS.reels,[])}
-function shopItems(){return load(KEYS.shop,[])}
-function comments(){return load(KEYS.comments,[])}
-function messages(){return load(KEYS.messages,[])}
-function activities(){return load(KEYS.activity,[])}
-function notifications(){return load(KEYS.notifications,[])}
-function archive(){return load(KEYS.archive,[])}
+let users=load(KEY.users,[]);
+let posts=load(KEY.posts,[]);
+let songs=load(KEY.songs,[]);
+let reels=load(KEY.reels,[]);
+let shopItems=load(KEY.shop,[]);
+let messages=load(KEY.messages,[]);
+let activities=load(KEY.activities,[]);
+let notifications=load(KEY.notifications,[]);
+let comments=load(KEY.comments,[]);
+let history=load(KEY.history,[]);
+
+const state={
+ page:"home",
+ feed:"all",
+ shopTab:"mine",
+ channelUserId:null,
+ currentChatUserId:null,
+ settingsTab:"account",
+ search:"",
+ queue:[],
+ queueIndex:-1,
+ currentSongId:null,
+ repeat:false,
+ shuffle:false,
+};
+
+function persist(){
+ save(KEY.users,users);
+ save(KEY.posts,posts);
+ save(KEY.songs,songs);
+ save(KEY.reels,reels);
+ save(KEY.shop,shopItems);
+ save(KEY.messages,messages);
+ save(KEY.activities,activities);
+ save(KEY.notifications,notifications);
+ save(KEY.comments,comments);
+ save(KEY.history,history);
+}
 
 function uid(prefix="id"){
-    return prefix+"_"+Date.now()+"_"+Math.random().toString(36).slice(2,9);
-}
-
-function getCurrentUser(){
-    const id=localStorage.getItem(KEYS.current);
-    return users().find(x=>x.id===id)||null;
-}
-
-function getUser(id){
-    return users().find(x=>x.id===id)||null;
+ return prefix+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8);
 }
 
 function me(){
-    return getCurrentUser();
+ const id=localStorage.getItem(KEY.current);
+ return users.find(u=>u.id===id)||null;
+}
+
+function getUser(id){
+ return users.find(u=>u.id===id)||null;
 }
 
 function updateUser(user){
-    const list=users();
-    const i=list.findIndex(x=>x.id===user.id);
-    if(i>=0){
-        list[i]=user;
-        save(KEYS.users,list);
-    }
+ const i=users.findIndex(u=>u.id===user.id);
+ if(i>=0) users[i]=user;
+ save(KEY.users,users);
 }
 
-function addUser(user){
-    const list=users();
-    list.push(user);
-    save(KEYS.users,list);
-}
-
-/* =========================================================
-   INDEXED DB MEDIA
-========================================================= */
-
-function openDB(){
-    return new Promise((resolve,reject)=>{
-        const request=indexedDB.open("mym_sound_media",1);
-
-        request.onupgradeneeded=e=>{
-            const d=e.target.result;
-            if(!d.objectStoreNames.contains("media")){
-                d.createObjectStore("media",{keyPath:"id"});
-            }
-        };
-
-        request.onsuccess=e=>{
-            db=e.target.result;
-            resolve();
-        };
-
-        request.onerror=()=>reject(request.error);
-    });
-}
-
-function putMedia(blob){
-    return new Promise((resolve,reject)=>{
-        const id=uid("media");
-        const tx=db.transaction("media","readwrite");
-        tx.objectStore("media").put({id,blob});
-        tx.oncomplete=()=>resolve(id);
-        tx.onerror=()=>reject(tx.error);
-    });
-}
-
-function getMedia(id){
-    return new Promise((resolve,reject)=>{
-        if(!id)return resolve(null);
-
-        const tx=db.transaction("media","readonly");
-        const request=tx.objectStore("media").get(id);
-
-        request.onsuccess=()=>resolve(request.result?.blob||null);
-        request.onerror=()=>reject(request.error);
-    });
-}
-
-async function mediaURL(id){
-    const blob=await getMedia(id);
-    return blob ? URL.createObjectURL(blob) : "";
-}
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function esc(value=""){
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+function escapeHTML(value){
+ return String(value??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
 
 function initials(user){
-    if(!user)return "?";
-    return (user.name||user.username||"?")
-        .split(" ")
-        .map(x=>x[0])
-        .join("")
-        .slice(0,2)
-        .toUpperCase();
+ if(!user)return "?";
+ return escapeHTML((user.name||user.username||"?").trim().slice(0,2).toUpperCase());
 }
 
-async function avatarHTML(user,cls="avatar"){
-    if(!user)return `<div class="${cls}">?</div>`;
-
-    if(user.avatarMediaId){
-        const url=await mediaURL(user.avatarMediaId);
-
-        if(url){
-            return `
-                <div class="${cls}">
-                    <img src="${url}" alt="">
-                </div>
-            `;
-        }
-    }
-
-    return `<div class="${cls}">${esc(initials(user))}</div>`;
-}
-
-function roleHTML(user){
-    return `
-        <span class="role">${esc(user.role||"Kullanıcı")}</span>
-        <span class="plan ${user.plan==="pro"?"plan-pro":"plan-free"}">
-            ${user.plan==="pro"?"PRO":"FREE"}
-        </span>
-    `;
+function avatarHTML(user,size="md"){
+ if(!user)return `<div class="avatar ${size}">?</div>`;
+ return `<div class="avatar ${size}" data-avatar="${escapeHTML(user.avatarMediaId||"")}">${initials(user)}</div>`;
 }
 
 function isBlocked(userId){
-    const a=me();
-    const b=getUser(userId);
-
-    if(!a||!b)return false;
-
-    return (a.blockedUsers||[]).includes(userId) ||
-           (b.blockedUsers||[]).includes(a.id);
+ const a=me();
+ const b=getUser(userId);
+ if(!a||!b)return false;
+ return (a.blockedUsers||[]).includes(userId) ||
+        (b.blockedUsers||[]).includes(a.id);
 }
 
-function isFollowing(userId){
-    const u=me();
-    return !!u && (u.following||[]).includes(userId);
+function following(userId){
+ const u=me();
+ return !!u && (u.following||[]).includes(userId);
 }
 
-function showToast(text){
-    const t=document.getElementById("toast");
-    t.textContent=text;
-    t.classList.add("show");
-
-    clearTimeout(showToast.timer);
-
-    showToast.timer=setTimeout(()=>{
-        t.classList.remove("show");
-    },2500);
+function formatDate(t){
+ const d=new Date(t);
+ return d.toLocaleDateString("tr-TR")+" "+d.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
 }
 
-function saveActivity(type,text){
-    const list=activities();
-
-    list.unshift({
-        id:uid("activity"),
-        userId:me()?.id,
-        type,
-        text,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.activity,list.slice(0,500));
+function toast(text){
+ const el=document.getElementById("toast");
+ el.textContent=text;
+ el.classList.add("show");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
 }
 
-function notify(userId,type,text){
-    const list=notifications();
+/* =========================
+   INDEXED DB
+========================= */
 
-    list.unshift({
-        id:uid("notification"),
-        userId,
-        type,
-        text,
-        read:false,
-        createdAt:Date.now()
-    });
+let db=null;
+const mediaURLs=new Map();
 
-    save(KEYS.notifications,list.slice(0,500));
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open("mym_sound_media",1);
+
+  request.onupgradeneeded=e=>{
+   const database=e.target.result;
+   if(!database.objectStoreNames.contains("media")){
+    database.createObjectStore("media",{keyPath:"id"});
+   }
+  };
+
+  request.onsuccess=e=>{
+   db=e.target.result;
+   resolve();
+  };
+
+  request.onerror=()=>reject(request.error);
+ });
 }
 
-function unreadNotifications(){
-    const u=me();
-    if(!u)return 0;
-
-    return notifications()
-        .filter(x=>x.userId===u.id&&!x.read)
-        .length;
+function saveMedia(file){
+ return new Promise((resolve,reject)=>{
+  if(!db)return reject("DB hazır değil");
+  const id=uid("media");
+  const tx=db.transaction("media","readwrite");
+  tx.objectStore("media").put({
+   id,
+   blob:file,
+   name:file.name,
+   type:file.type
+  });
+  tx.oncomplete=()=>resolve(id);
+  tx.onerror=()=>reject(tx.error);
+ });
 }
 
-function unreadMessages(){
-    const u=me();
-    if(!u)return 0;
-
-    return messages()
-        .filter(x=>x.toId===u.id&&!x.read)
-        .length;
+function getMedia(id){
+ return new Promise((resolve,reject)=>{
+  if(!id)return resolve(null);
+  const tx=db.transaction("media","readonly");
+  const req=tx.objectStore("media").get(id);
+  req.onsuccess=()=>resolve(req.result||null);
+  req.onerror=()=>reject(req.error);
+ });
 }
 
-/* =========================================================
+async function getMediaURL(id){
+ if(!id)return "";
+ if(mediaURLs.has(id))return mediaURLs.get(id);
+
+ const item=await getMedia(id);
+ if(!item)return "";
+
+ const url=URL.createObjectURL(item.blob);
+ mediaURLs.set(id,url);
+ return url;
+}
+
+async function hydrateMedia(){
+ const elements=document.querySelectorAll("[data-avatar],[data-media],[data-bg]");
+ for(const el of elements){
+  const id=el.dataset.avatar||el.dataset.media||el.dataset.bg;
+  if(!id)continue;
+
+  try{
+   const url=await getMediaURL(id);
+
+   if(el.dataset.avatar){
+    el.style.backgroundImage=`url("${url}")`;
+    el.textContent="";
+   }
+
+   if(el.dataset.media){
+    el.src=url;
+   }
+
+   if(el.dataset.bg){
+    el.style.backgroundImage=`url("${url}")`;
+   }
+  }catch(e){}
+ }
+}
+
+/* =========================
    AUTH
-========================================================= */
+========================= */
 
-function showAuthMode(mode){
-
-    const login=document.getElementById("loginForm");
-    const register=document.getElementById("registerForm");
-
-    const lt=document.getElementById("loginTab");
-    const rt=document.getElementById("registerTab");
-
-    if(mode==="login"){
-        login.classList.remove("hidden");
-        register.classList.add("hidden");
-        lt.classList.add("active");
-        rt.classList.remove("active");
-    }else{
-        login.classList.add("hidden");
-        register.classList.remove("hidden");
-        lt.classList.remove("active");
-        rt.classList.add("active");
-    }
+function showLogin(){
+ document.getElementById("loginForm").classList.remove("hidden");
+ document.getElementById("registerForm").classList.add("hidden");
+ document.getElementById("loginTab").classList.add("active");
+ document.getElementById("registerTab").classList.remove("active");
 }
 
-function registerUser(e){
-
-    e.preventDefault();
-
-    const name=document.getElementById("registerName").value.trim();
-    const username=document.getElementById("registerUsername").value.trim();
-    const password=document.getElementById("registerPassword").value;
-    const password2=document.getElementById("registerPassword2").value;
-    const role=document.getElementById("registerRole").value;
-
-    if(name.length<2){
-        showToast("Adını düzgün gir");
-        return;
-    }
-
-    if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(username)){
-        showToast("Kullanıcı adı 3-24 karakter olmalı");
-        return;
-    }
-
-    if(password.length<6){
-        showToast("Şifre en az 6 karakter olmalı");
-        return;
-    }
-
-    if(password!==password2){
-        showToast("Şifreler aynı değil");
-        return;
-    }
-
-    if(!role){
-        showToast("Rol seç");
-        return;
-    }
-
-    if(users().some(x=>x.username.toLowerCase()===username.toLowerCase())){
-        showToast("Bu kullanıcı adı zaten alınmış");
-        return;
-    }
-
-    const user={
-        id:uid("user"),
-        name,
-        username,
-        password,
-        role,
-        plan:"free",
-        avatarMediaId:null,
-        profileBackgroundMediaId:null,
-        shopBackgroundMediaId:null,
-        bio:"",
-        followers:[],
-        following:[],
-        blockedUsers:[],
-        nameChanges:[],
-        likedSongs:[],
-        online:true,
-        lastSeen:Date.now(),
-        settings:{
-            notifications:true,
-            autoplay:false,
-            privateProfile:false
-        }
-    };
-
-    addUser(user);
-
-    localStorage.setItem(KEYS.current,user.id);
-
-    saveActivity("account","Hesap oluşturuldu");
-
-    showApp();
-
-    showToast("Hesabın oluşturuldu");
+function showRegister(){
+ document.getElementById("loginForm").classList.add("hidden");
+ document.getElementById("registerForm").classList.remove("hidden");
+ document.getElementById("loginTab").classList.remove("active");
+ document.getElementById("registerTab").classList.add("active");
 }
 
-function loginUser(e){
-
-    e.preventDefault();
-
-    const username=document.getElementById("loginUsername").value.trim();
-    const password=document.getElementById("loginPassword").value;
-
-    const user=users().find(
-        x=>x.username.toLowerCase()===username.toLowerCase()
-        &&x.password===password
-    );
-
-    if(!user){
-        showToast("Kullanıcı adı veya şifre yanlış");
-        return;
-    }
-
-    user.online=true;
-    user.lastSeen=Date.now();
-
-    updateUser(user);
-
-    localStorage.setItem(KEYS.current,user.id);
-
-    showApp();
+function showAuth(){
+ document.getElementById("authScreen").classList.remove("hidden");
+ document.getElementById("app").classList.add("hidden");
 }
+
+function hideAuth(){
+ document.getElementById("authScreen").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+}
+
+document.getElementById("loginForm").addEventListener("submit",e=>{
+ e.preventDefault();
+
+ const username=document.getElementById("loginUsername").value.trim().toLowerCase();
+ const password=document.getElementById("loginPassword").value;
+
+ const user=users.find(u=>u.username.toLowerCase()===username && u.password===password);
+
+ if(!user){
+  toast("Kullanıcı adı veya şifre hatalı");
+  return;
+ }
+
+ user.online=true;
+ user.lastSeen=Date.now();
+
+ localStorage.setItem(KEY.current,user.id);
+ updateUser(user);
+ hideAuth();
+ render();
+});
+
+document.getElementById("registerForm").addEventListener("submit",e=>{
+ e.preventDefault();
+
+ const name=document.getElementById("registerName").value.trim();
+ const username=document.getElementById("registerUsername").value.trim().toLowerCase();
+ const password=document.getElementById("registerPassword").value;
+ const password2=document.getElementById("registerPassword2").value;
+ const role=document.getElementById("registerRole").value;
+
+ if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(username)){
+  toast("Kullanıcı adı 3-24 karakter olmalı");
+  return;
+ }
+
+ if(password.length<6){
+  toast("Şifre en az 6 karakter olmalı");
+  return;
+ }
+
+ if(password!==password2){
+  toast("Şifreler aynı değil");
+  return;
+ }
+
+ if(users.some(u=>u.username.toLowerCase()===username)){
+  toast("Bu kullanıcı adı zaten kullanılıyor");
+  return;
+ }
+
+ const user={
+  id:uid("user"),
+  name,
+  username,
+  password,
+  role,
+  plan:"free",
+  avatarMediaId:null,
+  profileBackgroundMediaId:null,
+  shopBackgroundMediaId:null,
+  bio:"",
+  followers:[],
+  following:[],
+  blockedUsers:[],
+  nameChanges:[],
+  online:true,
+  lastSeen:Date.now(),
+  settings:{
+   notifications:true,
+   autoplay:false,
+   privateProfile:false
+  }
+ };
+
+ users.push(user);
+ localStorage.setItem(KEY.current,user.id);
+ addActivity("register","Hesap oluşturuldu",user.id);
+ persist();
+
+ hideAuth();
+ render();
+ toast("Hesabın oluşturuldu");
+});
 
 function logout(){
-
-    const u=me();
-
-    if(u){
-        u.online=false;
-        u.lastSeen=Date.now();
-        updateUser(u);
-    }
-
-    localStorage.removeItem(KEYS.current);
-
-    document.getElementById("app").classList.add("hidden");
-    document.getElementById("authScreen").classList.remove("hidden");
+ const u=me();
+ if(u){
+  u.online=false;
+  u.lastSeen=Date.now();
+  updateUser(u);
+ }
+ localStorage.removeItem(KEY.current);
+ state.currentChatUserId=null;
+ showAuth();
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =========================
+   ACTIVITY / NOTIFICATION
+========================= */
 
-function showApp(){
+function addActivity(type,text,meta=null){
+ const u=me();
+ if(!u)return;
 
-    document.getElementById("authScreen").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
+ activities.unshift({
+  id:uid("act"),
+  userId:u.id,
+  type,
+  text,
+  meta,
+  createdAt:Date.now()
+ });
 
-    updateCounts();
-    openPage("home");
+ activities=activities.slice(0,1000);
+ save(KEY.activities,activities);
 }
 
-function openPage(page){
+function addNotification(userId,type,text,meta=null){
+ notifications.unshift({
+  id:uid("not"),
+  userId,
+  type,
+  text,
+  meta,
+  read:false,
+  createdAt:Date.now()
+ });
 
-    state.page=page;
-
-    document.querySelectorAll(".nav-btn").forEach(btn=>{
-        btn.classList.toggle(
-            "active",
-            btn.dataset.page===page
-        );
-    });
-
-    render();
+ notifications=notifications.slice(0,1000);
+ save(KEY.notifications,notifications);
+ updateNotificationBadge();
 }
 
-function render(){
+/* =========================
+   FOLLOW / BLOCK
+========================= */
 
-    updateCounts();
+function toggleFollow(userId){
+ const a=me();
+ const b=getUser(userId);
 
-    switch(state.page){
+ if(!a||!b||a.id===b.id)return;
 
-        case "home":renderHome();break;
-        case "reels":renderReels();break;
-        case "channels":renderChannels();break;
-        case "shop":renderShop();break;
-        case "people":renderPeople();break;
-        case "profile":renderProfile();break;
-        case "messages":renderMessages();break;
-        case "activity":renderActivity();break;
-        case "archive":renderArchive();break;
-        case "settings":renderSettings();break;
-        case "notifications":renderNotifications();break;
+ if(isBlocked(userId)){
+  toast("Bu kullanıcıyla etkileşim kapalı");
+  return;
+ }
 
-        default:
-            renderHome();
-    }
+ a.following=a.following||[];
+ b.followers=b.followers||[];
+
+ const index=a.following.indexOf(userId);
+
+ if(index>=0){
+  a.following.splice(index,1);
+  b.followers=b.followers.filter(id=>id!==a.id);
+  addActivity("unfollow",`${b.name} takipten çıkarıldı`,b.id);
+ }else{
+  a.following.push(userId);
+  if(!b.followers.includes(a.id))b.followers.push(a.id);
+  addActivity("follow",`${b.name} takip edildi`,b.id);
+  addNotification(
+   b.id,
+   "follow",
+   `${a.name} seni takip etmeye başladı`,
+   a.id
+  );
+ }
+
+ updateUser(a);
+ updateUser(b);
+ render();
 }
 
-/* =========================================================
-   HOME
-========================================================= */
+function toggleBlock(userId){
+ const a=me();
+ const b=getUser(userId);
+ if(!a||!b)return;
 
-function renderHome(){
+ a.blockedUsers=a.blockedUsers||[];
 
-    const main=document.getElementById("main");
+ if(a.blockedUsers.includes(userId)){
+  a.blockedUsers=a.blockedUsers.filter(id=>id!==userId);
+  addActivity("unblock",`${b.name} engeli kaldırıldı`,b.id);
+  toast("Engel kaldırıldı");
+ }else{
+  a.blockedUsers.push(userId);
+  a.following=(a.following||[]).filter(id=>id!==userId);
+  b.followers=(b.followers||[]).filter(id=>id!==a.id);
+  b.following=(b.following||[]).filter(id=>id!==a.id);
+  a.following=(a.following||[]).filter(id=>id!==b.id);
 
-    main.innerHTML=`
-        <h1 class="page-title">Ana Sayfa</h1>
-        <div class="page-subtitle">
-            MYM SOUND'daki yeni içerikler
-        </div>
+  addActivity("block",`${b.name} engellendi`,b.id);
+  toast("Kullanıcı engellendi");
+ }
 
-        <div class="tabs">
-            <button class="btn ${state.feed==="all"?"primary":""}"
-                    onclick="setFeed('all')">
-                Tümü
-            </button>
-
-            <button class="btn ${state.feed==="following"?"primary":""}"
-                    onclick="setFeed('following')">
-                Takip Ettiklerim
-            </button>
-
-            <button class="btn ${state.feed==="new"?"primary":""}"
-                    onclick="setFeed('new')">
-                Yeni
-            </button>
-        </div>
-
-        <div class="card">
-            <div class="row between wrap">
-                <div>
-                    <b>Yeni içerik oluştur</b>
-                    <div class="small muted">
-                        Gönderi, şarkı veya Reel paylaş
-                    </div>
-                </div>
-
-                <button class="btn primary" onclick="openCreateModal()">
-                    İçerik Ekle
-                </button>
-            </div>
-        </div>
-
-        <div id="homeContent"></div>
-    `;
-
-    renderHomeContent();
+ updateUser(a);
+ updateUser(b);
+ render();
 }
 
-async function renderHomeContent(){
+/* =========================
+   POSTS
+========================= */
 
-    const box=document.getElementById("homeContent");
-    if(!box)return;
+async function createPost(form){
+ const u=me();
+ const text=form.querySelector("[name=text]").value.trim();
+ const file=form.querySelector("[name=media]").files[0];
 
-    let list=[];
+ if(!text && !file){
+  toast("Gönderiye yazı veya medya ekle");
+  return;
+ }
 
-    posts().forEach(p=>{
-        const u=getUser(p.userId);
-        if(!u||isBlocked(u.id))return;
+ let mediaId=null;
+ if(file)mediaId=await saveMedia(file);
 
-        if(state.feed==="following"&&!isFollowing(u.id))return;
+ posts.unshift({
+  id:uid("post"),
+  userId:u.id,
+  text,
+  mediaId,
+  mediaType:file?.type||null,
+  createdAt:Date.now(),
+  likes:[]
+ });
 
-        list.push({
-            kind:"post",
-            date:p.createdAt,
-            data:p
-        });
-    });
-
-    songs().forEach(s=>{
-        const u=getUser(s.userId);
-        if(!u||isBlocked(u.id))return;
-
-        if(state.feed==="following"&&!isFollowing(u.id))return;
-
-        list.push({
-            kind:"song",
-            date:s.createdAt,
-            data:s
-        });
-    });
-
-    if(state.feed==="new"){
-        list.sort((a,b)=>b.date-a.date);
-    }else{
-        list.sort((a,b)=>b.date-a.date);
-    }
-
-    if(!list.length){
-        box.innerHTML=`<div class="empty">Henüz içerik yok.</div>`;
-        return;
-    }
-
-    let html="";
-
-    for(const item of list){
-        if(item.kind==="post"){
-            html+=await postHTML(item.data);
-        }else{
-            html+=await songHTML(item.data);
-        }
-    }
-
-    box.innerHTML=html;
-}
-
-function setFeed(feed){
-    state.feed=feed;
-    renderHome();
-}
-
-/* =========================================================
-   POST
-========================================================= */
-
-async function postHTML(post){
-
-    const user=getUser(post.userId);
-    if(!user)return "";
-
-    const avatar=await avatarHTML(user,"avatar");
-
-    const liked=(post.likes||[]).includes(me().id);
-
-    const postComments=comments()
-        .filter(x=>x.postId===post.id);
-
-    let media="";
-
-    if(post.mediaId){
-
-        const url=await mediaURL(post.mediaId);
-
-        if(post.mediaType?.startsWith("video")){
-            media=`<video class="post-media" controls src="${url}"></video>`;
-        }else{
-            media=`<img class="post-media" src="${url}" alt="">`;
-        }
-    }
-
-    return `
-        <article class="post">
-
-            <div class="post-head">
-                ${avatar}
-
-                <div class="flex1">
-                    <div class="user-name">
-                        ${esc(user.name)}
-                    </div>
-
-                    <div class="small muted">
-                        @${esc(user.username)}
-                        ·
-                        ${esc(user.role)}
-                    </div>
-                </div>
-
-                <button class="btn btn-small"
-                        onclick="openChannel('${user.id}')">
-                    Kanal
-                </button>
-            </div>
-
-            ${post.text?`<div class="post-text">${esc(post.text)}</div>`:""}
-
-            ${media}
-
-            <div class="post-actions">
-
-                <button class="btn btn-small"
-                        onclick="togglePostLike('${post.id}')">
-                    ${liked?"Beğenildi":"Beğen"}
-                    ${post.likes?.length||0}
-                </button>
-
-                <button class="btn btn-small"
-                        onclick="toggleComments('${post.id}')">
-                    Yorum ${postComments.length}
-                </button>
-
-                <button class="btn btn-small"
-                        onclick="sharePost('${post.id}')">
-                    Paylaş
-                </button>
-
-                ${
-                    post.userId===me().id
-                    ?
-                    `
-                    <button class="btn btn-small"
-                            onclick="editPost('${post.id}')">
-                        Düzenle
-                    </button>
-
-                    <button class="btn btn-small btn-danger"
-                            onclick="deletePost('${post.id}')">
-                        Sil
-                    </button>
-
-                    <button class="btn btn-small"
-                            onclick="archivePost('${post.id}')">
-                        Arşivle
-                    </button>
-                    `
-                    :""
-                }
-
-            </div>
-
-            <div id="comments-${post.id}" class="comments hidden">
-
-                ${postComments.map(c=>{
-                    const cu=getUser(c.userId);
-
-                    return `
-                        <div class="comment">
-                            <b>${esc(cu?.name||"Kullanıcı")}</b>
-                            ${esc(c.text)}
-
-                            ${
-                                c.userId===me().id
-                                ?
-                                `<button class="btn btn-small"
-                                onclick="deleteComment('${c.id}')">
-                                Sil
-                                </button>`
-                                :""
-                            }
-                        </div>
-                    `;
-                }).join("")}
-
-                <div class="comment-box">
-                    <input id="comment-${post.id}"
-                           placeholder="Yorum yaz...">
-
-                    <button class="btn primary"
-                            onclick="addComment('${post.id}')">
-                        Gönder
-                    </button>
-                </div>
-
-            </div>
-
-        </article>
-    `;
-}
-
-function toggleComments(id){
-    document.getElementById("comments-"+id)?.classList.toggle("hidden");
-}
-
-function addComment(postId){
-
-    const input=document.getElementById("comment-"+postId);
-    const text=input.value.trim();
-
-    if(!text)return;
-
-    const list=comments();
-
-    list.push({
-        id:uid("comment"),
-        postId,
-        userId:me().id,
-        text,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.comments,list);
-
-    const post=posts().find(x=>x.id===postId);
-
-    if(post&&post.userId!==me().id){
-        notify(
-            post.userId,
-            "comment",
-            me().name+" gönderine yorum yaptı."
-        );
-    }
-
-    input.value="";
-    render();
-}
-
-function deleteComment(id){
-
-    const list=comments().filter(x=>x.id!==id);
-    save(KEYS.comments,list);
-    render();
+ addActivity("post","Yeni gönderi oluşturuldu");
+ closeModal();
+ persist();
+ render();
+ toast("Gönderi paylaşıldı");
 }
 
 function togglePostLike(id){
+ const p=posts.find(x=>x.id===id);
+ const u=me();
+ if(!p||!u)return;
 
-    const list=posts();
-    const post=list.find(x=>x.id===id);
+ p.likes=p.likes||[];
 
-    if(!post)return;
+ if(p.likes.includes(u.id)){
+  p.likes=p.likes.filter(x=>x!==u.id);
+ }else{
+  p.likes.push(u.id);
+ }
 
-    post.likes=post.likes||[];
-
-    const i=post.likes.indexOf(me().id);
-
-    if(i>=0){
-        post.likes.splice(i,1);
-    }else{
-        post.likes.push(me().id);
-
-        if(post.userId!==me().id){
-            notify(
-                post.userId,
-                "like",
-                me().name+" gönderini beğendi."
-            );
-        }
-    }
-
-    save(KEYS.posts,list);
-    render();
-}
-
-function sharePost(id){
-
-    const post=posts().find(x=>x.id===id);
-    if(!post)return;
-
-    saveActivity(
-        "share",
-        "Bir gönderiyi paylaştın."
-    );
-
-    showToast("Gönderi paylaşıldı");
-}
-
-function editPost(id){
-
-    const post=posts().find(x=>x.id===id);
-    if(!post||post.userId!==me().id)return;
-
-    openModal(`
-        <div class="modal-head">
-            <h2>Gönderiyi Düzenle</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <textarea id="editPostText">${esc(post.text||"")}</textarea>
-
-        <br><br>
-
-        <button class="btn primary"
-                onclick="savePostEdit('${id}')">
-            Kaydet
-        </button>
-    `);
-}
-
-function savePostEdit(id){
-
-    const post=posts().find(x=>x.id===id);
-    if(!post)return;
-
-    post.text=document.getElementById("editPostText").value.trim();
-
-    save(KEYS.posts,posts());
-
-    closeModal();
-    render();
+ persist();
+ render();
 }
 
 function deletePost(id){
+ const p=posts.find(x=>x.id===id);
+ if(!p||p.userId!==me().id)return;
 
-    if(!confirm("Gönderi silinsin mi?"))return;
-
-    save(
-        KEYS.posts,
-        posts().filter(x=>x.id!==id)
-    );
-
-    save(
-        KEYS.comments,
-        comments().filter(x=>x.postId!==id)
-    );
-
-    render();
+ posts=posts.filter(x=>x.id!==id);
+ persist();
+ render();
+ toast("Gönderi silindi");
 }
 
 function archivePost(id){
+ const u=me();
+ const p=posts.find(x=>x.id===id);
+ if(!p||p.userId!==u.id)return;
 
-    const post=posts().find(x=>x.id===id);
-    if(!post)return;
+ u.archive=u.archive||[];
+ if(!u.archive.includes(id))u.archive.push(id);
 
-    const ar=archive();
-
-    ar.unshift({
-        id:uid("archive"),
-        type:"post",
-        itemId:id,
-        userId:me().id,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.archive,ar);
-
-    showToast("Gönderi arşive alındı");
+ updateUser(u);
+ addActivity("archive","Gönderi arşive alındı",id);
+ render();
 }
 
-/* =========================================================
-   SONG
-========================================================= */
+/* =========================
+   SONGS
+========================= */
 
-async function songHTML(song){
+async function createSong(form){
+ const u=me();
 
-    const user=getUser(song.userId);
-    if(!user)return "";
+ const name=form.querySelector("[name=name]").value.trim();
+ const description=form.querySelector("[name=description]").value.trim();
+ const cover=form.querySelector("[name=cover]").files[0];
+ const audio=form.querySelector("[name=audio]").files[0];
 
-    const cover=song.coverMediaId
-        ?await mediaURL(song.coverMediaId)
-        :"";
+ if(!name){
+  toast("Şarkı adı gerekli");
+  return;
+ }
 
-    const liked=(me().likedSongs||[]).includes(song.id);
+ if(!cover){
+  toast("Kapak görseli gerekli");
+  return;
+ }
 
-    return `
-        <div class="card">
+ if(!audio){
+  toast("Ses dosyası gerekli");
+  return;
+ }
 
-            <div class="song">
+ const coverMediaId=await saveMedia(cover);
+ const mediaId=await saveMedia(audio);
 
-                ${
-                    cover
-                    ?
-                    `<img class="cover" src="${cover}" alt="">`
-                    :
-                    `<div class="cover"></div>`
-                }
+ songs.unshift({
+  id:uid("song"),
+  userId:u.id,
+  name,
+  description,
+  coverMediaId,
+  mediaId,
+  createdAt:Date.now(),
+  likes:[],
+  plays:0
+ });
 
-                <div class="song-info">
-
-                    <div class="song-title">
-                        ${esc(song.name)}
-                    </div>
-
-                    <div class="small muted">
-                        ${esc(user.name)}
-                        ·
-                        @${esc(user.username)}
-                    </div>
-
-                    ${
-                        song.description
-                        ?
-                        `<div class="song-desc">
-                            ${esc(song.description)}
-                        </div>`
-                        :""
-                    }
-
-                </div>
-
-                <div class="song-actions">
-
-                    <button class="btn primary btn-small"
-                            onclick="playSong('${song.id}')">
-                        Oynat
-                    </button>
-
-                    <button class="btn btn-small"
-                            onclick="toggleSongLike('${song.id}')">
-                        ${liked?"Favoriden Çıkar":"Favori"}
-                    </button>
-
-                    <button class="btn btn-small"
-                            onclick="openChannel('${user.id}')">
-                        Kanal
-                    </button>
-
-                    ${
-                        song.userId===me().id
-                        ?
-                        `
-                        <button class="btn btn-small btn-danger"
-                                onclick="deleteSong('${song.id}')">
-                            Sil
-                        </button>
-                        `
-                        :""
-                    }
-
-                </div>
-
-            </div>
-
-        </div>
-    `;
+ addActivity("song",`${name} adlı şarkı eklendi`);
+ closeModal();
+ persist();
+ render();
+ toast("Şarkı eklendi");
 }
 
 function toggleSongLike(id){
+ const song=songs.find(x=>x.id===id);
+ const u=me();
+ if(!song||!u)return;
 
-    const u=me();
+ song.likes=song.likes||[];
 
-    u.likedSongs=u.likedSongs||[];
+ if(song.likes.includes(u.id)){
+  song.likes=song.likes.filter(x=>x!==u.id);
+ }else{
+  song.likes.push(u.id);
+ }
 
-    const i=u.likedSongs.indexOf(id);
-
-    if(i>=0){
-        u.likedSongs.splice(i,1);
-    }else{
-        u.likedSongs.push(id);
-    }
-
-    updateUser(u);
-    render();
+ persist();
+ render();
 }
 
 function deleteSong(id){
+ const song=songs.find(x=>x.id===id);
+ if(!song||song.userId!==me().id)return;
 
-    const song=songs().find(x=>x.id===id);
-
-    if(!song||song.userId!==me().id)return;
-
-    if(!confirm("Şarkı silinsin mi?"))return;
-
-    save(
-        KEYS.songs,
-        songs().filter(x=>x.id!==id)
-    );
-
-    render();
+ songs=songs.filter(x=>x.id!==id);
+ persist();
+ render();
+ toast("Şarkı silindi");
 }
 
-/* =========================================================
-   CREATE
-========================================================= */
-
-function openCreateModal(){
-
-    openModal(`
-        <div class="modal-head">
-            <h2>İçerik Ekle</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="tabs">
-            <button class="btn primary"
-                    onclick="createPostForm()">
-                Gönderi
-            </button>
-
-            <button class="btn"
-                    onclick="createSongForm()">
-                Şarkı
-            </button>
-
-            <button class="btn"
-                    onclick="createReelForm()">
-                Reel
-            </button>
-        </div>
-
-        <div class="empty">
-            İçerik türünü seç.
-        </div>
-    `);
-}
-
-function createPostForm(){
-
-    document.getElementById("modalBox").innerHTML=`
-        <div class="modal-head">
-            <h2>Gönderi Oluştur</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="form-group">
-            <label>Metin</label>
-            <textarea id="postText"
-                      placeholder="Ne paylaşmak istiyorsun?"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Fotoğraf veya video</label>
-            <input id="postMedia" class="form-input" type="file"
-                   accept="image/*,video/*">
-        </div>
-
-        <button class="btn primary"
-                onclick="createPost()">
-            Paylaş
-        </button>
-    `;
-}
-
-async function createPost(){
-
-    const text=document.getElementById("postText").value.trim();
-    const file=document.getElementById("postMedia").files[0];
-
-    if(!text&&!file){
-        showToast("Metin veya medya ekle");
-        return;
-    }
-
-    let mediaId=null;
-    let mediaType="";
-
-    if(file){
-        mediaId=await putMedia(file);
-        mediaType=file.type;
-    }
-
-    const list=posts();
-
-    list.unshift({
-        id:uid("post"),
-        userId:me().id,
-        text,
-        mediaId,
-        mediaType,
-        likes:[],
-        createdAt:Date.now()
-    });
-
-    save(KEYS.posts,list);
-
-    saveActivity("post","Yeni gönderi paylaştın.");
-
-    closeModal();
-    render();
-}
-
-function createSongForm(){
-
-    document.getElementById("modalBox").innerHTML=`
-        <div class="modal-head">
-            <h2>Şarkı Ekle</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="form-group">
-            <label>Şarkı adı *</label>
-            <input id="songName" class="form-input"
-                   placeholder="Şarkı adı">
-        </div>
-
-        <div class="form-group">
-            <label>Açıklama</label>
-            <textarea id="songDescription"
-                      placeholder="Açıklama"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Kapak görseli *</label>
-            <input id="songCover" class="form-input"
-                   type="file" accept="image/*">
-        </div>
-
-        <div class="form-group">
-            <label>Ses dosyası *</label>
-            <input id="songAudio" class="form-input"
-                   type="file" accept="audio/*">
-        </div>
-
-        <button class="btn primary"
-                onclick="createSong()">
-            Şarkıyı Yükle
-        </button>
-    `;
-}
-
-async function createSong(){
-
-    const name=document.getElementById("songName").value.trim();
-    const description=document.getElementById("songDescription").value.trim();
-
-    const cover=document.getElementById("songCover").files[0];
-    const audioFile=document.getElementById("songAudio").files[0];
-
-    if(!name){
-        showToast("Şarkı adı zorunlu");
-        return;
-    }
-
-    if(!cover){
-        showToast("Kapak görseli zorunlu");
-        return;
-    }
-
-    if(!audioFile){
-        showToast("Ses dosyası zorunlu");
-        return;
-    }
-
-    const coverId=await putMedia(cover);
-    const audioId=await putMedia(audioFile);
-
-    const list=songs();
-
-    list.unshift({
-        id:uid("song"),
-        userId:me().id,
-        name,
-        description,
-        coverMediaId:coverId,
-        mediaId:audioId,
-        createdAt:Date.now(),
-        likes:[],
-        plays:0
-    });
-
-    save(KEYS.songs,list);
-
-    saveActivity("song","Yeni şarkı yükledin.");
-
-    closeModal();
-    render();
-}
-
-function createReelForm(){
-
-    document.getElementById("modalBox").innerHTML=`
-        <div class="modal-head">
-            <h2>Reel Ekle</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="form-group">
-            <label>Video *</label>
-            <input id="reelVideo"
-                   class="form-input"
-                   type="file"
-                   accept="video/*">
-        </div>
-
-        <div class="form-group">
-            <label>Açıklama</label>
-            <textarea id="reelDescription"></textarea>
-        </div>
-
-        <button class="btn primary"
-                onclick="createReel()">
-            Reel Paylaş
-        </button>
-    `;
-}
-
-async function createReel(){
-
-    const file=document.getElementById("reelVideo").files[0];
-    const description=document.getElementById("reelDescription").value.trim();
-
-    if(!file){
-        showToast("Video seç");
-        return;
-    }
-
-    const mediaId=await putMedia(file);
-
-    const list=reels();
-
-    list.unshift({
-        id:uid("reel"),
-        userId:me().id,
-        mediaId,
-        description,
-        likes:[],
-        views:0,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.reels,list);
-
-    saveActivity("reel","Yeni Reel paylaştın.");
-
-    closeModal();
-    render();
-}
-
-/* =========================================================
+/* =========================
    REELS
-========================================================= */
+========================= */
 
-async function renderReels(){
+async function createReel(form){
+ const u=me();
+ const description=form.querySelector("[name=description]").value.trim();
+ const video=form.querySelector("[name=video]").files[0];
 
-    const main=document.getElementById("main");
+ if(!video){
+  toast("Video gerekli");
+  return;
+ }
 
-    main.innerHTML=`
-        <h1 class="page-title">Reels</h1>
-        <div class="page-subtitle">
-            Kısa videolar
-        </div>
+ const mediaId=await saveMedia(video);
 
-        <div id="reelList"></div>
-    `;
+ reels.unshift({
+  id:uid("reel"),
+  userId:u.id,
+  description,
+  mediaId,
+  createdAt:Date.now(),
+  likes:[],
+  views:0
+ });
 
-    const box=document.getElementById("reelList");
-
-    let html="";
-
-    for(const reel of reels().sort((a,b)=>b.createdAt-a.createdAt)){
-
-        const user=getUser(reel.userId);
-
-        if(!user||isBlocked(user.id))continue;
-
-        const url=await mediaURL(reel.mediaId);
-
-        html+=`
-            <div class="reel">
-
-                <video controls
-                       src="${url}"
-                       onplay="countReelView('${reel.id}')"></video>
-
-                <div class="reel-body">
-
-                    <div class="user-line">
-                        ${await avatarHTML(user,"avatar small")}
-
-                        <div class="flex1">
-                            <b>${esc(user.name)}</b>
-                            <div class="small muted">
-                                @${esc(user.username)}
-                            </div>
-                        </div>
-
-                        <button class="btn btn-small"
-                                onclick="openChannel('${user.id}')">
-                            Kanal
-                        </button>
-                    </div>
-
-                    ${
-                        reel.description
-                        ?
-                        `<div class="post-text">
-                            ${esc(reel.description)}
-                        </div>`
-                        :""
-                    }
-
-                    <div class="post-actions">
-
-                        <button class="btn btn-small"
-                                onclick="toggleReelLike('${reel.id}')">
-                            Beğen ${reel.likes?.length||0}
-                        </button>
-
-                        <span class="small muted">
-                            ${reel.views||0} görüntülenme
-                        </span>
-
-                        ${
-                            reel.userId===me().id
-                            ?
-                            `<button class="btn btn-small btn-danger"
-                                     onclick="deleteReel('${reel.id}')">
-                                Sil
-                            </button>`
-                            :""
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-    }
-
-    box.innerHTML=html||`<div class="empty">Henüz Reel yok.</div>`;
-}
-
-function countReelView(id){
-
-    const list=reels();
-    const r=list.find(x=>x.id===id);
-
-    if(!r)return;
-
-    r.views=(r.views||0)+1;
-
-    save(KEYS.reels,list);
-}
-
-function toggleReelLike(id){
-
-    const list=reels();
-    const r=list.find(x=>x.id===id);
-
-    if(!r)return;
-
-    r.likes=r.likes||[];
-
-    const i=r.likes.indexOf(me().id);
-
-    if(i>=0)r.likes.splice(i,1);
-    else r.likes.push(me().id);
-
-    save(KEYS.reels,list);
-
-    render();
+ addActivity("reel","Yeni reel oluşturuldu");
+ closeModal();
+ persist();
+ render();
+ toast("Reel eklendi");
 }
 
 function deleteReel(id){
+ const reel=reels.find(x=>x.id===id);
+ if(!reel||reel.userId!==me().id)return;
 
-    const r=reels().find(x=>x.id===id);
-
-    if(!r||r.userId!==me().id)return;
-
-    if(!confirm("Reel silinsin mi?"))return;
-
-    save(KEYS.reels,reels().filter(x=>x.id!==id));
-
-    render();
+ reels=reels.filter(x=>x.id!==id);
+ persist();
+ render();
 }
 
-/* =========================================================
-   CHANNELS
-========================================================= */
-
-function renderChannels(){
-
-    const list=users()
-        .filter(u=>u.id!==me().id&&!isBlocked(u.id));
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Kanallar</h1>
-
-        <div class="page-subtitle">
-            MYM SOUND kullanıcı kanalları
-        </div>
-
-        <div class="card">
-
-            <input class="field"
-                   placeholder="Kanal ara..."
-                   oninput="filterChannels(this.value)">
-
-        </div>
-
-        <div id="channelList">
-
-            ${
-                list.map(u=>`
-                    <div class="person channel-person"
-                         data-name="${esc((u.name+" "+u.username).toLowerCase())}">
-
-                        ${awaitableAvatarPlaceholder(u)}
-
-                        <div class="person-info">
-
-                            <b>${esc(u.name)}</b>
-
-                            <div class="small muted">
-                                @${esc(u.username)}
-                                ·
-                                ${esc(u.role)}
-                            </div>
-
-                            <div class="small">
-                                ${u.followers?.length||0} takipçi
-                            </div>
-
-                        </div>
-
-                        <div class="person-actions">
-
-                            <button class="btn btn-small"
-                                    onclick="openChannel('${u.id}')">
-                                Gör
-                            </button>
-
-                            <button class="btn btn-small"
-                                    onclick="toggleFollow('${u.id}')">
-                                ${isFollowing(u.id)?"Takipten Çık":"Takip Et"}
-                            </button>
-
-                        </div>
-
-                    </div>
-                `).join("")
-            }
-
-        </div>
-    `;
-
-    fillChannelAvatars();
-}
-
-function awaitableAvatarPlaceholder(user){
-    return `<div class="avatar small" data-avatar-user="${user.id}">
-        ${esc(initials(user))}
-    </div>`;
-}
-
-async function fillChannelAvatars(){
-
-    for(const el of document.querySelectorAll("[data-avatar-user]")){
-
-        const user=getUser(el.dataset.avatarUser);
-
-        if(!user?.avatarMediaId)continue;
-
-        const url=await mediaURL(user.avatarMediaId);
-
-        if(url){
-            el.innerHTML=`<img src="${url}" alt="">`;
-        }
-    }
-}
-
-function filterChannels(value){
-
-    value=value.toLowerCase();
-
-    document.querySelectorAll(".channel-person")
-        .forEach(el=>{
-            el.style.display=
-                el.dataset.name.includes(value)
-                ?"flex"
-                :"none";
-        });
-}
-
-async function openChannel(id){
-
-    if(isBlocked(id)){
-        showToast("Bu kanala erişilemiyor");
-        return;
-    }
-
-    state.channelUser=id;
-    state.channelTab="general";
-    state.page="channel";
-
-    await renderChannel();
-}
-
-async function renderChannel(){
-
-    const u=getUser(state.channelUser);
-
-    if(!u){
-        openPage("channels");
-        return;
-    }
-
-    const cover=u.profileBackgroundMediaId
-        ?await mediaURL(u.profileBackgroundMediaId)
-        :"";
-
-    document.getElementById("main").innerHTML=`
-        <div class="channel-header">
-
-            <div class="channel-cover"
-                 style="${cover?`background-image:url('${cover}')`:""}">
-            </div>
-
-            <div class="channel-body">
-
-                <div class="user-line">
-
-                    ${await avatarHTML(u,"avatar large")}
-
-                    <div class="flex1">
-
-                        <div class="profile-name">
-                            ${esc(u.name)}
-                        </div>
-
-                        <div class="muted">
-                            @${esc(u.username)}
-                        </div>
-
-                        <div class="small">
-                            <span class="online-dot ${u.online?"on":""}"></span>
-                            ${u.online?"Çevrimiçi":"Çevrimdışı"}
-                            ·
-                            ${esc(u.role)}
-                            ·
-                            ${u.plan==="pro"?"PRO":"FREE"}
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <p class="post-text">
-                    ${esc(u.bio||"")}
-                </p>
-
-                <div class="stats">
-
-                    <div class="stat">
-                        <b>${u.followers?.length||0}</b>
-                        <span>Takipçi</span>
-                    </div>
-
-                    <div class="stat">
-                        <b>${u.following?.length||0}</b>
-                        <span>Takip</span>
-                    </div>
-
-                    <div class="stat">
-                        <b>${songs().filter(x=>x.userId===u.id).length}</b>
-                        <span>Şarkı</span>
-                    </div>
-
-                </div>
-
-                <div class="channel-actions">
-
-                    ${
-                        u.id!==me().id
-                        ?
-                        `
-                        <button class="btn primary"
-                                onclick="toggleFollow('${u.id}')">
-                            ${isFollowing(u.id)?"Takipten Çık":"Takip Et"}
-                        </button>
-
-                        <button class="btn"
-                                onclick="openChat('${u.id}')">
-                            Mesaj
-                        </button>
-
-                        <button class="btn btn-danger"
-                                onclick="toggleBlock('${u.id}')">
-                            ${isBlocked(u.id)?"Engeli Kaldır":"Engelle"}
-                        </button>
-                        `
-                        :
-                        `
-                        <button class="btn primary"
-                                onclick="openProfileSettings()">
-                            Profil Ayarları
-                        </button>
-                        `
-                    }
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <br>
-
-        <div class="tabs">
-
-            <button class="btn ${state.channelTab==="general"?"primary":""}"
-                    onclick="channelTab('general')">
-                Genel
-            </button>
-
-            <button class="btn ${state.channelTab==="posts"?"primary":""}"
-                    onclick="channelTab('posts')">
-                Gönderiler
-            </button>
-
-            <button class="btn ${state.channelTab==="songs"?"primary":""}"
-                    onclick="channelTab('songs')">
-                Şarkılar
-            </button>
-
-            <button class="btn ${state.channelTab==="reels"?"primary":""}"
-                    onclick="channelTab('reels')">
-                Reels
-            </button>
-
-            <button class="btn ${state.channelTab==="shop"?"primary":""}"
-                    onclick="channelTab('shop')">
-                Shop
-            </button>
-
-        </div>
-
-        <div id="channelContent"></div>
-    `;
-
-    await renderChannelContent();
-}
-
-function channelTab(tab){
-    state.channelTab=tab;
-    renderChannel();
-}
-
-async function renderChannelContent(){
-
-    const box=document.getElementById("channelContent");
-    if(!box)return;
-
-    const id=state.channelUser;
-
-    if(state.channelTab==="general"){
-
-        const ps=posts()
-            .filter(x=>x.userId===id);
-
-        const ss=songs()
-            .filter(x=>x.userId===id);
-
-        let html="";
-
-        for(const p of ps){
-            html+=await postHTML(p);
-        }
-
-        for(const s of ss){
-            html+=await songHTML(s);
-        }
-
-        box.innerHTML=html||`<div class="empty">Henüz içerik yok.</div>`;
-        return;
-    }
-
-    if(state.channelTab==="posts"){
-
-        let html="";
-
-        for(const p of posts().filter(x=>x.userId===id)){
-            html+=await postHTML(p);
-        }
-
-        box.innerHTML=html||`<div class="empty">Gönderi yok.</div>`;
-        return;
-    }
-
-    if(state.channelTab==="songs"){
-
-        let html="";
-
-        for(const s of songs().filter(x=>x.userId===id)){
-            html+=await songHTML(s);
-        }
-
-        box.innerHTML=html||`<div class="empty">Şarkı yok.</div>`;
-        return;
-    }
-
-    if(state.channelTab==="reels"){
-
-        let html="";
-
-        for(const r of reels().filter(x=>x.userId===id)){
-
-            const url=await mediaURL(r.mediaId);
-
-            html+=`
-                <div class="card">
-                    <video class="post-media"
-                           controls
-                           src="${url}"></video>
-
-                    <p class="post-text">
-                        ${esc(r.description||"")}
-                    </p>
-                </div>
-            `;
-        }
-
-        box.innerHTML=html||`<div class="empty">Reel yok.</div>`;
-        return;
-    }
-
-    if(state.channelTab==="shop"){
-
-        box.innerHTML=await shopHTML(
-            shopItems().filter(x=>x.userId===id)
-        );
-    }
-}
-
-/* =========================================================
-   FOLLOW
-========================================================= */
-
-function toggleFollow(userId){
-
-    const current=me();
-    const target=getUser(userId);
-
-    if(!current||!target)return;
-
-    if(userId===current.id){
-        showToast("Kendini takip edemezsin");
-        return;
-    }
-
-    if(isBlocked(userId)){
-        showToast("Engellenen kullanıcı");
-        return;
-    }
-
-    current.following=current.following||[];
-    target.followers=target.followers||[];
-
-    const i=current.following.indexOf(userId);
-
-    if(i>=0){
-
-        current.following.splice(i,1);
-
-        const fi=target.followers.indexOf(current.id);
-
-        if(fi>=0){
-            target.followers.splice(fi,1);
-        }
-
-        saveActivity(
-            "unfollow",
-            target.name+" takipten çıkarıldı."
-        );
-
-    }else{
-
-        current.following.push(userId);
-
-        if(!target.followers.includes(current.id)){
-            target.followers.push(current.id);
-        }
-
-        notify(
-            target.id,
-            "follow",
-            current.name+" seni takip etmeye başladı."
-        );
-
-        saveActivity(
-            "follow",
-            target.name+" takip edildi."
-        );
-    }
-
-    updateUser(current);
-    updateUser(target);
-
-    render();
-}
-
-/* =========================================================
-   BLOCK
-========================================================= */
-
-function toggleBlock(userId){
-
-    const current=me();
-    const target=getUser(userId);
-
-    if(!target||target.id===current.id)return;
-
-    current.blockedUsers=current.blockedUsers||[];
-
-    const i=current.blockedUsers.indexOf(userId);
-
-    if(i>=0){
-
-        current.blockedUsers.splice(i,1);
-
-        showToast("Engel kaldırıldı");
-
-    }else{
-
-        current.blockedUsers.push(userId);
-
-        current.following=(current.following||[])
-            .filter(x=>x!==userId);
-
-        target.followers=(target.followers||[])
-            .filter(x=>x!==current.id);
-
-        target.following=(target.following||[])
-            .filter(x=>x!==current.id);
-
-        target.blockedUsers=target.blockedUsers||[];
-
-        updateUser(target);
-
-        showToast("Kullanıcı engellendi");
-    }
-
-    updateUser(current);
-
-    render();
-}
-
-/* =========================================================
-   PEOPLE
-========================================================= */
-
-function renderPeople(){
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Kişiler</h1>
-
-        <div class="page-subtitle">
-            Kullanıcı ara, takip et veya mesaj gönder.
-        </div>
-
-        <div class="card">
-            <input id="peopleSearch"
-                   class="field"
-                   placeholder="Kullanıcı ara..."
-                   oninput="searchPeople(this.value)">
-        </div>
-
-        <div id="peopleList"></div>
-    `;
-
-    searchPeople("");
-}
-
-async function searchPeople(value){
-
-    value=value.toLowerCase();
-
-    const list=users()
-        .filter(u=>u.id!==me().id&&!isBlocked(u.id))
-        .filter(u=>
-            u.name.toLowerCase().includes(value)||
-            u.username.toLowerCase().includes(value)||
-            u.role.toLowerCase().includes(value)
-        );
-
-    const box=document.getElementById("peopleList");
-
-    if(!box)return;
-
-    let html="";
-
-    for(const u of list){
-
-        html+=`
-            <div class="person">
-
-                ${await avatarHTML(u,"avatar")}
-
-                <div class="person-info">
-
-                    <b>${esc(u.name)}</b>
-
-                    <div class="small muted">
-                        @${esc(u.username)}
-                    </div>
-
-                    <div class="small">
-                        ${esc(u.role)}
-                        ·
-                        ${u.followers?.length||0} takipçi
-                    </div>
-
-                </div>
-
-                <div class="person-actions">
-
-                    <button class="btn btn-small"
-                            onclick="openChannel('${u.id}')">
-                        Profil
-                    </button>
-
-                    <button class="btn btn-small primary"
-                            onclick="toggleFollow('${u.id}')">
-                        ${isFollowing(u.id)?"Takipten Çık":"Takip Et"}
-                    </button>
-
-                    <button class="btn btn-small"
-                            onclick="openChat('${u.id}')">
-                        Mesaj
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-    }
-
-    box.innerHTML=html||`<div class="empty">Kullanıcı bulunamadı.</div>`;
-}
-
-/* =========================================================
+/* =========================
    SHOP
-========================================================= */
+========================= */
 
-function canUploadShop(){
+function canUploadShop(type){
+ const u=me();
 
-    const u=me();
+ if(type==="beat"){
+  return u.role==="Beat Maker"||u.role==="Prodüktör";
+ }
 
-    if(u.plan==="pro")return true;
+ if(type==="mix"){
+  return u.role==="Mix Engineer"||u.role==="Prodüktör";
+ }
 
-    const count=shopItems()
-        .filter(x=>
-            x.userId===u.id &&
-            (x.type==="Beat"||x.type==="Mix")
-        ).length;
-
-    return count<50;
+ return false;
 }
 
-function shopCount(){
-
-    return shopItems()
-        .filter(x=>
-            x.userId===me().id &&
-            (x.type==="Beat"||x.type==="Mix")
-        ).length;
+function shopCount(u){
+ return shopItems.filter(x=>
+  x.userId===u.id &&
+  (x.type==="beat"||x.type==="mix")
+ ).length;
 }
 
-function renderShop(){
-
-    const u=me();
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Shop</h1>
-
-        <div class="page-subtitle">
-            Beat ve Mix içeriklerini keşfet.
-        </div>
-
-        <div class="card">
-
-            <div class="row between wrap">
-
-                <div>
-                    <b>Shop'a içerik ekle</b>
-
-                    <div class="small muted">
-                        ${
-                            u.plan==="pro"
-                            ?
-                            "PRO: Sınırsız Beat + Mix"
-                            :
-                            `FREE: ${shopCount()}/50 Beat + Mix`
-                        }
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    ${
-                        u.plan!=="pro"
-                        ?
-                        `<button class="btn primary"
-                                 onclick="openProModal()">
-                            PRO'ya Geç
-                        </button>`
-                        :""
-                    }
-
-                    <button class="btn primary"
-                            onclick="createShopForm()">
-                        Shop'a Ekle
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div id="shopContent"></div>
-    `;
-
-    shopHTML(shopItems().filter(x=>!isBlocked(x.userId)))
-        .then(html=>{
-            document.getElementById("shopContent").innerHTML=html;
-        });
-}
-
-async function shopHTML(items){
-
-    if(!items.length){
-        return `<div class="empty">Shop'ta henüz ürün yok.</div>`;
-    }
-
-    let html=`<div class="shop-grid">`;
-
-    for(const item of items.sort((a,b)=>b.createdAt-a.createdAt)){
-
-        const user=getUser(item.userId);
-
-        if(!user)continue;
-
-        html+=`
-            <div class="shop-item">
-
-                <div class="shop-type">
-                    ${esc(item.type)}
-                </div>
-
-                <h3>${esc(item.name)}</h3>
-
-                <p>
-                    ${esc(item.description||"")}
-                </p>
-
-                <div class="price">
-                    ${Number(item.price||0).toLocaleString("tr-TR")} TL
-                </div>
-
-                <div class="small muted">
-                    ${esc(user.name)}
-                </div>
-
-                <div class="post-actions">
-
-                    <button class="btn primary btn-small"
-                            onclick="playShopItem('${item.id}')">
-                        Dinle
-                    </button>
-
-                    <button class="btn btn-small"
-                            onclick="openChannel('${user.id}')">
-                        Kanal
-                    </button>
-
-                    ${
-                        item.userId===me().id
-                        ?
-                        `<button class="btn btn-small btn-danger"
-                                 onclick="deleteShopItem('${item.id}')">
-                            Sil
-                        </button>`
-                        :""
-                    }
-
-                </div>
-
-            </div>
-        `;
-    }
-
-    html+=`</div>`;
-
-    return html;
-}
-
-function createShopForm(){
-
-    const u=me();
-
-    if(u.role!=="Beat Maker"&&
-       u.role!=="Mix Engineer"&&
-       u.role!=="Prodüktör"){
-
-        showToast("Shop yükleme yetkin bu rolde yok");
-        return;
-    }
-
-    if(!canUploadShop()){
-
-        openProModal();
-        return;
-    }
-
-    document.getElementById("modalBox").innerHTML=`
-        <div class="modal-head">
-            <h2>Shop'a Ekle</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="form-group">
-            <label>Tür *</label>
-
-            <select id="shopType" class="form-select">
-
-                ${
-                    u.role==="Beat Maker"||u.role==="Prodüktör"
-                    ?
-                    `<option value="Beat">Beat</option>`
-                    :""
-                }
-
-                ${
-                    u.role==="Mix Engineer"||u.role==="Prodüktör"
-                    ?
-                    `<option value="Mix">Mix</option>`
-                    :""
-                }
-
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Ürün adı *</label>
-            <input id="shopName"
-                   class="form-input"
-                   placeholder="Örnek: Dark Trap Beat">
-        </div>
-
-        <div class="form-group">
-            <label>Açıklama</label>
-            <textarea id="shopDescription"
-                      placeholder="Ürün açıklaması"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Fiyat (TL) *</label>
-            <input id="shopPrice"
-                   class="form-input"
-                   type="number"
-                   min="0"
-                   step="1"
-                   placeholder="Örnek: 1000">
-        </div>
-
-        <div class="form-group">
-            <label>Ses dosyası *</label>
-            <input id="shopAudio"
-                   class="form-input"
-                   type="file"
-                   accept="audio/*">
-        </div>
-
-        <div class="small muted">
-            ${
-                u.plan==="pro"
-                ?
-                "PRO hesabında sınırsız Beat + Mix yükleyebilirsin."
-                :
-                `FREE hesabında toplam ${shopCount()}/50 Beat + Mix kullandın.`
-            }
-        </div>
-
-        <br>
-
-        <button class="btn primary"
-                onclick="createShopItem()">
-            Ürünü Kaydet
-        </button>
-    `;
-}
-
-async function createShopItem(){
-
-    const type=document.getElementById("shopType").value;
-    const name=document.getElementById("shopName").value.trim();
-    const description=document.getElementById("shopDescription").value.trim();
-    const price=Number(document.getElementById("shopPrice").value);
-    const file=document.getElementById("shopAudio").files[0];
-
-    if(!name){
-        showToast("Ürün adı zorunlu");
-        return;
-    }
-
-    if(!Number.isFinite(price)||price<0){
-        showToast("Geçerli bir fiyat gir");
-        return;
-    }
-
-    if(!file){
-        showToast("Ses dosyası seç");
-        return;
-    }
-
-    if(!canUploadShop()){
-        openProModal();
-        return;
-    }
-
-    const mediaId=await putMedia(file);
-
-    const list=shopItems();
-
-    list.unshift({
-        id:uid("shop"),
-        userId:me().id,
-        type,
-        name,
-        description,
-        price,
-        mediaId,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.shop,list);
-
-    saveActivity(
-        "shop",
-        name+" Shop'a eklendi."
-    );
-
-    closeModal();
-    render();
-}
-
-async function playShopItem(id){
-
-    const item=shopItems().find(x=>x.id===id);
-
-    if(!item)return;
-
-    await playMedia(
-        item.mediaId,
-        item.name,
-        getUser(item.userId)?.name||""
-    );
+async function createShopItem(form){
+ const u=me();
+
+ const type=form.querySelector("[name=type]").value;
+ const name=form.querySelector("[name=name]").value.trim();
+ const description=form.querySelector("[name=description]").value.trim();
+ const price=Number(form.querySelector("[name=price]").value);
+ const audio=form.querySelector("[name=audio]").files[0];
+
+ if(!canUploadShop(type)){
+  toast("Rolün bu Shop türünü eklemeye uygun değil");
+  return;
+ }
+
+ if(u.plan!=="pro" && shopCount(u)>=50){
+  toast("Free hesapta Beat + Mix toplam sınırı 50");
+  return;
+ }
+
+ if(!name){
+  toast("Ürün adı gerekli");
+  return;
+ }
+
+ if(!Number.isFinite(price)||price<0){
+  toast("Geçerli bir fiyat gir");
+  return;
+ }
+
+ if(!audio){
+  toast("Ses dosyası gerekli");
+  return;
+ }
+
+ const mediaId=await saveMedia(audio);
+
+ shopItems.unshift({
+  id:uid("shop"),
+  userId:u.id,
+  type,
+  name,
+  description,
+  price,
+  mediaId,
+  createdAt:Date.now(),
+  plays:0
+ });
+
+ addActivity("shop",`${name} Shop'a eklendi`);
+ closeModal();
+ persist();
+ render();
+ toast("Shop ürünü eklendi");
 }
 
 function deleteShopItem(id){
+ const item=shopItems.find(x=>x.id===id);
+ if(!item||item.userId!==me().id)return;
 
-    const item=shopItems().find(x=>x.id===id);
-
-    if(!item||item.userId!==me().id)return;
-
-    if(!confirm("Shop ürünü silinsin mi?"))return;
-
-    save(
-        KEYS.shop,
-        shopItems().filter(x=>x.id!==id)
-    );
-
-    render();
+ shopItems=shopItems.filter(x=>x.id!==id);
+ persist();
+ render();
+ toast("Shop ürünü silindi");
 }
 
-/* =========================================================
-   PRO
-========================================================= */
-
-function openProModal(){
-
-    openModal(`
-        <div class="modal-head">
-            <h2>MYM SOUND PRO</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        <div class="card">
-
-            <h3>PRO avantajları</h3>
-
-            <br>
-
-            <p class="muted">
-                Beat + Mix Shop yüklemelerinde 50 ürün sınırı kalkar.
-            </p>
-
-            <br>
-
-            <p class="muted">
-                Normal şarkı, gönderi ve Reel yüklemeleri zaten sınırsızdır.
-            </p>
-
-            <br>
-
-            <p class="small muted">
-                Bu buton gerçek ödeme yapmaz. Demo olarak Pro durumunu
-                etkinleştirir.
-            </p>
-
-            <br>
-
-            <button class="btn primary"
-                    onclick="activatePro()">
-                PRO'yu Etkinleştir
-            </button>
-
-        </div>
-    `);
-}
-
-function activatePro(){
-
-    const u=me();
-
-    u.plan="pro";
-
-    updateUser(u);
-
-    saveActivity(
-        "pro",
-        "PRO demo hesabı etkinleştirildi."
-    );
-
-    closeModal();
-    showToast("PRO etkinleştirildi");
-    render();
-}
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-async function renderProfile(){
-
-    const u=me();
-
-    const cover=u.profileBackgroundMediaId
-        ?await mediaURL(u.profileBackgroundMediaId)
-        :"";
-
-    document.getElementById("main").innerHTML=`
-
-        <h1 class="page-title">Profil</h1>
-
-        <div class="profile-cover"
-             style="${cover?`background-image:url('${cover}')`:""}">
-        </div>
-
-        <div class="profile-info">
-
-            ${await avatarHTML(u,"avatar large")}
-
-            <div class="profile-text">
-
-                <div class="profile-name">
-                    ${esc(u.name)}
-                </div>
-
-                <div class="username">
-                    @${esc(u.username)}
-                </div>
-
-                <div class="small muted">
-                    ${esc(u.role)}
-                    ·
-                    ${u.plan==="pro"?"PRO":"FREE"}
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="card">
-
-            <div class="row between wrap">
-
-                <div>
-                    <b>Profilin</b>
-
-                    <div class="small muted">
-                        Profil ayarlarını ayrı panelden yönet.
-                    </div>
-                </div>
-
-                <button class="btn primary"
-                        onclick="openProfileSettings()">
-                    Profil Ayarları
-                </button>
-
-            </div>
-
-            <div class="stats">
-
-                <div class="stat">
-                    <b>${u.followers?.length||0}</b>
-                    <span>Takipçi</span>
-                </div>
-
-                <div class="stat">
-                    <b>${u.following?.length||0}</b>
-                    <span>Takip</span>
-                </div>
-
-                <div class="stat">
-                    <b>${songs().filter(x=>x.userId===u.id).length}</b>
-                    <span>Şarkı</span>
-                </div>
-
-                <div class="stat">
-                    <b>${shopItems().filter(x=>x.userId===u.id).length}</b>
-                    <span>Shop</span>
-                </div>
-
-            </div>
-
-            ${
-                u.bio
-                ?
-                `<div class="post-text">
-                    ${esc(u.bio)}
-                </div>`
-                :""
-            }
-
-        </div>
-
-        <div class="tabs">
-
-            <button class="btn primary"
-                    onclick="profileContent('posts')">
-                Gönderiler
-            </button>
-
-            <button class="btn"
-                    onclick="profileContent('songs')">
-                Şarkılar
-            </button>
-
-            <button class="btn"
-                    onclick="profileContent('shop')">
-                Shop
-            </button>
-
-        </div>
-
-        <div id="profileContent"></div>
-    `;
-
-    profileContent("posts");
-}
-
-async function profileContent(type){
-
-    const box=document.getElementById("profileContent");
-
-    if(!box)return;
-
-    const u=me();
-
-    if(type==="posts"){
-
-        let html="";
-
-        for(const p of posts().filter(x=>x.userId===u.id)){
-            html+=await postHTML(p);
-        }
-
-        box.innerHTML=html||`<div class="empty">Gönderi yok.</div>`;
-    }
-
-    if(type==="songs"){
-
-        let html="";
-
-        for(const s of songs().filter(x=>x.userId===u.id)){
-            html+=await songHTML(s);
-        }
-
-        box.innerHTML=html||`<div class="empty">Şarkı yok.</div>`;
-    }
-
-    if(type==="shop"){
-
-        box.innerHTML=await shopHTML(
-            shopItems().filter(x=>x.userId===u.id)
-        );
-    }
-}
-
-/* =========================================================
-   PROFILE SETTINGS
-========================================================= */
-
-function openProfileSettings(){
-
-    const u=me();
-
-    openModal(`
-        <div class="modal-head">
-
-            <h2>Profil Ayarları</h2>
-
-            <button class="close"
-                    onclick="closeModal()">
-                X
-            </button>
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Profil fotoğrafı</label>
-
-            <input id="profileAvatar"
-                   class="form-input"
-                   type="file"
-                   accept="image/*">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Profil arka planı</label>
-
-            <input id="profileBackground"
-                   class="form-input"
-                   type="file"
-                   accept="image/*">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Ad / kullanıcı adı</label>
-
-            <input id="profileName"
-                   class="form-input"
-                   value="${esc(u.name)}">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Kullanıcı adı</label>
-
-            <input id="profileUsername"
-                   class="form-input"
-                   value="${esc(u.username)}">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Bio</label>
-
-            <textarea id="profileBio">${esc(u.bio||"")}</textarea>
-
-        </div>
-
-        <div class="small muted">
-            İsim veya kullanıcı adı toplamda 7 günlük dönemde
-            en fazla 3 kez değiştirilebilir.
-        </div>
-
-        <br>
-
-        <button class="btn primary"
-                onclick="saveProfileSettings()">
-            Değişiklikleri Kaydet
-        </button>
-    `);
-}
-
-async function saveProfileSettings(){
-
-    const u=me();
-
-    const name=document.getElementById("profileName").value.trim();
-    const username=document.getElementById("profileUsername").value.trim();
-    const bio=document.getElementById("profileBio").value.trim();
-
-    if(name.length<2){
-        showToast("Geçerli bir isim gir");
-        return;
-    }
-
-    if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(username)){
-        showToast("Kullanıcı adı geçersiz");
-        return;
-    }
-
-    const duplicate=users().find(
-        x=>x.id!==u.id &&
-        x.username.toLowerCase()===username.toLowerCase()
-    );
-
-    if(duplicate){
-        showToast("Bu kullanıcı adı alınmış");
-        return;
-    }
-
-    const now=Date.now();
-    const week=7*24*60*60*1000;
-
-    u.nameChanges=(u.nameChanges||[])
-        .filter(x=>now-x<week);
-
-    const identityChanged=
-        name!==u.name||
-        username!==u.username;
-
-    if(identityChanged){
-
-        if(u.nameChanges.length>=3){
-            showToast("7 gün içinde en fazla 3 isim/kullanıcı adı değişikliği");
-            return;
-        }
-
-        u.nameChanges.push(now);
-    }
-
-    const avatar=document.getElementById("profileAvatar").files[0];
-
-    if(avatar){
-        u.avatarMediaId=await putMedia(avatar);
-    }
-
-    const background=document
-        .getElementById("profileBackground")
-        .files[0];
-
-    if(background){
-        u.profileBackgroundMediaId=
-            await putMedia(background);
-    }
-
-    u.name=name;
-    u.username=username;
-    u.bio=bio;
-
-    updateUser(u);
-
-    closeModal();
-
-    showToast("Profil güncellendi");
-
-    render();
-}
-
-/* =========================================================
+/* =========================
    MESSAGES
-========================================================= */
+========================= */
 
-function openChat(userId){
+function sendMessage(text,toId){
+ const u=me();
+ const target=getUser(toId);
 
-    if(userId===me().id)return;
+ if(!u||!target||!text.trim())return;
 
-    if(isBlocked(userId)){
-        showToast("Bu kullanıcıyla mesajlaşamazsın");
-        return;
-    }
+ if(isBlocked(toId)){
+  toast("Bu kullanıcıya mesaj gönderemezsin");
+  return;
+ }
 
-    state.chatUser=userId;
-    state.page="messages";
+ messages.push({
+  id:uid("msg"),
+  fromId:u.id,
+  toId,
+  text:text.trim(),
+  createdAt:Date.now(),
+  read:false
+ });
 
-    renderMessages();
+ addActivity("message",`${target.name} kişisine mesaj gönderildi`,target.id);
+ addNotification(
+  target.id,
+  "message",
+  `${u.name} sana mesaj gönderdi`,
+  u.id
+ );
+
+ persist();
+ state.currentChatUserId=toId;
+ render();
 }
 
-function renderMessages(){
+function conversations(){
+ const u=me();
+ if(!u)return [];
 
-    const u=me();
+ const ids=new Set();
 
-    const people=users()
-        .filter(x=>x.id!==u.id&&!isBlocked(x.id));
+ messages.forEach(m=>{
+  if(m.fromId===u.id)ids.add(m.toId);
+  if(m.toId===u.id)ids.add(m.fromId);
+ });
 
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Mesajlaşma</h1>
-
-        <div class="form-grid">
-
-            <div class="card">
-
-                <input class="field"
-                       placeholder="Konuşma ara..."
-                       oninput="filterChats(this.value)">
-
-                <div id="chatList"></div>
-
-            </div>
-
-            <div class="card">
-
-                <div id="chatBox">
-                    ${
-                        state.chatUser
-                        ?
-                        "Mesajlar yükleniyor..."
-                        :
-                        `<div class="empty">
-                            Mesajlaşmak için bir kişi seç.
-                        </div>`
-                    }
-                </div>
-
-            </div>
-
-        </div>
-    `;
-
-    renderChatList(people);
-
-    if(state.chatUser){
-        renderChat();
-    }
+ return [...ids]
+  .map(id=>getUser(id))
+  .filter(Boolean)
+  .filter(x=>!isBlocked(x.id));
 }
 
-async function renderChatList(people){
+function markChatRead(userId){
+ const u=me();
+ let changed=false;
 
-    const box=document.getElementById("chatList");
+ messages.forEach(m=>{
+  if(m.toId===u.id&&m.fromId===userId&&!m.read){
+   m.read=true;
+   changed=true;
+  }
+ });
 
-    if(!box)return;
-
-    const all=messages();
-
-    const used=[];
-
-    for(const msg of all){
-
-        const other=
-            msg.fromId===me().id
-            ?msg.toId
-            :msg.fromId;
-
-        if(
-            !used.includes(other)&&
-            !isBlocked(other)
-        ){
-            used.push(other);
-        }
-    }
-
-    const ordered=[
-        ...used,
-        ...people.map(x=>x.id).filter(x=>!used.includes(x))
-    ];
-
-    let html="";
-
-    for(const id of ordered){
-
-        const user=getUser(id);
-
-        if(!user)continue;
-
-        const last=all
-            .filter(x=>
-                (x.fromId===me().id&&x.toId===id)||
-                (x.fromId===id&&x.toId===me().id)
-            )
-            .sort((a,b)=>b.createdAt-a.createdAt)[0];
-
-        html+=`
-            <div class="person chat-person"
-                 data-name="${esc(user.name.toLowerCase())}"
-                 onclick="openChat('${user.id}')">
-
-                ${await avatarHTML(user,"avatar small")}
-
-                <div class="person-info">
-
-                    <b>${esc(user.name)}</b>
-
-                    <div class="small muted">
-                        ${last?esc(last.text):"Yeni konuşma"}
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-    }
-
-    box.innerHTML=html||`<div class="empty">Kişi yok.</div>`;
+ if(changed)save(KEY.messages,messages);
 }
 
-function filterChats(value){
-
-    value=value.toLowerCase();
-
-    document.querySelectorAll(".chat-person")
-        .forEach(el=>{
-            el.style.display=
-                el.dataset.name.includes(value)
-                ?"flex"
-                :"none";
-        });
-}
-
-async function renderChat(){
-
-    const user=getUser(state.chatUser);
-    const box=document.getElementById("chatBox");
-
-    if(!user||!box)return;
-
-    if(isBlocked(user.id)){
-        box.innerHTML=`<div class="empty">Bu kullanıcı engelli.</div>`;
-        return;
-    }
-
-    const list=messages()
-        .filter(x=>
-            (x.fromId===me().id&&x.toId===user.id)||
-            (x.fromId===user.id&&x.toId===me().id)
-        )
-        .sort((a,b)=>a.createdAt-b.createdAt);
-
-    list.forEach(x=>{
-        if(x.toId===me().id){
-            x.read=true;
-        }
-    });
-
-    save(KEYS.messages,messages());
-
-    let html=`
-        <div class="row">
-
-            ${await avatarHTML(user,"avatar")}
-
-            <div>
-                <b>${esc(user.name)}</b>
-                <div class="small muted">
-                    @${esc(user.username)}
-                </div>
-            </div>
-
-        </div>
-
-        <hr style="border-color:#222;margin:15px 0">
-
-        <div style="max-height:430px;overflow:auto">
-    `;
-
-    for(const msg of list){
-
-        const own=msg.fromId===me().id;
-
-        html+=`
-            <div style="
-                display:flex;
-                justify-content:${own?"flex-end":"flex-start"};
-                margin-bottom:8px;
-            ">
-
-                <div style="
-                    max-width:75%;
-                    background:${own?"#6d28d9":"#202020"};
-                    padding:10px 13px;
-                    border-radius:12px;
-                ">
-
-                    ${esc(msg.text)}
-
-                    <div class="small"
-                         style="opacity:.6;margin-top:4px">
-                        ${new Date(msg.createdAt).toLocaleTimeString("tr-TR",{
-                            hour:"2-digit",
-                            minute:"2-digit"
-                        })}
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-    }
-
-    html+=`
-        </div>
-
-        <div class="comment-box">
-
-            <input id="messageInput"
-                   placeholder="Mesaj yaz..."
-                   onkeydown="messageEnter(event)">
-
-            <button class="btn primary"
-                    onclick="sendMessage()">
-                Gönder
-            </button>
-
-        </div>
-    `;
-
-    box.innerHTML=html;
-}
-
-function messageEnter(e){
-
-    if(e.key==="Enter"){
-        e.preventDefault();
-        sendMessage();
-    }
-}
-
-function sendMessage(){
-
-    const user=getUser(state.chatUser);
-
-    if(!user)return;
-
-    if(isBlocked(user.id)){
-        showToast("Bu kullanıcıyla mesajlaşamazsın");
-        return;
-    }
-
-    const input=document.getElementById("messageInput");
-    const text=input.value.trim();
-
-    if(!text)return;
-
-    const list=messages();
-
-    list.push({
-        id:uid("message"),
-        fromId:me().id,
-        toId:user.id,
-        text,
-        read:false,
-        createdAt:Date.now()
-    });
-
-    save(KEYS.messages,list);
-
-    notify(
-        user.id,
-        "message",
-        me().name+" sana mesaj gönderdi."
-    );
-
-    saveActivity(
-        "message",
-        user.name+" kişisine mesaj gönderdin."
-    );
-
-    input.value="";
-
-    renderMessages();
-}
-
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-function renderActivity(){
-
-    const list=activities()
-        .filter(x=>x.userId===me().id);
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Hareketlerim</h1>
-
-        <div class="card">
-
-            ${
-                list.length
-                ?
-                list.map(x=>`
-                    <div class="setting-item">
-
-                        <div>
-                            <div class="setting-title">
-                                ${esc(x.text)}
-                            </div>
-
-                            <div class="setting-desc">
-                                ${new Date(x.createdAt).toLocaleString("tr-TR")}
-                            </div>
-                        </div>
-
-                    </div>
-                `).join("")
-                :
-                `<div class="empty">Henüz hareket yok.</div>`
-            }
-
-        </div>
-    `;
-}
-
-/* =========================================================
-   ARCHIVE
-========================================================= */
-
-async function renderArchive(){
-
-    const list=archive()
-        .filter(x=>x.userId===me().id);
-
-    let html="";
-
-    for(const a of list){
-
-        if(a.type==="post"){
-
-            const p=posts().find(x=>x.id===a.itemId);
-
-            if(p){
-                html+=await postHTML(p);
-            }
-        }
-    }
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Arşiv</h1>
-
-        ${html||`<div class="empty">Arşiv boş.</div>`}
-    `;
-}
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-function renderNotifications(){
-
-    const list=notifications()
-        .filter(x=>x.userId===me().id);
-
-    list.forEach(x=>x.read=true);
-
-    save(KEYS.notifications,notifications());
-
-    document.getElementById("main").innerHTML=`
-        <h1 class="page-title">Bildirimler</h1>
-
-        <div class="card">
-
-            ${
-                list.length
-                ?
-                list.map(x=>`
-                    <div class="setting-item">
-
-                        <div>
-                            <div class="setting-title">
-                                ${esc(x.text)}
-                            </div>
-
-                            <div class="setting-desc">
-                                ${new Date(x.createdAt).toLocaleString("tr-TR")}
-                            </div>
-                        </div>
-
-                    </div>
-                `).join("")
-                :
-                `<div class="empty">Bildirim yok.</div>`
-            }
-
-        </div>
-    `;
-}
-
-/* =========================================================
-   SETTINGS
-   SEKME YOK
-========================================================= */
-
-function renderSettings(){
-
-    const u=me();
-
-    document.getElementById("main").innerHTML=`
-
-        <h1 class="page-title">Ayarlar</h1>
-
-        <div class="page-subtitle">
-            Hesabını ve MYM SOUND tercihlerini yönet.
-        </div>
-
-        <div class="card">
-
-            <div class="settings-list">
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Profil
-                        </div>
-
-                        <div class="setting-desc">
-                            Fotoğraf, isim, kullanıcı adı ve bio.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="openProfileSettings()">
-                        Aç
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            PRO
-                        </div>
-
-                        <div class="setting-desc">
-                            Durum: ${u.plan==="pro"?"PRO":"FREE"}
-                        </div>
-                    </div>
-
-                    ${
-                        u.plan==="pro"
-                        ?
-                        `<span class="plan plan-pro">PRO</span>`
-                        :
-                        `<button class="btn primary"
-                                 onclick="openProModal()">
-                            PRO
-                        </button>`
-                    }
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Bildirimler
-                        </div>
-
-                        <div class="setting-desc">
-                            Takip ve mesaj bildirimleri.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="toggleSetting('notifications')">
-                        ${u.settings?.notifications!==false?"Açık":"Kapalı"}
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Otomatik oynatma
-                        </div>
-
-                        <div class="setting-desc">
-                            Şarkılar oynatıcıda otomatik başlasın.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="toggleSetting('autoplay')">
-                        ${u.settings?.autoplay?"Açık":"Kapalı"}
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Gizlilik
-                        </div>
-
-                        <div class="setting-desc">
-                            Profil gizlilik ayarı.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="toggleSetting('privateProfile')">
-                        ${u.settings?.privateProfile?"Gizli":"Açık"}
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Engellenenler
-                        </div>
-
-                        <div class="setting-desc">
-                            Engellediğin kullanıcıları yönet.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="showBlockedUsers()">
-                        Aç
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Shop vitrini
-                        </div>
-
-                        <div class="setting-desc">
-                            Shop arka plan görselini değiştir.
-                        </div>
-                    </div>
-
-                    <button class="btn"
-                            onclick="shopBackgroundSettings()">
-                        Aç
-                    </button>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Veriler
-                        </div>
-
-                        <div class="setting-desc">
-                            Verilerini dışa aktar veya demo verisini sıfırla.
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <button class="btn"
-                                onclick="exportData()">
-                            Dışa Aktar
-                        </button>
-
-                        <button class="btn btn-danger"
-                                onclick="resetData()">
-                            Sıfırla
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="setting-item">
-
-                    <div>
-                        <div class="setting-title">
-                            Çıkış Yap
-                        </div>
-
-                        <div class="setting-desc">
-                            Hesabından çıkış yap.
-                        </div>
-                    </div>
-
-                    <button class="btn btn-danger"
-                            onclick="logout()">
-                        Çıkış
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-    `;
-}
-
-function toggleSetting(key){
-
-    const u=me();
-
-    u.settings=u.settings||{};
-
-    u.settings[key]=!u.settings[key];
-
-    updateUser(u);
-
-    renderSettings();
-}
-
-async function shopBackgroundSettings(){
-
-    openModal(`
-        <div class="modal-head">
-
-            <h2>Shop Vitrini</h2>
-
-            <button class="close"
-                    onclick="closeModal()">
-                X
-            </button>
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Shop arka plan görseli</label>
-
-            <input id="shopBackground"
-                   class="form-input"
-                   type="file"
-                   accept="image/*">
-
-        </div>
-
-        <button class="btn primary"
-                onclick="saveShopBackground()">
-            Kaydet
-        </button>
-    `);
-}
-
-async function saveShopBackground(){
-
-    const file=document
-        .getElementById("shopBackground")
-        .files[0];
-
-    if(!file){
-        showToast("Görsel seç");
-        return;
-    }
-
-    const u=me();
-
-    u.shopBackgroundMediaId=await putMedia(file);
-
-    updateUser(u);
-
-    closeModal();
-
-    showToast("Shop vitrini güncellendi");
-}
-
-function showBlockedUsers(){
-
-    const u=me();
-
-    const list=(u.blockedUsers||[])
-        .map(getUser)
-        .filter(Boolean);
-
-    openModal(`
-        <div class="modal-head">
-            <h2>Engellenenler</h2>
-            <button class="close" onclick="closeModal()">X</button>
-        </div>
-
-        ${
-            list.length
-            ?
-            list.map(x=>`
-                <div class="person">
-
-                    <div class="avatar small">
-                        ${esc(initials(x))}
-                    </div>
-
-                    <div class="person-info">
-                        <b>${esc(x.name)}</b>
-                        <div class="small muted">
-                            @${esc(x.username)}
-                        </div>
-                    </div>
-
-                    <button class="btn btn-small"
-                            onclick="toggleBlock('${x.id}')">
-                        Engeli Kaldır
-                    </button>
-
-                </div>
-            `).join("")
-            :
-            `<div class="empty">Engellenen kullanıcı yok.</div>`
-        }
-    `);
-}
-
-/* =========================================================
-   GLOBAL SEARCH
-========================================================= */
-
-async function globalSearch(value){
-
-    value=value.trim().toLowerCase();
-
-    if(value.length<2)return;
-
-    const userResults=users()
-        .filter(u=>
-            u.id!==me().id&&
-            !isBlocked(u.id)&&
-            (
-                u.name.toLowerCase().includes(value)||
-                u.username.toLowerCase().includes(value)
-            )
-        )
-        .slice(0,5);
-
-    const songResults=songs()
-        .filter(s=>
-            s.name.toLowerCase().includes(value)||
-            (s.description||"").toLowerCase().includes(value)
-        )
-        .slice(0,5);
-
-    openModal(`
-        <div class="modal-head">
-
-            <h2>Arama Sonuçları</h2>
-
-            <button class="close"
-                    onclick="closeModal()">
-                X
-            </button>
-
-        </div>
-
-        <h3>Kişiler</h3>
-
-        ${
-            userResults.length
-            ?
-            userResults.map(u=>`
-                <div class="person">
-
-                    <div class="avatar small">
-                        ${esc(initials(u))}
-                    </div>
-
-                    <div class="person-info">
-                        <b>${esc(u.name)}</b>
-                        <div class="small muted">
-                            @${esc(u.username)}
-                        </div>
-                    </div>
-
-                    <button class="btn btn-small"
-                            onclick="closeModal();openChannel('${u.id}')">
-                        Kanal
-                    </button>
-
-                </div>
-            `).join("")
-            :
-            `<div class="small muted">Kişi bulunamadı.</div>`
-        }
-
-        <br>
-
-        <h3>Şarkılar</h3>
-
-        ${
-            songResults.length
-            ?
-            songResults.map(s=>`
-                <div class="setting-item">
-
-                    <div>
-                        <b>${esc(s.name)}</b>
-                        <div class="small muted">
-                            ${esc(getUser(s.userId)?.name||"")}
-                        </div>
-                    </div>
-
-                    <button class="btn btn-small"
-                            onclick="closeModal();playSong('${s.id}')">
-                        Oynat
-                    </button>
-
-                </div>
-            `).join("")
-            :
-            `<div class="small muted">Şarkı bulunamadı.</div>`
-        }
-    `);
-}
-
-/* =========================================================
-   PLAYER
-========================================================= */
+/* =========================
+   MUSIC PLAYER
+========================= */
 
 async function playSong(id){
+ const song=songs.find(x=>x.id===id);
+ if(!song)return;
 
-    const song=songs().find(x=>x.id===id);
+ const audio=document.getElementById("globalAudio");
+ const url=await getMediaURL(song.mediaId);
 
-    if(!song)return;
+ if(!url){
+  toast("Ses dosyası bulunamadı");
+  return;
+ }
 
-    state.playerSong=id;
+ state.currentSongId=id;
+ audio.src=url;
+ audio.currentTime=0;
 
-    state.queue=songs()
-        .filter(x=>!isBlocked(x.userId));
+ song.plays=(song.plays||0)+1;
 
-    state.queueIndex=
-        Math.max(
-            0,
-            state.queue.findIndex(x=>x.id===id)
-        );
+ history.unshift({
+  id:uid("history"),
+  userId:me().id,
+  songId:id,
+  createdAt:Date.now()
+ });
 
-    await playMedia(
-        song.mediaId,
-        song.name,
-        getUser(song.userId)?.name||""
-    );
+ history=history.slice(0,300);
+ save(KEY.history,history);
+ save(KEY.songs,songs);
 
-    song.plays=(song.plays||0)+1;
+ document.getElementById("playerTitle").textContent=song.name;
+ document.getElementById("playerArtist").textContent=getUser(song.userId)?.name||"Bilinmeyen";
 
-    save(KEYS.songs,songs());
+ const cover=document.getElementById("playerCover");
+ cover.innerHTML=song.coverMediaId
+  ? `<img data-media="${escapeHTML(song.coverMediaId)}">`
+  : "";
+
+ await hydrateMedia();
+
+ try{
+  await audio.play();
+  document.getElementById("playPause").textContent="Pause";
+ }catch(e){
+  document.getElementById("playPause").textContent="Play";
+ }
 }
 
-async function playMedia(mediaId,title,artist){
+function togglePlay(){
+ const audio=document.getElementById("globalAudio");
 
-    const url=await mediaURL(mediaId);
+ if(!audio.src){
+  if(songs[0])playSong(songs[0].id);
+  return;
+ }
 
-    if(!url){
-        showToast("Ses dosyası bulunamadı");
-        return;
-    }
-
-    audio.src=url;
-
-    document.getElementById("playerTitle").textContent=title;
-    document.getElementById("playerArtist").textContent=artist;
-
-    document.getElementById("player").classList.remove("hidden");
-
-    await audio.play().catch(()=>{});
-
-    document.querySelector("#player button:nth-child(2)")
-        .textContent="Duraklat";
+ if(audio.paused){
+  audio.play();
+  document.getElementById("playPause").textContent="Pause";
+ }else{
+  audio.pause();
+  document.getElementById("playPause").textContent="Play";
+ }
 }
 
-function togglePlayer(){
+function nextSong(){
+ if(!songs.length)return;
 
-    if(audio.paused){
+ if(state.shuffle){
+  const random=Math.floor(Math.random()*songs.length);
+  playSong(songs[random].id);
+  return;
+ }
 
-        audio.play();
-
-        document.querySelector("#player button:nth-child(2)")
-            .textContent="Duraklat";
-
-    }else{
-
-        audio.pause();
-
-        document.querySelector("#player button:nth-child(2)")
-            .textContent="Oynat";
-    }
+ const index=songs.findIndex(s=>s.id===state.currentSongId);
+ const next=(index+1)%songs.length;
+ playSong(songs[next].id);
 }
 
-async function nextSong(){
+function prevSong(){
+ if(!songs.length)return;
 
-    if(!state.queue.length)return;
-
-    state.queueIndex=
-        (state.queueIndex+1)%state.queue.length;
-
-    const s=state.queue[state.queueIndex];
-
-    state.playerSong=s.id;
-
-    await playMedia(
-        s.mediaId,
-        s.name,
-        getUser(s.userId)?.name||""
-    );
+ const index=songs.findIndex(s=>s.id===state.currentSongId);
+ const prev=(index-1+songs.length)%songs.length;
+ playSong(songs[prev].id);
 }
 
-async function previousSong(){
-
-    if(!state.queue.length)return;
-
-    state.queueIndex=
-        (state.queueIndex-1+state.queue.length)
-        %state.queue.length;
-
-    const s=state.queue[state.queueIndex];
-
-    state.playerSong=s.id;
-
-    await playMedia(
-        s.mediaId,
-        s.name,
-        getUser(s.userId)?.name||""
-    );
-}
-
-function seekPlayer(value){
-
-    if(!audio.duration)return;
-
-    audio.currentTime=
-        audio.duration*(Number(value)/100);
-}
+const audio=document.getElementById("globalAudio");
 
 audio.addEventListener("timeupdate",()=>{
-
-    const p=document.getElementById("playerProgress");
-
-    if(!p||!audio.duration)return;
-
-    p.value=(audio.currentTime/audio.duration)*100;
+ if(!audio.duration)return;
+ document.getElementById("progress").value=(audio.currentTime/audio.duration)*100;
 });
 
 audio.addEventListener("ended",()=>{
-
-    if(me()?.settings?.autoplay){
-        nextSong();
-    }else{
-        document.querySelector("#player button:nth-child(2)")
-            .textContent="Oynat";
-    }
+ if(state.repeat){
+  audio.currentTime=0;
+  audio.play();
+ }else{
+  nextSong();
+ }
 });
 
-/* =========================================================
-   MODAL
-========================================================= */
+document.getElementById("progress").addEventListener("input",e=>{
+ if(audio.duration){
+  audio.currentTime=(Number(e.target.value)/100)*audio.duration;
+ }
+});
+
+document.getElementById("volume").addEventListener("input",e=>{
+ audio.volume=Number(e.target.value);
+});
+
+audio.volume=.8;
+
+/* =========================
+   MODALS
+========================= */
 
 function openModal(html){
+ document.getElementById("modalRoot").innerHTML=
+ `<div class="modal-bg" id="modalBg">
+   <div class="modal">${html}</div>
+  </div>`;
 
-    document.getElementById("modalBox").innerHTML=html;
-
-    document.getElementById("modal")
-        .classList.remove("hidden");
+ document.getElementById("modalBg").addEventListener("click",e=>{
+  if(e.target.id==="modalBg")closeModal();
+ });
 }
 
 function closeModal(){
-
-    document.getElementById("modal")
-        .classList.add("hidden");
-
-    document.getElementById("modalBox")
-        .innerHTML="";
+ document.getElementById("modalRoot").innerHTML="";
 }
 
-function modalOutside(e){
-
-    if(e.target.id==="modal"){
-        closeModal();
-    }
+function newPostModal(){
+ openModal(`
+  <h2>Yeni Gönderi</h2>
+  <form data-form="post">
+   <div class="field">
+    <label>Metin</label>
+    <textarea name="text" placeholder="Ne paylaşmak istiyorsun?"></textarea>
+   </div>
+   <label class="file-label">
+    Görsel veya video ekle
+    <input name="media" type="file" accept="image/*,video/*">
+   </label>
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">İptal</button>
+    <button class="btn primary">Paylaş</button>
+   </div>
+  </form>
+ `);
 }
 
-/* =========================================================
-   COUNTS
-========================================================= */
-
-function updateCounts(){
-
-    const n=unreadNotifications();
-    const m=unreadMessages();
-
-    const nb=document.getElementById("notificationCount");
-    const mb=document.getElementById("messageCount");
-
-    if(n){
-        nb.textContent=n;
-        nb.classList.remove("hidden");
-    }else{
-        nb.classList.add("hidden");
-    }
-
-    if(m){
-        mb.textContent=m;
-        mb.classList.remove("hidden");
-    }else{
-        mb.classList.add("hidden");
-    }
+function newSongModal(){
+ openModal(`
+  <h2>Şarkı Ekle</h2>
+  <form data-form="song">
+   <div class="field">
+    <label>Şarkı adı</label>
+    <input name="name" required>
+   </div>
+   <div class="field">
+    <label>Açıklama</label>
+    <textarea name="description" placeholder="İsteğe bağlı"></textarea>
+   </div>
+   <label class="file-label" style="margin-bottom:10px">
+    Kapak görseli seç
+    <input name="cover" type="file" accept="image/*" required>
+   </label>
+   <label class="file-label">
+    Ses dosyası seç
+    <input name="audio" type="file" accept="audio/*" required>
+   </label>
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">İptal</button>
+    <button class="btn primary">Şarkıyı Ekle</button>
+   </div>
+  </form>
+ `);
 }
 
-/* =========================================================
-   DATA EXPORT / RESET
-========================================================= */
+function newReelModal(){
+ openModal(`
+  <h2>Yeni Reel</h2>
+  <form data-form="reel">
+   <div class="field">
+    <label>Açıklama</label>
+    <textarea name="description"></textarea>
+   </div>
+   <label class="file-label">
+    Video seç
+    <input name="video" type="file" accept="video/*" required>
+   </label>
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">İptal</button>
+    <button class="btn primary">Reel Paylaş</button>
+   </div>
+  </form>
+ `);
+}
+
+function newShopModal(){
+ const u=me();
+
+ if(!["Beat Maker","Mix Engineer","Prodüktör"].includes(u.role)){
+  toast("Shop'a Beat veya Mix eklemek için uygun bir rol gerekli");
+  return;
+ }
+
+ openModal(`
+  <h2>Shop'a Ürün Ekle</h2>
+  <form data-form="shop">
+   <div class="field">
+    <label>Ürün türü</label>
+    <select name="type">
+     ${u.role==="Beat Maker"||u.role==="Prodüktör"
+      ? `<option value="beat">Beat</option>`:""}
+     ${u.role==="Mix Engineer"||u.role==="Prodüktör"
+      ? `<option value="mix">Mix</option>`:""}
+    </select>
+   </div>
+
+   <div class="field">
+    <label>Ürün adı</label>
+    <input name="name" required>
+   </div>
+
+   <div class="field">
+    <label>Açıklama</label>
+    <textarea name="description"></textarea>
+   </div>
+
+   <div class="field">
+    <label>Fiyat (TL)</label>
+    <input name="price" type="number" min="0" step="1" required placeholder="Örn: 1000">
+   </div>
+
+   <label class="file-label">
+    Ses dosyası
+    <input name="audio" type="file" accept="audio/*" required>
+   </label>
+
+   <p class="muted small" style="margin-top:10px">
+    Free hesaplarda Beat + Mix toplam 50 ürün sınırı vardır. Pro hesaplarda sınırsızdır.
+   </p>
+
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">İptal</button>
+    <button class="btn primary">Shop'a Ekle</button>
+   </div>
+  </form>
+ `);
+}
+
+function profileSettingsModal(){
+ const u=me();
+
+ const recent=(u.nameChanges||[]).filter(t=>Date.now()-t<7*86400000);
+
+ openModal(`
+  <h2>Profil Ayarları</h2>
+
+  <form data-form="profile">
+
+   <div class="field">
+    <label>Profil fotoğrafı</label>
+    <label class="file-label">
+     Yeni fotoğraf seç
+     <input name="avatar" type="file" accept="image/*">
+    </label>
+   </div>
+
+   <div class="field">
+    <label>Profil arka planı</label>
+    <label class="file-label">
+     Yeni arka plan seç
+     <input name="profileBg" type="file" accept="image/*">
+    </label>
+   </div>
+
+   <div class="field">
+    <label>Ad</label>
+    <input name="name" value="${escapeHTML(u.name)}" maxlength="40">
+   </div>
+
+   <div class="field">
+    <label>Kullanıcı adı</label>
+    <input name="username" value="${escapeHTML(u.username)}" maxlength="24">
+   </div>
+
+   <div class="field">
+    <label>Biyografi</label>
+    <textarea name="bio">${escapeHTML(u.bio||"")}</textarea>
+   </div>
+
+   <p class="muted small">
+    Son 7 günde ${recent.length}/3 isim/kullanıcı adı değişikliği kullanıldı.
+   </p>
+
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">İptal</button>
+    <button class="btn primary">Kaydet</button>
+   </div>
+  </form>
+
+  <hr style="border-color:var(--border);margin:20px 0">
+
+  <h3>Shop Vitrin Arka Planı</h3>
+  <label class="file-label" style="margin-top:12px">
+   Vitrin arka planı seç
+   <input id="shopBgInput" type="file" accept="image/*">
+  </label>
+ `);
+
+ document.getElementById("shopBgInput").addEventListener("change",async e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+
+  u.shopBackgroundMediaId=await saveMedia(file);
+  updateUser(u);
+  addActivity("shop_background","Shop vitrin arka planı değiştirildi");
+  closeModal();
+  render();
+  toast("Vitrin arka planı güncellendi");
+ });
+}
+
+async function saveProfile(form){
+ const u=me();
+ const newName=form.querySelector("[name=name]").value.trim();
+ const newUsername=form.querySelector("[name=username]").value.trim().toLowerCase();
+ const bio=form.querySelector("[name=bio]").value.trim();
+
+ if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(newUsername)){
+  toast("Kullanıcı adı geçersiz");
+  return;
+ }
+
+ if(users.some(x=>x.id!==u.id&&x.username.toLowerCase()===newUsername)){
+  toast("Bu kullanıcı adı kullanılıyor");
+  return;
+ }
+
+ const changedName=newName!==u.name;
+ const changedUsername=newUsername!==u.username;
+
+ if(changedName||changedUsername){
+  u.nameChanges=(u.nameChanges||[]).filter(t=>Date.now()-t<7*86400000);
+
+  if(u.nameChanges.length>=3){
+   toast("7 gün içinde en fazla 3 değişiklik yapabilirsin");
+   return;
+  }
+
+  u.nameChanges.push(Date.now());
+ }
+
+ if(form.querySelector("[name=avatar]").files[0]){
+  u.avatarMediaId=await saveMedia(form.querySelector("[name=avatar]").files[0]);
+ }
+
+ if(form.querySelector("[name=profileBg]").files[0]){
+  u.profileBackgroundMediaId=await saveMedia(form.querySelector("[name=profileBg]").files[0]);
+ }
+
+ u.name=newName;
+ u.username=newUsername;
+ u.bio=bio;
+
+ updateUser(u);
+ addActivity("profile","Profil güncellendi");
+ closeModal();
+ render();
+ toast("Profil güncellendi");
+}
+
+/* =========================
+   RENDER HELPERS
+========================= */
+
+function renderSongCard(song){
+ const u=getUser(song.userId);
+ if(!u||isBlocked(u.id))return "";
+
+ const liked=(song.likes||[]).includes(me().id);
+
+ return `
+ <div class="card song-card">
+  <div class="cover">
+   ${song.coverMediaId
+    ? `<img data-media="${escapeHTML(song.coverMediaId)}" alt="">`
+    : `<div class="cover-placeholder">M</div>`}
+  </div>
+
+  <div class="between">
+   <div>
+    <div class="song-title">${escapeHTML(song.name)}</div>
+    <div class="small muted">${escapeHTML(u.name)} · @${escapeHTML(u.username)}</div>
+   </div>
+   ${u.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+  </div>
+
+  <div class="song-desc">${escapeHTML(song.description||"")}</div>
+
+  <div class="song-meta">
+   <span>${song.plays||0} dinlenme</span>
+   <span>${formatDate(song.createdAt)}</span>
+  </div>
+
+  <div class="post-actions">
+   <button class="btn primary" data-play-song="${song.id}">Dinle</button>
+   <button class="action ${liked?"liked":""}" data-like-song="${song.id}">
+    ${liked?"Beğenildi":"Beğen"} ${song.likes?.length||0}
+   </button>
+   ${song.userId===me().id
+    ? `<button class="action" data-delete-song="${song.id}">Sil</button>`:""}
+  </div>
+ </div>`;
+}
+
+function renderPost(post){
+ const u=getUser(post.userId);
+ if(!u||isBlocked(u.id))return "";
+
+ const liked=(post.likes||[]).includes(me().id);
+ const archived=(me().archive||[]).includes(post.id);
+
+ let media="";
+ if(post.mediaId){
+  if(post.mediaType?.startsWith("video")){
+   media=`<video class="post-media" data-media="${escapeHTML(post.mediaId)}" controls></video>`;
+  }else{
+   media=`<img class="post-media" data-media="${escapeHTML(post.mediaId)}">`;
+  }
+ }
+
+ return `
+ <article class="card">
+  <div class="post-header">
+   ${avatarHTML(u,"sm")}
+   <div style="flex:1">
+    <div class="post-user">${escapeHTML(u.name)}</div>
+    <div class="small muted">
+     @${escapeHTML(u.username)}
+     ${u.online?`<span class="online"></span>Çevrimiçi`:""}
+    </div>
+   </div>
+   ${u.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+  </div>
+
+  ${post.text?`<div class="post-content">${escapeHTML(post.text)}</div>`:""}
+  ${media}
+  <div class="small muted" style="margin-top:10px">${formatDate(post.createdAt)}</div>
+
+  <div class="post-actions">
+   <button class="action ${liked?"liked":""}" data-like-post="${post.id}">
+    ${liked?"Beğenildi":"Beğen"} ${post.likes?.length||0}
+   </button>
+   <button class="action" data-comment-post="${post.id}">Yorum</button>
+   <button class="action" data-share-post="${post.id}">Paylaş</button>
+
+   ${post.userId===me().id?`
+    <button class="action" data-archive-post="${post.id}">
+     ${archived?"Arşivde":"Arşivle"}
+    </button>
+    <button class="action" data-delete-post="${post.id}">Sil</button>
+   `:""}
+  </div>
+ </article>`;
+}
+
+function renderPerson(u){
+ if(!u||u.id===me().id||isBlocked(u.id))return "";
+
+ return `
+ <div class="person">
+  <div class="row" style="min-width:0">
+   ${avatarHTML(u,"sm")}
+   <div class="person-info">
+    <strong>${escapeHTML(u.name)}</strong>
+    <span>
+     @${escapeHTML(u.username)} · ${escapeHTML(u.role)}
+     ${u.online?` · <span class="online"></span>Çevrimiçi`:""}
+    </span>
+   </div>
+  </div>
+
+  <div class="row">
+   <button class="btn" data-channel="${u.id}">Kanal</button>
+   <button class="btn" data-follow="${u.id}">
+    ${following(u.id)?"Takipten Çık":"Takip Et"}
+   </button>
+   <button class="btn" data-message="${u.id}">Mesaj</button>
+  </div>
+ </div>`;
+}
+
+/* =========================
+   PAGES
+========================= */
+
+function renderHome(){
+ const u=me();
+
+ let visiblePosts=posts.filter(p=>!isBlocked(p.userId));
+ let visibleSongs=songs.filter(s=>!isBlocked(s.userId));
+
+ if(state.feed==="following"){
+  visiblePosts=visiblePosts.filter(p=>(u.following||[]).includes(p.userId));
+  visibleSongs=visibleSongs.filter(s=>(u.following||[]).includes(s.userId));
+ }
+
+ if(state.feed==="popular"){
+  visiblePosts=[...visiblePosts].sort((a,b)=>(b.likes?.length||0)-(a.likes?.length||0));
+  visibleSongs=[...visibleSongs].sort((a,b)=>(b.plays||0)-(a.plays||0));
+ }
+
+ if(state.feed==="new"){
+  visiblePosts=[...visiblePosts].sort((a,b)=>b.createdAt-a.createdAt);
+  visibleSongs=[...visibleSongs].sort((a,b)=>b.createdAt-a.createdAt);
+ }
+
+ const combined=[
+  ...visiblePosts.map(x=>({...x,_type:"post"})),
+  ...visibleSongs.map(x=>({...x,_type:"song"}))
+ ].sort((a,b)=>b.createdAt-a.createdAt);
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Ana Sayfa</h1>
+    <p>MYM SOUND akışın</p>
+   </div>
+   <button class="btn primary" data-action="new-post">Gönderi Paylaş</button>
+  </div>
+
+  <div class="tabs">
+   <button class="tab ${state.feed==="all"?"active":""}" data-feed="all">Tümü</button>
+   <button class="tab ${state.feed==="following"?"active":""}" data-feed="following">Takip Ettiklerim</button>
+   <button class="tab ${state.feed==="new"?"active":""}" data-feed="new">Yeni</button>
+   <button class="tab ${state.feed==="popular"?"active":""}" data-feed="popular">Popüler</button>
+  </div>
+
+  ${
+   combined.length
+   ? combined.map(x=>x._type==="post"?renderPost(x):renderSongCard(x)).join("")
+   : `<div class="empty">Henüz içerik yok.</div>`
+  }
+ </div>`;
+}
+
+function renderReels(){
+ const visible=reels.filter(r=>!isBlocked(r.userId));
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Reels</h1>
+    <p>Kısa müzik videoları</p>
+   </div>
+   <button class="btn primary" data-action="new-reel">Reel Ekle</button>
+  </div>
+
+  ${
+   visible.length
+   ? visible.map(r=>{
+    const u=getUser(r.userId);
+    const liked=(r.likes||[]).includes(me().id);
+
+    return `
+    <div class="reel card">
+     <video data-media="${escapeHTML(r.mediaId)}" controls></video>
+     <div class="reel-info">
+      <div class="row">
+       ${avatarHTML(u,"sm")}
+       <div>
+        <strong>${escapeHTML(u.name)}</strong>
+        <div class="small muted">@${escapeHTML(u.username)}</div>
+       </div>
+      </div>
+
+      <p style="margin:12px 0">${escapeHTML(r.description||"")}</p>
+
+      <div class="post-actions">
+       <button class="action ${liked?"liked":""}" data-like-reel="${r.id}">
+        ${liked?"Beğenildi":"Beğen"} ${r.likes?.length||0}
+       </button>
+       <button class="action" data-comment-reel="${r.id}">Yorum</button>
+       ${r.userId===me().id
+        ? `<button class="action" data-delete-reel="${r.id}">Sil</button>`:""}
+      </div>
+     </div>
+    </div>`;
+   }).join("")
+   : `<div class="empty">Henüz reel yok.</div>`
+  }
+ </div>`;
+}
+
+function renderChannels(){
+ const people=users.filter(u=>u.id!==me().id&&!isBlocked(u.id));
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Kanallar</h1>
+    <p>Her kullanıcı kendi kanalına sahip.</p>
+   </div>
+  </div>
+
+  <div class="field">
+   <input id="channelSearch" placeholder="Kanal ara...">
+  </div>
+
+  <div id="channelList" class="people-list">
+   ${people.map(renderPerson).join("")||`<div class="empty">Kanal bulunamadı.</div>`}
+  </div>
+ </div>`;
+
+ document.getElementById("channelSearch").addEventListener("input",e=>{
+  const q=e.target.value.toLowerCase();
+
+  document.getElementById("channelList").innerHTML=
+   people
+    .filter(u=>
+     u.name.toLowerCase().includes(q)||
+     u.username.toLowerCase().includes(q)
+    )
+    .map(renderPerson)
+    .join("")||
+    `<div class="empty">Kanal bulunamadı.</div>`;
+ });
+}
+
+function renderChannel(userId){
+ const u=getUser(userId);
+
+ if(!u||isBlocked(userId)){
+  state.page="channels";
+  render();
+  toast("Bu kanala erişilemiyor");
+  return;
+ }
+
+ const userPosts=posts.filter(p=>p.userId===u.id);
+ const userSongs=songs.filter(s=>s.userId===u.id);
+ const userReels=reels.filter(r=>r.userId===u.id);
+ const userShop=shopItems.filter(s=>s.userId===u.id);
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+
+  <div class="channel-banner"
+   ${u.profileBackgroundMediaId?`data-bg="${escapeHTML(u.profileBackgroundMediaId)}"`:""}>
+  </div>
+
+  <div class="card channel-info">
+
+   <div class="profile-head" style="padding:0">
+    <div class="avatar lg channel-avatar" data-avatar="${escapeHTML(u.avatarMediaId||"")}">
+     ${initials(u)}
+    </div>
+
+    <div class="profile-info" style="flex:1">
+     <h1>${escapeHTML(u.name)}
+      ${u.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+     </h1>
+
+     <p>@${escapeHTML(u.username)} · ${escapeHTML(u.role)}</p>
+
+     <p style="margin-top:10px">${escapeHTML(u.bio||"")}</p>
+
+     <div class="stats">
+      <div class="stat"><strong>${u.followers?.length||0}</strong><span>Takipçi</span></div>
+      <div class="stat"><strong>${u.following?.length||0}</strong><span>Takip</span></div>
+      <div class="stat"><strong>${userPosts.length}</strong><span>Gönderi</span></div>
+      <div class="stat"><strong>${userSongs.length}</strong><span>Şarkı</span></div>
+     </div>
+
+     <div class="row">
+      ${u.id!==me().id?`
+       <button class="btn primary" data-follow="${u.id}">
+        ${following(u.id)?"Takipten Çık":"Takip Et"}
+       </button>
+       <button class="btn" data-message="${u.id}">Mesaj Gönder</button>
+       <button class="btn" data-block="${u.id}">
+        ${(me().blockedUsers||[]).includes(u.id)?"Engeli Kaldır":"Engelle"}
+       </button>
+      `:`
+       <button class="btn primary" data-action="profile-settings">
+        Profil Ayarları
+       </button>
+      `}
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="tabs">
+   <button class="tab active">Genel</button>
+   <button class="tab">Gönderiler ${userPosts.length}</button>
+   <button class="tab">Şarkılar ${userSongs.length}</button>
+   <button class="tab">Reels ${userReels.length}</button>
+   <button class="tab">Shop ${userShop.length}</button>
+  </div>
+
+  <h2 style="margin:20px 0 12px">Şarkılar</h2>
+  <div class="grid">
+   ${userSongs.map(renderSongCard).join("")||`<div class="empty">Şarkı yok.</div>`}
+  </div>
+
+  <h2 style="margin:25px 0 12px">Gönderiler</h2>
+  ${userPosts.map(renderPost).join("")||`<div class="empty">Gönderi yok.</div>`}
+
+  <h2 style="margin:25px 0 12px">Shop</h2>
+  <div class="grid">
+   ${userShop.map(renderShopCard).join("")||`<div class="empty">Shop ürünü yok.</div>`}
+  </div>
+
+ </div>`;
+}
+
+function renderShopCard(item){
+ const u=getUser(item.userId);
+ if(!u||isBlocked(u.id))return "";
+
+ return `
+ <div class="card">
+  <div class="between">
+   <div>
+    <span class="role">${item.type==="beat"?"BEAT":"MIX"}</span>
+    ${u.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+   </div>
+   <span class="price">₺${Number(item.price).toLocaleString("tr-TR")}</span>
+  </div>
+
+  <h3 style="margin-top:14px">${escapeHTML(item.name)}</h3>
+  <p class="muted small" style="margin-top:6px">${escapeHTML(item.description||"")}</p>
+
+  <div class="small muted" style="margin:12px 0">
+   ${escapeHTML(u.name)} · ${item.plays||0} dinlenme
+  </div>
+
+  <div class="row">
+   <button class="btn primary" data-play-shop="${item.id}">Dinle</button>
+   <button class="btn" data-channel="${u.id}">Vitrine Git</button>
+   ${item.userId===me().id
+    ? `<button class="btn" data-delete-shop="${item.id}">Sil</button>`:""}
+  </div>
+ </div>`;
+}
+
+function renderShop(){
+ const u=me();
+
+ if(state.shopTab==="mine"){
+  const mine=shopItems.filter(x=>x.userId===u.id);
+
+  document.getElementById("main").innerHTML=`
+  <div class="container">
+   <div class="page-title">
+    <div>
+     <h1>Shop</h1>
+     <p>Benim Vitrinim</p>
+    </div>
+    <button class="btn primary" data-action="new-shop">+ Ürün Ekle</button>
+   </div>
+
+   <div class="shop-tabs">
+    <button class="shop-tab active" data-shop-tab="mine">
+     <strong>Benim Vitrinim</strong>
+     <div class="small muted">Kendi Beat ve Mix ürünlerin</div>
+    </button>
+    <button class="shop-tab" data-shop-tab="all">
+     <strong>Vitrinler</strong>
+     <div class="small muted">Diğer kullanıcıların vitrinleri</div>
+    </button>
+   </div>
+
+   <div class="shop-banner"
+    ${u.shopBackgroundMediaId?`data-bg="${escapeHTML(u.shopBackgroundMediaId)}"`:""}>
+    <div class="shop-banner-content">
+     <div class="row">
+      ${avatarHTML(u,"sm")}
+      <div>
+       <h2>${escapeHTML(u.name)}</h2>
+       <div class="small muted">${escapeHTML(u.role)} · ${mine.length} ürün</div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="between" style="margin-bottom:15px">
+    <div>
+     <h2>Ürünlerim</h2>
+     <p class="muted small">${u.plan==="pro"?"Pro: sınırsız Beat + Mix":"Free: Beat + Mix toplam 50 ürün"}</p>
+    </div>
+    <button class="btn" data-action="profile-settings">Vitrin Ayarları</button>
+   </div>
+
+   <div class="grid">
+    ${mine.map(renderShopCard).join("")||`<div class="empty">Henüz Shop ürünün yok.</div>`}
+   </div>
+  </div>`;
+
+ }else{
+
+  const sellers=users.filter(user=>
+   user.id!==u.id &&
+   !isBlocked(user.id) &&
+   shopItems.some(item=>item.userId===user.id)
+  );
+
+  document.getElementById("main").innerHTML=`
+  <div class="container">
+   <div class="page-title">
+    <div>
+     <h1>Shop</h1>
+     <p>Vitrinler</p>
+    </div>
+   </div>
+
+   <div class="shop-tabs">
+    <button class="shop-tab" data-shop-tab="mine">
+     <strong>Benim Vitrinim</strong>
+     <div class="small muted">Kendi vitrinin</div>
+    </button>
+    <button class="shop-tab active" data-shop-tab="all">
+     <strong>Vitrinler</strong>
+     <div class="small muted">Diğer kullanıcılar</div>
+    </button>
+   </div>
+
+   <div class="grid">
+    ${
+     sellers.map(seller=>{
+      const items=shopItems.filter(x=>x.userId===seller.id);
+
+      return `
+      <div class="card">
+       <div class="row">
+        ${avatarHTML(seller,"md")}
+        <div style="flex:1">
+         <h3>${escapeHTML(seller.name)}</h3>
+         <p class="muted small">@${escapeHTML(seller.username)} · ${escapeHTML(seller.role)}</p>
+        </div>
+        ${seller.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+       </div>
+
+       <div class="stats">
+        <div class="stat"><strong>${items.length}</strong><span>Ürün</span></div>
+        <div class="stat"><strong>${seller.followers?.length||0}</strong><span>Takipçi</span></div>
+       </div>
+
+       <button class="btn primary" data-channel="${seller.id}">
+        Vitrine Git
+       </button>
+      </div>`;
+     }).join("")||
+     `<div class="empty">Henüz başka vitrin yok.</div>`
+    }
+   </div>
+  </div>`;
+ }
+}
+
+function renderProfile(){
+ const u=me();
+ const myPosts=posts.filter(p=>p.userId===u.id);
+ const mySongs=songs.filter(s=>s.userId===u.id);
+ const myReels=reels.filter(r=>r.userId===u.id);
+ const myShop=shopItems.filter(s=>s.userId===u.id);
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+
+  <div class="card" style="padding:0;overflow:hidden">
+   <div class="channel-banner"
+    ${u.profileBackgroundMediaId?`data-bg="${escapeHTML(u.profileBackgroundMediaId)}"`:""}>
+   </div>
+
+   <div class="profile-head">
+    <div class="avatar lg channel-avatar" data-avatar="${escapeHTML(u.avatarMediaId||"")}">
+     ${initials(u)}
+    </div>
+
+    <div class="profile-info" style="flex:1">
+     <h1>
+      ${escapeHTML(u.name)}
+      ${u.plan==="pro"?`<span class="role pro">PRO</span>`:""}
+     </h1>
+     <p>@${escapeHTML(u.username)} · ${escapeHTML(u.role)}</p>
+     <p style="margin-top:8px">${escapeHTML(u.bio||"")}</p>
+
+     <div class="stats">
+      <div class="stat"><strong>${u.followers?.length||0}</strong><span>Takipçi</span></div>
+      <div class="stat"><strong>${u.following?.length||0}</strong><span>Takip</span></div>
+      <div class="stat"><strong>${myPosts.length}</strong><span>Gönderi</span></div>
+      <div class="stat"><strong>${mySongs.length}</strong><span>Şarkı</span></div>
+      <div class="stat"><strong>${myShop.length}</strong><span>Shop</span></div>
+     </div>
+
+     <div class="row">
+      <button class="btn primary" data-action="profile-settings">
+       Profil Ayarları
+      </button>
+      <button class="btn" data-page="shop">Benim Vitrinim</button>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="tabs">
+   <button class="tab active">Profil</button>
+   <button class="tab" data-page="messages">Mesajlar</button>
+   <button class="tab" data-page="settings">Ayarlar</button>
+  </div>
+
+  <h2 style="margin:20px 0 12px">Şarkılarım</h2>
+  <div class="grid">
+   ${mySongs.map(renderSongCard).join("")||`<div class="empty">Şarkın yok.</div>`}
+  </div>
+
+  <h2 style="margin:25px 0 12px">Gönderilerim</h2>
+  ${myPosts.map(renderPost).join("")||`<div class="empty">Gönderin yok.</div>`}
+
+  <h2 style="margin:25px 0 12px">Shop</h2>
+  <div class="grid">
+   ${myShop.map(renderShopCard).join("")||`<div class="empty">Shop ürünün yok.</div>`}
+
+  </div>
+ </div>`;
+}
+
+function renderPeople(){
+ const list=users.filter(u=>u.id!==me().id&&!isBlocked(u.id));
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Kişiler</h1>
+    <p>Kullanıcı ara, takip et veya mesaj gönder.</p>
+   </div>
+  </div>
+
+  <div class="field">
+   <input id="peopleSearch" placeholder="İsim veya kullanıcı adı ara...">
+  </div>
+
+  <div id="peopleList" class="people-list">
+   ${list.map(renderPerson).join("")||`<div class="empty">Kullanıcı yok.</div>`}
+  </div>
+ </div>`;
+
+ document.getElementById("peopleSearch").addEventListener("input",e=>{
+  const q=e.target.value.toLowerCase();
+
+  document.getElementById("peopleList").innerHTML=
+   list.filter(u=>
+    u.name.toLowerCase().includes(q)||
+    u.username.toLowerCase().includes(q)||
+    u.role.toLowerCase().includes(q)
+   ).map(renderPerson).join("")||
+   `<div class="empty">Kullanıcı bulunamadı.</div>`;
+ });
+}
+
+function renderMessages(){
+ const convs=conversations();
+
+ if(!state.currentChatUserId&&convs.length){
+  state.currentChatUserId=convs[0].id;
+ }
+
+ const target=getUser(state.currentChatUserId);
+
+ if(target)markChatRead(target.id);
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Mesajlar</h1>
+    <p>MYM SOUND mesajlaşma</p>
+   </div>
+   <button class="btn" data-page="people">Kişi Bul</button>
+  </div>
+
+  <div class="message-layout">
+
+   <div class="conversations">
+    ${
+     convs.map(c=>{
+      const last=messages.filter(m=>
+       (m.fromId===me().id&&m.toId===c.id)||
+       (m.fromId===c.id&&m.toId===me().id)
+      ).sort((a,b)=>b.createdAt-a.createdAt)[0];
+
+      return `
+      <div class="conv ${target?.id===c.id?"active":""}" data-chat="${c.id}">
+       ${avatarHTML(c,"sm")}
+       <div style="min-width:0">
+        <strong>${escapeHTML(c.name)}</strong>
+        <div class="small muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+         ${escapeHTML(last?.text||"Yeni sohbet")}
+        </div>
+       </div>
+      </div>`;
+     }).join("")||
+     `<div style="padding:25px;text-align:center" class="muted">
+      Henüz mesajlaşma yok.<br><br>
+      Kişiler bölümünden bir kullanıcıya mesaj gönderebilirsin.
+     </div>`
+    }
+   </div>
+
+   <div class="chat">
+    ${
+     target
+     ? `
+      <div class="chat-head">
+       <div class="row">
+        ${avatarHTML(target,"sm")}
+        <div>
+         <strong>${escapeHTML(target.name)}</strong>
+         <div class="small muted">@${escapeHTML(target.username)}</div>
+        </div>
+       </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+       ${
+        messages
+        .filter(m=>
+         (m.fromId===me().id&&m.toId===target.id)||
+         (m.fromId===target.id&&m.toId===me().id)
+        )
+        .sort((a,b)=>a.createdAt-b.createdAt)
+        .map(m=>`
+         <div class="bubble ${m.fromId===me().id?"mine":""}">
+          ${escapeHTML(m.text)}
+         </div>
+        `).join("")||
+        `<div class="muted" style="text-align:center">Henüz mesaj yok.</div>`
+       }
+      </div>
+
+      <form class="chat-form" data-form="message">
+       <input name="text" placeholder="Mesaj yaz..." autocomplete="off">
+       <button class="btn primary">Gönder</button>
+      </form>
+     `
+     :`
+      <div style="margin:auto;text-align:center;color:#777">
+       Bir sohbet seç.
+      </div>
+     `
+    }
+   </div>
+
+  </div>
+ </div>`;
+
+ const box=document.getElementById("chatMessages");
+ if(box)box.scrollTop=box.scrollHeight;
+}
+
+function renderNotifications(){
+ const u=me();
+ const list=notifications.filter(n=>n.userId===u.id);
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Bildirimler</h1>
+    <p>Son hareketler</p>
+   </div>
+   <button class="btn" data-action="read-notifications">Hepsini okundu yap</button>
+  </div>
+
+  ${
+   list.length
+   ? list.map(n=>`
+    <div class="card" style="${n.read?"opacity:.6":""}">
+     <div class="between">
+      <div>
+       <strong>${escapeHTML(n.text)}</strong>
+       <div class="small muted" style="margin-top:5px">${formatDate(n.createdAt)}</div>
+      </div>
+      ${!n.read?`<span class="role">Yeni</span>`:""}
+     </div>
+    </div>
+   `).join("")
+   :`<div class="empty">Bildirim yok.</div>`
+  }
+ </div>`;
+}
+
+function renderSettings(){
+ const u=me();
+
+ let content="";
+
+ if(state.settingsTab==="account"){
+  content=`
+   <h2>Hesap</h2>
+   <div class="card">
+    <p><strong>${escapeHTML(u.name)}</strong></p>
+    <p class="muted">@${escapeHTML(u.username)}</p>
+    <p class="muted" style="margin-top:8px">Plan: ${u.plan==="pro"?"MYM PRO":"Free"}</p>
+   </div>
+  `;
+ }
+
+ if(state.settingsTab==="privacy"){
+  content=`
+   <h2>Gizlilik</h2>
+   <div class="card">
+    <label class="checkbox">
+     <input id="privateProfile" type="checkbox" ${u.settings.privateProfile?"checked":""}>
+     Profili gizli yap
+    </label>
+    <button class="btn primary" data-action="save-privacy">Kaydet</button>
+   </div>
+
+   <h3>Engellenenler</h3>
+   <div class="people-list" style="margin-top:10px">
+    ${
+     (u.blockedUsers||[]).map(id=>{
+      const b=getUser(id);
+      if(!b)return "";
+      return `
+       <div class="person">
+        <div class="row">${avatarHTML(b,"sm")}<div>${escapeHTML(b.name)}</div></div>
+        <button class="btn" data-block="${b.id}">Engeli Kaldır</button>
+       </div>`;
+     }).join("")||
+     `<div class="empty">Engellenen kullanıcı yok.</div>`
+    }
+   </div>
+  `;
+ }
+
+ if(state.settingsTab==="notifications"){
+  content=`
+   <h2>Bildirim Ayarları</h2>
+   <div class="card">
+    <label class="checkbox">
+     <input id="notificationSetting" type="checkbox" ${u.settings.notifications?"checked":""}>
+     Bildirimleri etkinleştir
+    </label>
+    <button class="btn primary" data-action="save-notifications">Kaydet</button>
+   </div>
+  `;
+ }
+
+ if(state.settingsTab==="player"){
+  content=`
+   <h2>Oynatıcı</h2>
+   <div class="card">
+    <label class="checkbox">
+     <input id="autoplaySetting" type="checkbox" ${u.settings.autoplay?"checked":""}>
+     Otomatik oynatma
+    </label>
+    <button class="btn primary" data-action="save-player">Kaydet</button>
+   </div>
+  `;
+ }
+
+ if(state.settingsTab==="activity"){
+  const mine=activities.filter(a=>a.userId===u.id);
+
+  content=`
+   <h2>Hareketlerim</h2>
+   ${
+    mine.length
+    ? mine.map(a=>`
+     <div class="card">
+      <strong>${escapeHTML(a.text)}</strong>
+      <div class="small muted" style="margin-top:5px">${formatDate(a.createdAt)}</div>
+     </div>
+    `).join("")
+    :`<div class="empty">Henüz hareket yok.</div>`
+   }
+  `;
+ }
+
+ if(state.settingsTab==="archive"){
+  const archived=posts.filter(p=>
+   p.userId===u.id&&(u.archive||[]).includes(p.id)
+  );
+
+  content=`
+   <h2>Arşiv</h2>
+   ${archived.map(renderPost).join("")||`<div class="empty">Arşiv boş.</div>`}
+  `;
+ }
+
+ if(state.settingsTab==="data"){
+  content=`
+   <h2>Veri Yönetimi</h2>
+
+   <div class="card">
+    <h3>Verileri dışa aktar</h3>
+    <p class="muted small" style="margin:8px 0 15px">
+     Hesap ve içerik metadata bilgilerini JSON olarak kaydet.
+    </p>
+    <button class="btn primary" data-action="export-data">JSON Dışa Aktar</button>
+   </div>
+
+   <div class="card">
+    <h3>Demo verilerini sıfırla</h3>
+    <p class="muted small" style="margin:8px 0 15px">
+     Bu işlem bu tarayıcıdaki MYM SOUND verilerini siler.
+    </p>
+    <button class="btn" style="border-color:var(--danger);color:#ff7777" data-action="reset-data">
+     Verileri Sıfırla
+    </button>
+   </div>
+  `;
+ }
+
+ if(state.settingsTab==="about"){
+  content=`
+   <h2>MYM SOUND</h2>
+   <div class="card">
+    <p>MYM SOUND yerel demo müzik topluluğu uygulamasıdır.</p>
+    <p class="muted small" style="margin-top:8px">
+     Bu sürümde gerçek ödeme sistemi bulunmaz.
+    </p>
+   </div>
+  `;
+ }
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Ayarlar</h1>
+    <p>Uygulama ve hesap ayarları</p>
+   </div>
+  </div>
+
+  <div class="settings-grid">
+   <div class="settings-menu">
+    <button class="${state.settingsTab==="account"?"active":""}" data-setting="account">Hesap</button>
+    <button class="${state.settingsTab==="privacy"?"active":""}" data-setting="privacy">Gizlilik</button>
+    <button class="${state.settingsTab==="notifications"?"active":""}" data-setting="notifications">Bildirimler</button>
+    <button class="${state.settingsTab==="player"?"active":""}" data-setting="player">Oynatıcı</button>
+    <button class="${state.settingsTab==="activity"?"active":""}" data-setting="activity">Hareketlerim</button>
+    <button class="${state.settingsTab==="archive"?"active":""}" data-setting="archive">Arşiv</button>
+    <button class="${state.settingsTab==="data"?"active":""}" data-setting="data">Veri Yönetimi</button>
+    <button class="${state.settingsTab==="about"?"active":""}" data-setting="about">Hakkında</button>
+    <button data-page="pro">MYM PRO</button>
+    <button data-action="logout">Çıkış Yap</button>
+   </div>
+
+   <div>${content}</div>
+  </div>
+ </div>`;
+}
+
+function renderPro(){
+ const u=me();
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>MYM PRO</h1>
+    <p>Üreticiler için genişletilmiş özellikler</p>
+   </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#1b1030,#11111a)">
+   <div class="between">
+    <div>
+     <h2>${u.plan==="pro"?"MYM PRO Aktif":"Free Plan"}</h2>
+     <p class="muted" style="margin-top:7px">
+      ${u.plan==="pro"
+       ?"Pro hesabın aktif durumda."
+       :"Demo olarak Pro'yu etkinleştirebilirsin."}
+     </p>
+    </div>
+    <span class="role ${u.plan==="pro"?"pro":""}">
+     ${u.plan==="pro"?"PRO":"FREE"}
+    </span>
+   </div>
+
+   <div class="grid" style="margin-top:20px">
+    <div class="card">
+     <h3>Sınırsız Beat + Mix</h3>
+     <p class="muted small" style="margin-top:7px">
+      Free hesap 50 toplam ürünle sınırlıdır. Pro'da sınır yok.
+     </p>
+    </div>
+
+    <div class="card">
+     <h3>PRO Rozeti</h3>
+     <p class="muted small" style="margin-top:7px">
+      Profil, kanal ve içeriklerde PRO rozeti.
+     </p>
+    </div>
+
+    <div class="card">
+     <h3>Normal içerikler</h3>
+     <p class="muted small" style="margin-top:7px">
+      Şarkı, gönderi ve reel yüklemelerinde normal sınır yok.
+     </p>
+    </div>
+   </div>
+
+   <div style="margin-top:20px">
+    ${
+     u.plan==="pro"
+     ? `<button class="btn" data-action="disable-pro">Pro'yu Kapat (Demo)</button>`
+     : `<button class="btn primary" data-action="enable-pro">Pro'yu Etkinleştir (Demo)</button>`
+    }
+   </div>
+  </div>
+ </div>`;
+}
+
+/* =========================
+   GLOBAL SEARCH
+========================= */
+
+function renderSearch(q){
+ const query=q.trim().toLowerCase();
+
+ const foundUsers=users.filter(u=>
+  u.id!==me().id&&!isBlocked(u.id)&&
+  (u.name.toLowerCase().includes(query)||
+   u.username.toLowerCase().includes(query))
+ );
+
+ const foundSongs=songs.filter(s=>
+  !isBlocked(s.userId)&&
+  (s.name.toLowerCase().includes(query)||
+   (s.description||"").toLowerCase().includes(query))
+ );
+
+ const foundPosts=posts.filter(p=>
+  !isBlocked(p.userId)&&
+  (p.text||"").toLowerCase().includes(query)
+ );
+
+ document.getElementById("main").innerHTML=`
+ <div class="container">
+  <div class="page-title">
+   <div>
+    <h1>Arama</h1>
+    <p>"${escapeHTML(q)}" için sonuçlar</p>
+   </div>
+  </div>
+
+  <h2 style="margin-bottom:12px">Kişiler</h2>
+  <div class="people-list">
+   ${foundUsers.map(renderPerson).join("")||`<div class="empty">Kişi bulunamadı.</div>`}
+  </div>
+
+  <h2 style="margin:25px 0 12px">Şarkılar</h2>
+  <div class="grid">
+   ${foundSongs.map(renderSongCard).join("")||`<div class="empty">Şarkı bulunamadı.</div>`}
+  </div>
+
+  <h2 style="margin:25px 0 12px">Gönderiler</h2>
+  ${foundPosts.map(renderPost).join("")||`<div class="empty">Gönderi bulunamadı.</div>`}
+ </div>`;
+}
+
+/* =========================
+   COMMENTS
+========================= */
+
+function commentModal(type,id){
+ const list=comments.filter(c=>c.type===type&&c.targetId===id);
+
+ openModal(`
+  <h2>Yorumlar</h2>
+
+  <div style="max-height:300px;overflow:auto">
+   ${
+    list.map(c=>{
+     const u=getUser(c.userId);
+     return `
+      <div class="card">
+       <div class="row">
+        ${avatarHTML(u,"xs")}
+        <div>
+         <strong>${escapeHTML(u?.name||"Silinmiş kullanıcı")}</strong>
+         <p style="margin-top:5px">${escapeHTML(c.text)}</p>
+        </div>
+       </div>
+      </div>`;
+    }).join("")||
+    `<div class="empty">Henüz yorum yok.</div>`
+   }
+  </div>
+
+  <form data-form="comment">
+   <input type="hidden" name="type" value="${type}">
+   <input type="hidden" name="targetId" value="${id}">
+   <div class="field" style="margin-top:15px">
+    <input name="text" placeholder="Yorum yaz..." required>
+   </div>
+   <div class="modal-actions">
+    <button type="button" class="btn" data-action="close-modal">Kapat</button>
+    <button class="btn primary">Yorum Yap</button>
+   </div>
+  </form>
+ `);
+}
+
+function addComment(form){
+ const u=me();
+
+ const type=form.querySelector("[name=type]").value;
+ const targetId=form.querySelector("[name=targetId]").value;
+ const text=form.querySelector("[name=text]").value.trim();
+
+ if(!text)return;
+
+ comments.push({
+  id:uid("comment"),
+  userId:u.id,
+  type,
+  targetId,
+  text,
+  createdAt:Date.now()
+ });
+
+ save(KEY.comments,comments);
+ addActivity("comment","Yorum yapıldı");
+ commentModal(type,targetId);
+}
+
+/* =========================
+   DATA
+========================= */
 
 function exportData(){
+ const data={
+  users,
+  posts,
+  songs,
+  reels,
+  shopItems,
+  messages,
+  activities,
+  notifications,
+  comments,
+  history
+ };
 
-    const data={
-        users:users(),
-        posts:posts(),
-        songs:songs(),
-        reels:reels(),
-        shop:shopItems(),
-        comments:comments(),
-        messages:messages(),
-        activity:activities(),
-        notifications:notifications(),
-        archive:archive()
-    };
+ const blob=new Blob(
+  [JSON.stringify(data,null,2)],
+  {type:"application/json"}
+ );
 
-    const blob=new Blob(
-        [JSON.stringify(data,null,2)],
-        {type:"application/json"}
-    );
-
-    const url=URL.createObjectURL(blob);
-
-    const a=document.createElement("a");
-
-    a.href=url;
-    a.download="mym-sound-data.json";
-    a.click();
-
-    URL.revokeObjectURL(url);
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="mym-sound-backup.json";
+ a.click();
+ URL.revokeObjectURL(url);
 }
 
 function resetData(){
+ if(!confirm("Tüm MYM SOUND verileri silinsin mi?"))return;
 
-    if(!confirm(
-        "Tüm MYM SOUND demo verileri silinsin mi?"
-    ))return;
+ Object.values(KEY).forEach(k=>{
+  localStorage.removeItem(k);
+ });
 
-    Object.values(KEYS).forEach(key=>{
-        if(key!==KEYS.current){
-            localStorage.removeItem(key);
-        }
+ location.reload();
+}
+
+/* =========================
+   NOTIFICATION BADGE
+========================= */
+
+function updateNotificationBadge(){
+ const u=me();
+ const badge=document.getElementById("notificationBadge");
+ if(!u||!badge)return;
+
+ const count=notifications.filter(n=>n.userId===u.id&&!n.read).length;
+
+ badge.textContent=count;
+
+ badge.classList.toggle("hidden",count===0);
+}
+
+/* =========================
+   RENDER
+========================= */
+
+function updateNav(){
+ document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
+  btn.classList.toggle("active",btn.dataset.page===state.page);
+ });
+}
+
+function render(){
+ const u=me();
+
+ if(!u){
+  showAuth();
+  return;
+ }
+
+ hideAuth();
+
+ if(state.page==="home")renderHome();
+ else if(state.page==="reels")renderReels();
+ else if(state.page==="channels")renderChannels();
+ else if(state.page==="channel")renderChannel(state.channelUserId);
+ else if(state.page==="shop")renderShop();
+ else if(state.page==="people")renderPeople();
+ else if(state.page==="messages")renderMessages();
+ else if(state.page==="profile")renderProfile();
+ else if(state.page==="settings")renderSettings();
+ else if(state.page==="notifications")renderNotifications();
+ else if(state.page==="pro")renderPro();
+ else if(state.page==="search")renderSearch(state.search);
+ else renderHome();
+
+ updateNav();
+ updateNotificationBadge();
+
+ setTimeout(hydrateMedia,0);
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+document.addEventListener("click",async e=>{
+ const page=e.target.closest("[data-page]");
+ if(page){
+  state.page=page.dataset.page;
+
+  if(state.page!=="messages"){
+   state.currentChatUserId=null;
+  }
+
+  render();
+  return;
+ }
+
+ const action=e.target.closest("[data-action]");
+ if(action){
+  const a=action.dataset.action;
+
+  if(a==="new-post")newPostModal();
+  if(a==="new-song")newSongModal();
+  if(a==="new-reel")newReelModal();
+  if(a==="new-shop")newShopModal();
+  if(a==="profile-settings")profileSettingsModal();
+  if(a==="close-modal")closeModal();
+  if(a==="toggle-play")togglePlay();
+  if(a==="next")nextSong();
+  if(a==="prev")prevSong();
+  if(a==="logout")logout();
+
+  if(a==="enable-pro"){
+   const u=me();
+   u.plan="pro";
+   updateUser(u);
+   addActivity("pro","MYM PRO demo etkinleştirildi");
+   render();
+   toast("MYM PRO etkinleştirildi");
+  }
+
+  if(a==="disable-pro"){
+   const u=me();
+   u.plan="free";
+   updateUser(u);
+   render();
+   toast("MYM PRO kapatıldı");
+  }
+
+  if(a==="read-notifications"){
+   const u=me();
+   notifications.forEach(n=>{
+    if(n.userId===u.id)n.read=true;
+   });
+   save(KEY.notifications,notifications);
+   render();
+  }
+
+  if(a==="save-privacy"){
+   const u=me();
+   u.settings.privateProfile=document.getElementById("privateProfile").checked;
+   updateUser(u);
+   toast("Gizlilik ayarları kaydedildi");
+  }
+
+  if(a==="save-notifications"){
+   const u=me();
+   u.settings.notifications=document.getElementById("notificationSetting").checked;
+   updateUser(u);
+   toast("Bildirim ayarları kaydedildi");
+  }
+
+  if(a==="save-player"){
+   const u=me();
+   u.settings.autoplay=document.getElementById("autoplaySetting").checked;
+   updateUser(u);
+   toast("Oynatıcı ayarları kaydedildi");
+  }
+
+  if(a==="export-data")exportData();
+  if(a==="reset-data")resetData();
+
+  return;
+ }
+
+ const feed=e.target.closest("[data-feed]");
+ if(feed){
+  state.feed=feed.dataset.feed;
+  render();
+  return;
+ }
+
+ const shopTab=e.target.closest("[data-shop-tab]");
+ if(shopTab){
+  state.shopTab=shopTab.dataset.shopTab;
+  render();
+  return;
+ }
+
+ const follow=e.target.closest("[data-follow]");
+ if(follow){
+  toggleFollow(follow.dataset.follow);
+  return;
+ }
+
+ const message=e.target.closest("[data-message]");
+ if(message){
+  if(isBlocked(message.dataset.message)){
+   toast("Bu kullanıcıyla mesajlaşamazsın");
+   return;
+  }
+
+  state.currentChatUserId=message.dataset.message;
+  state.page="messages";
+  render();
+  return;
+ }
+
+ const chat=e.target.closest("[data-chat]");
+ if(chat){
+  state.currentChatUserId=chat.dataset.chat;
+  render();
+  return;
+ }
+
+ const channel=e.target.closest("[data-channel]");
+ if(channel){
+  state.channelUserId=channel.dataset.channel;
+  state.page="channel";
+  render();
+  return;
+ }
+
+ const block=e.target.closest("[data-block]");
+ if(block){
+  toggleBlock(block.dataset.block);
+  return;
+ }
+
+ const play=e.target.closest("[data-play-song]");
+ if(play){
+  playSong(play.dataset.playSong);
+  return;
+ }
+
+ const likeSong=e.target.closest("[data-like-song]");
+ if(likeSong){
+  toggleSongLike(likeSong.dataset.likeSong);
+  return;
+ }
+
+ const deleteSongBtn=e.target.closest("[data-delete-song]");
+ if(deleteSongBtn){
+  deleteSong(deleteSongBtn.dataset.deleteSong);
+  return;
+ }
+
+ const likePost=e.target.closest("[data-like-post]");
+ if(likePost){
+  togglePostLike(likePost.dataset.likePost);
+  return;
+ }
+
+ const deletePostBtn=e.target.closest("[data-delete-post]");
+ if(deletePostBtn){
+  deletePost(deletePostBtn.dataset.deletePost);
+  return;
+ }
+
+ const archivePostBtn=e.target.closest("[data-archive-post]");
+ if(archivePostBtn){
+  archivePost(archivePostBtn.dataset.archivePost);
+  return;
+ }
+
+ const commentPost=e.target.closest("[data-comment-post]");
+ if(commentPost){
+  commentModal("post",commentPost.dataset.commentPost);
+  return;
+ }
+
+ const sharePost=e.target.closest("[data-share-post]");
+ if(sharePost){
+  addActivity("share","Gönderi paylaşıldı",sharePost.dataset.sharePost);
+  toast("Gönderi paylaşım hareketlerine eklendi");
+  return;
+ }
+
+ const likeReel=e.target.closest("[data-like-reel]");
+ if(likeReel){
+  const reel=reels.find(x=>x.id===likeReel.dataset.likeReel);
+  if(reel){
+   reel.likes=reel.likes||[];
+   if(reel.likes.includes(me().id)){
+    reel.likes=reel.likes.filter(x=>x!==me().id);
+   }else{
+    reel.likes.push(me().id);
+   }
+   persist();
+   render();
+  }
+  return;
+ }
+
+ const commentReel=e.target.closest("[data-comment-reel]");
+ if(commentReel){
+  commentModal("reel",commentReel.dataset.commentReel);
+  return;
+ }
+
+ const deleteReelBtn=e.target.closest("[data-delete-reel]");
+ if(deleteReelBtn){
+  deleteReel(deleteReelBtn.dataset.deleteReel);
+  return;
+ }
+
+ const playShop=e.target.closest("[data-play-shop]");
+ if(playShop){
+  const item=shopItems.find(x=>x.id===playShop.dataset.playShop);
+  if(item){
+   item.plays=(item.plays||0)+1;
+   persist();
+
+   const fakeSong={
+    id:item.id,
+    userId:item.userId,
+    name:item.name,
+    description:item.description,
+    mediaId:item.mediaId,
+    coverMediaId:null,
+    plays:item.plays,
+    likes:[]
+   };
+
+   const existing=songs.find(s=>s.id===item.id);
+
+   if(existing){
+    playSong(existing.id);
+   }else{
+    const audio=document.getElementById("globalAudio");
+    getMediaURL(item.mediaId).then(url=>{
+     audio.src=url;
+     audio.play();
+     document.getElementById("playerTitle").textContent=item.name;
+     document.getElementById("playerArtist").textContent=getUser(item.userId)?.name||"Shop";
+     document.getElementById("playPause").textContent="Pause";
     });
+   }
+  }
+  return;
+ }
 
-    localStorage.removeItem(KEYS.current);
+ const deleteShop=e.target.closest("[data-delete-shop]");
+ if(deleteShop){
+  deleteShopItem(deleteShop.dataset.deleteShop);
+  return;
+ }
 
-    location.reload();
-}
-
-/* =========================================================
-   START
-========================================================= */
-
-async function start(){
-
-    try{
-        await openDB();
-    }catch(e){
-        console.error(e);
-        showToast("Medya sistemi başlatılamadı");
-    }
-
-    const current=getCurrentUser();
-
-    if(current){
-
-        current.online=true;
-        current.lastSeen=Date.now();
-
-        updateUser(current);
-
-        showApp();
-
-    }else{
-
-        document.getElementById("authScreen")
-            .classList.remove("hidden");
-
-        document.getElementById("app")
-            .classList.add("hidden");
-    }
-}
-
-window.addEventListener("beforeunload",()=>{
-
-    const u=me();
-
-    if(u){
-        u.online=false;
-        u.lastSeen=Date.now();
-        updateUser(u);
-    }
+ const setting=e.target.closest("[data-setting]");
+ if(setting){
+  state.settingsTab=setting.dataset.setting;
+  render();
+  return;
+ }
 });
 
-start();
-</script>
+document.addEventListener("submit",async e=>{
+ const form=e.target;
+ const type=form.dataset.form;
 
+ if(!type)return;
+
+ e.preventDefault();
+
+ try{
+  if(type==="post")await createPost(form);
+  if(type==="song")await createSong(form);
+  if(type==="reel")await createReel(form);
+  if(type==="shop")await createShopItem(form);
+  if(type==="profile")await saveProfile(form);
+  if(type==="comment")addComment(form);
+
+  if(type==="message"){
+   const text=form.querySelector("[name=text]").value;
+   const target=state.currentChatUserId;
+
+   if(!target){
+    toast("Önce bir kişi seç");
+    return;
+   }
+
+   sendMessage(text,target);
+  }
+ }catch(err){
+  console.error(err);
+  toast("İşlem sırasında hata oluştu");
+ }
+});
+
+/* =========================
+   SEARCH
+========================= */
+
+document.getElementById("globalSearch").addEventListener("keydown",e=>{
+ if(e.key==="Enter"){
+  const q=e.target.value.trim();
+
+  if(!q){
+   state.page="home";
+   render();
+   return;
+  }
+
+  state.search=q;
+  state.page="search";
+  render();
+ }
+});
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")closeModal();
+
+ if(
+  e.key==="Enter" &&
+  document.activeElement?.matches('.chat-form input')
+ ){
+  e.preventDefault();
+  document.querySelector(".chat-form button")?.click();
+ }
+});
+
+/* =========================
+   START
+========================= */
+
+async function start(){
+ try{
+  await openDB();
+ }catch(e){
+  console.error(e);
+ }
+
+ const u=me();
+
+ if(u){
+  u.online=true;
+  u.lastSeen=Date.now();
+  updateUser(u);
+  render();
+ }else{
+  showAuth();
+ }
+}
+
+start();
+
+window.addEventListener("beforeunload",()=>{
+ const u=me();
+
+ if(u){
+  u.online=false;
+  u.lastSeen=Date.now();
+  updateUser(u);
+ }
+});
+</script>
 </body>
 </html>
