@@ -38,6 +38,11 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.5;
+}
+
 .hidden{
   display:none!important;
 }
@@ -497,11 +502,23 @@ textarea.input{
   font-size:12px;
 }
 
+.plan-badge{
+  display:inline-block;
+  margin-top:10px;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#1d1d1d;
+  border:1px solid #333;
+  color:#bbb;
+  font-size:12px;
+}
+
 .stats{
   display:flex;
   justify-content:center;
-  gap:35px;
+  gap:25px;
   margin-top:22px;
+  flex-wrap:wrap;
 }
 
 .stat strong{
@@ -512,6 +529,197 @@ textarea.input{
 .stat span{
   color:var(--muted);
   font-size:12px;
+}
+
+/* CHANNELS */
+
+.channel-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.channel-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.channel-avatar{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:var(--theme);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:900;
+}
+
+.channel-name{
+  font-size:17px;
+  font-weight:800;
+}
+
+.channel-role{
+  color:var(--theme);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.channel-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-bottom:12px;
+}
+
+.channel-stat{
+  background:#181818;
+  border-radius:10px;
+  padding:9px 5px;
+  text-align:center;
+}
+
+.channel-stat strong{
+  display:block;
+  font-size:16px;
+}
+
+.channel-stat span{
+  display:block;
+  color:#777;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.channel-button{
+  width:100%;
+  border:1px solid #333;
+  background:#191919;
+  color:#fff;
+  padding:10px;
+  border-radius:10px;
+}
+
+.channel-button:hover{
+  border-color:var(--theme);
+}
+
+/* SHOP */
+
+.shop-limit{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:14px;
+}
+
+.shop-limit strong{
+  color:var(--theme);
+}
+
+.shop-limit p{
+  color:#999;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.shop-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+.shop-item-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.shop-type{
+  display:inline-block;
+  color:#fff;
+  background:var(--theme);
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.shop-name{
+  font-size:18px;
+  font-weight:800;
+  margin-top:9px;
+  word-break:break-word;
+}
+
+.shop-author{
+  color:#999;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.shop-description{
+  color:#bbb;
+  line-height:1.45;
+  margin:12px 0;
+  white-space:pre-wrap;
+}
+
+.shop-audio{
+  width:100%;
+  margin-top:5px;
+}
+
+.shop-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.shop-upload-info{
+  color:#999;
+  font-size:12px;
+  margin-top:8px;
+}
+
+/* CHANNEL MODAL */
+
+.channel-modal-profile{
+  text-align:center;
+  padding-bottom:15px;
+  border-bottom:1px solid #292929;
+  margin-bottom:15px;
+}
+
+.channel-modal-avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:var(--theme);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto auto 10px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.channel-content-title{
+  font-size:16px;
+  font-weight:800;
+  margin:18px 0 10px;
 }
 
 /* SETTINGS */
@@ -597,13 +805,15 @@ textarea.input{
   display:flex;
   justify-content:space-around;
   align-items:center;
+  overflow-x:auto;
 }
 
 .nav-btn{
   border:0;
   background:none;
   color:#777;
-  padding:8px 16px;
+  padding:8px 12px;
+  white-space:nowrap;
 }
 
 .nav-btn.active{
@@ -685,6 +895,10 @@ textarea.input{
   border:1px solid #303030;
   border-radius:20px;
   padding:20px;
+}
+
+.modal-box.wide{
+  width:min(650px,100%);
 }
 
 .modal-head{
@@ -800,6 +1014,7 @@ textarea.input{
 /* MOBILE */
 
 @media(max-width:600px){
+
   .container{
     padding:12px;
   }
@@ -819,6 +1034,16 @@ textarea.input{
   .activity-buttons{
     grid-template-columns:1fr;
   }
+
+  .channel-stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .nav-btn{
+    padding:8px 9px;
+    font-size:12px;
+  }
+
 }
 </style>
 </head>
@@ -832,7 +1057,10 @@ textarea.input{
   <div class="auth-box">
 
     <div class="logo">MYM <span>SOUND</span></div>
-    <div class="auth-sub">Müzik ve sosyal paylaşım platformu</div>
+
+    <div class="auth-sub">
+      Müzik ve sosyal paylaşım platformu
+    </div>
 
     <div id="loginForm">
 
@@ -868,9 +1096,27 @@ textarea.input{
              placeholder="Şifre">
 
       <select id="registerRole" class="input">
-        <option value="Dinleyici">Dinleyici</option>
-        <option value="Sanatçı">Sanatçı</option>
-        <option value="Prodüktör">Prodüktör</option>
+
+        <option value="Dinleyici">
+          Dinleyici
+        </option>
+
+        <option value="Sanatçı">
+          Sanatçı
+        </option>
+
+        <option value="Beat Maker">
+          Beat Maker
+        </option>
+
+        <option value="Mix Engineer">
+          Mix Engineer
+        </option>
+
+        <option value="Prodüktör">
+          Prodüktör
+        </option>
+
       </select>
 
       <button class="primary" onclick="register()">
@@ -946,6 +1192,45 @@ textarea.input{
     </div>
 
 
+    <!-- CHANNELS -->
+
+    <div id="channelsPage" class="page">
+
+      <div class="section-title">
+        Kanallar
+      </div>
+
+      <div id="channels"></div>
+
+    </div>
+
+
+    <!-- SHOP -->
+
+    <div id="shopPage" class="page">
+
+      <div class="section-title">
+        Shop
+      </div>
+
+      <div class="shop-limit">
+
+        <div id="shopLimitText">
+          Shop yükleme hakkın kontrol ediliyor...
+        </div>
+
+        <p>
+          Beat ve Mix yüklemeleri aynı 50 adetlik Free kotasını kullanır.
+          Normal şarkı, gönderi ve Reels paylaşımında limit yoktur.
+        </p>
+
+      </div>
+
+      <div id="shop"></div>
+
+    </div>
+
+
     <!-- PROFILE -->
 
     <div id="profilePage" class="page">
@@ -968,6 +1253,10 @@ textarea.input{
              class="profile-status">
         </div>
 
+        <div id="profilePlan"
+             class="plan-badge">
+        </div>
+
         <div class="stats">
 
           <div class="stat">
@@ -983,6 +1272,11 @@ textarea.input{
           <div class="stat">
             <strong id="profileReels">0</strong>
             <span>Reels</span>
+          </div>
+
+          <div class="stat">
+            <strong id="profileShop">0</strong>
+            <span>Shop</span>
           </div>
 
         </div>
@@ -1097,6 +1391,22 @@ textarea.input{
 
       <div class="setting-card">
 
+        <h3>Plan</h3>
+
+        <p>
+          Şu an Free plan kullanıyorsun. Free planda Beat + Mix Shop yükleme
+          toplamı 50 adettir. Normal şarkı, gönderi ve Reels paylaşımı sınırsızdır.
+        </p>
+
+        <div class="plan-badge">
+          Free
+        </div>
+
+      </div>
+
+
+      <div class="setting-card">
+
         <h3>Hesap</h3>
 
         <p>
@@ -1141,6 +1451,10 @@ textarea.input{
       Şarkı yayınla
     </button>
 
+    <button onclick="openShopModal()">
+      Shop'a yükle
+    </button>
+
   </div>
 
 
@@ -1158,6 +1472,16 @@ textarea.input{
       <button class="nav-btn"
               onclick="showPage('reels',this)">
         Reels
+      </button>
+
+      <button class="nav-btn"
+              onclick="showPage('channels',this)">
+        Kanallar
+      </button>
+
+      <button class="nav-btn"
+              onclick="showPage('shop',this)">
+        Shop
       </button>
 
       <button class="nav-btn"
@@ -1288,6 +1612,100 @@ textarea.input{
       </button>
 
     </div>
+
+  </div>
+
+</div>
+
+
+<!-- SHOP MODAL -->
+
+<div id="shopModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>
+        Shop'a Yükle
+      </h2>
+
+      <button class="close"
+              onclick="closeModal('shopModal')">
+        X
+      </button>
+
+    </div>
+
+    <div id="shopUploadStatus"
+         class="shop-upload-info">
+    </div>
+
+    <label class="file-label">
+      Tür
+    </label>
+
+    <select id="shopType"
+            class="input">
+    </select>
+
+    <label class="file-label">
+      İsim
+    </label>
+
+    <input id="shopName"
+           class="input"
+           maxlength="60"
+           placeholder="Beat veya Mix adı">
+
+    <label class="file-label">
+      Açıklama
+    </label>
+
+    <textarea id="shopDescription"
+              class="input"
+              maxlength="500"
+              placeholder="Açıklama"></textarea>
+
+    <label class="file-label">
+      Ses dosyası
+    </label>
+
+    <input id="shopFile"
+           class="input"
+           type="file"
+           accept="audio/*">
+
+    <button class="primary"
+            onclick="publishShopItem()">
+      Shop'a Yükle
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CHANNEL MODAL -->
+
+<div id="channelModal" class="modal">
+
+  <div class="modal-box wide">
+
+    <div class="modal-head">
+
+      <h2>
+        Kanal
+      </h2>
+
+      <button class="close"
+              onclick="closeModal('channelModal')">
+        X
+      </button>
+
+    </div>
+
+    <div id="channelModalContent"></div>
 
   </div>
 
@@ -1491,10 +1909,16 @@ function deleteMediaBlob(id){
 
   return openMediaDB().then(db=>{
 
-    const tx=
-      db.transaction(MEDIA_STORE,"readwrite");
+    return new Promise((resolve,reject)=>{
 
-    tx.objectStore(MEDIA_STORE).delete(id);
+      const tx=db.transaction(MEDIA_STORE,"readwrite");
+
+      tx.objectStore(MEDIA_STORE).delete(id);
+
+      tx.oncomplete=()=>resolve();
+      tx.onerror=()=>reject(tx.error);
+
+    });
 
   });
 
@@ -1540,12 +1964,20 @@ let shareHistory=
     localStorage.getItem("mym_share_history") || "[]"
   );
 
+let shopItems=
+  JSON.parse(
+    localStorage.getItem("mym_shop_items") || "[]"
+  );
+
 let currentUser=null;
 let currentShareType="text";
 let currentCommentPostId=null;
+let selectedChannelUserId=null;
 
 
-/* Eski hesapları yeni sisteme uyarla */
+/* =========================
+   ESKİ HESAPLARI UYARLA
+========================= */
 
 users.forEach(user=>{
 
@@ -1559,6 +1991,14 @@ users.forEach(user=>{
 
   if(!user.lastSeen){
     user.lastSeen=null;
+  }
+
+  if(!user.plan){
+    user.plan="free";
+  }
+
+  if(!Array.isArray(user.repostedPosts)){
+    user.repostedPosts=[];
   }
 
 });
@@ -1603,6 +2043,11 @@ function saveAll(){
   localStorage.setItem(
     "mym_share_history",
     JSON.stringify(shareHistory)
+  );
+
+  localStorage.setItem(
+    "mym_shop_items",
+    JSON.stringify(shopItems)
   );
 
 }
@@ -1681,6 +2126,8 @@ function register(){
 
     role:role,
 
+    plan:"free",
+
     repostedPosts:[],
 
     blockedUsers:[],
@@ -1696,6 +2143,14 @@ function register(){
   saveAll();
 
   alert("Hesap oluşturuldu.");
+
+  document
+    .getElementById("registerName")
+    .value="";
+
+  document
+    .getElementById("registerPassword")
+    .value="";
 
   showLogin();
 
@@ -1727,6 +2182,11 @@ function login(){
     alert("Kullanıcı adı veya şifre yanlış.");
     return;
 
+  }
+
+  if(!user.plan){
+    user.plan="free";
+    saveAll();
   }
 
   currentUser=user;
@@ -1783,6 +2243,10 @@ function enterApp(){
 
   renderSongs();
 
+  renderChannels();
+
+  renderShop();
+
   updateOnlineUI();
 
 }
@@ -1814,9 +2278,12 @@ function showPage(page,button){
       p=>p.classList.remove("active")
     );
 
-  document
-    .getElementById(page+"Page")
-    .classList.add("active");
+  const target=
+    document.getElementById(page+"Page");
+
+  if(!target)return;
+
+  target.classList.add("active");
 
   document
     .querySelectorAll(".nav-btn")
@@ -1834,6 +2301,14 @@ function showPage(page,button){
 
   if(page==="profile"){
     updateProfile();
+  }
+
+  if(page==="channels"){
+    renderChannels();
+  }
+
+  if(page==="shop"){
+    renderShop();
   }
 
 }
@@ -1943,6 +2418,33 @@ function isBlocked(userId){
 }
 
 
+function isBlockedByUser(userId){
+
+  const user=
+    users.find(
+      u=>String(u.id)===String(userId)
+    );
+
+  if(!user)return false;
+
+  return (user.blockedUsers || [])
+    .map(String)
+    .includes(String(currentUser.id));
+
+}
+
+
+function canSeeUser(userId){
+
+  if(String(userId)===String(currentUser.id)){
+    return true;
+  }
+
+  return !isBlocked(userId) && !isBlockedByUser(userId);
+
+}
+
+
 function blockUser(userId){
 
   if(!currentUser)return;
@@ -1982,6 +2484,15 @@ function blockUser(userId){
   renderFeed();
   renderReels();
   renderSongs();
+  renderChannels();
+  renderShop();
+
+  if(
+    selectedChannelUserId &&
+    String(selectedChannelUserId)===String(userId)
+  ){
+    closeModal("channelModal");
+  }
 
   alert(user.name+" engellendi.");
 
@@ -2013,6 +2524,8 @@ function unblockUser(userId){
   renderFeed();
   renderReels();
   renderSongs();
+  renderChannels();
+  renderShop();
 
 }
 
@@ -2037,7 +2550,9 @@ function createPost(){
 
   const post={
 
-    id:Date.now(),
+    id:
+      Date.now()+
+      Math.floor(Math.random()*1000),
 
     userId:currentUser.id,
 
@@ -2090,7 +2605,9 @@ function publishModalPost(){
 
   const post={
 
-    id:Date.now(),
+    id:
+      Date.now()+
+      Math.floor(Math.random()*1000),
 
     userId:currentUser.id,
 
@@ -2138,6 +2655,13 @@ function toggleLike(id){
 
   if(!post)return;
 
+  if(!canSeeUser(post.userId)){
+
+    alert("Bu kullanıcıyla etkileşim kuramazsın.");
+    return;
+
+  }
+
   post.likedBy=
     post.likedBy || [];
 
@@ -2171,7 +2695,7 @@ function deletePost(id){
 
   if(!post)return;
 
-  if(post.userId!==currentUser.id){
+  if(String(post.userId)!==String(currentUser.id)){
 
     alert("Bu gönderiyi silemezsin.");
     return;
@@ -2186,7 +2710,7 @@ function deletePost(id){
 
   archive=
     archive.filter(
-      a=>!(a.type==="post" && a.itemId===id)
+      a=>!(a.type==="post" && String(a.itemId)===String(id))
     );
 
   saveAll();
@@ -2203,6 +2727,18 @@ function deletePost(id){
 ========================= */
 
 function openComments(postId){
+
+  const post=
+    posts.find(p=>p.id===postId);
+
+  if(!post)return;
+
+  if(!canSeeUser(post.userId)){
+
+    alert("Bu kullanıcıyla etkileşim kuramazsın.");
+    return;
+
+  }
 
   currentCommentPostId=postId;
 
@@ -2222,7 +2758,7 @@ function renderComments(){
 
   const list=
     comments.filter(
-      c=>c.postId===currentCommentPostId
+      c=>String(c.postId)===String(currentCommentPostId)
     );
 
   if(!list.length){
@@ -2255,7 +2791,7 @@ function renderComments(){
           </div>
 
           ${
-            comment.userId===currentUser.id
+            String(comment.userId)===String(currentUser.id)
             ?
             `
             <button
@@ -2292,6 +2828,18 @@ function addComment(){
 
   if(!currentCommentPostId)return;
 
+  const post=
+    posts.find(p=>String(p.id)===String(currentCommentPostId));
+
+  if(!post)return;
+
+  if(!canSeeUser(post.userId)){
+
+    alert("Bu kullanıcıyla etkileşim kuramazsın.");
+    return;
+
+  }
+
   const comment={
 
     id:
@@ -2312,17 +2860,10 @@ function addComment(){
 
   comments.push(comment);
 
-  const post=
-    posts.find(p=>p.id===currentCommentPostId);
-
-  if(post){
-
-    post.comments=
-      comments.filter(
-        c=>c.postId===post.id
-      ).length;
-
-  }
+  post.comments=
+    comments.filter(
+      c=>String(c.postId)===String(post.id)
+    ).length;
 
   saveAll();
 
@@ -2342,19 +2883,21 @@ function deleteComment(id){
 
   if(!comment)return;
 
-  if(comment.userId!==currentUser.id)return;
+  if(String(comment.userId)!==String(currentUser.id))return;
 
   comments=
     comments.filter(c=>c.id!==id);
 
   const post=
-    posts.find(p=>p.id===comment.postId);
+    posts.find(
+      p=>String(p.id)===String(comment.postId)
+    );
 
   if(post){
 
     post.comments=
       comments.filter(
-        c=>c.postId===post.id
+        c=>String(c.postId)===String(post.id)
       ).length;
 
   }
@@ -2376,7 +2919,7 @@ function isArchived(type,itemId){
 
   return archive.some(
     a=>
-      a.userId===currentUser.id
+      String(a.userId)===String(currentUser.id)
       &&
       a.type===type
       &&
@@ -2391,7 +2934,7 @@ function toggleArchive(type,itemId){
   const index=
     archive.findIndex(
       a=>
-        a.userId===currentUser.id
+        String(a.userId)===String(currentUser.id)
         &&
         a.type===type
         &&
@@ -2402,7 +2945,9 @@ function toggleArchive(type,itemId){
 
     archive.push({
 
-      id:Date.now(),
+      id:
+        Date.now()+
+        Math.floor(Math.random()*1000),
 
       userId:currentUser.id,
 
@@ -2428,6 +2973,8 @@ function toggleArchive(type,itemId){
 
   renderSongs();
 
+  renderShop();
+
 }
 
 
@@ -2439,7 +2986,9 @@ function recordShare(type,itemId){
 
   shareHistory.unshift({
 
-    id:Date.now()+Math.floor(Math.random()*1000),
+    id:
+      Date.now()+
+      Math.floor(Math.random()*1000),
 
     userId:currentUser.id,
 
@@ -2450,8 +2999,6 @@ function recordShare(type,itemId){
     createdAt:new Date().toISOString()
 
   });
-
-  /* Çok büyümesini engelle */
 
   if(shareHistory.length>500){
 
@@ -2487,7 +3034,7 @@ function renderRepostList(){
 
   const available=
     posts.filter(
-      post=>!isBlocked(post.userId)
+      post=>canSeeUser(post.userId)
     );
 
   if(!available.length){
@@ -2509,9 +3056,9 @@ function renderRepostList(){
           p=>
             p.type==="repost"
             &&
-            p.originalPostId===post.id
+            String(p.originalPostId)===String(post.id)
             &&
-            p.userId===currentUser.id
+            String(p.userId)===String(currentUser.id)
         );
 
       return `
@@ -2553,9 +3100,9 @@ function repostPost(id){
 
   if(!original)return;
 
-  if(isBlocked(original.userId)){
+  if(!canSeeUser(original.userId)){
 
-    alert("Bu kullanıcıyı engelledin.");
+    alert("Bu kullanıcıyla etkileşim kuramazsın.");
     return;
 
   }
@@ -2565,9 +3112,9 @@ function repostPost(id){
       p=>
         p.type==="repost"
         &&
-        p.originalPostId===id
+        String(p.originalPostId)===String(id)
         &&
-        p.userId===currentUser.id
+        String(p.userId)===String(currentUser.id)
     );
 
   if(already){
@@ -2633,7 +3180,7 @@ function renderFeed(){
 
   const visible=
     posts.filter(
-      post=>!isBlocked(post.userId)
+      post=>canSeeUser(post.userId)
     );
 
   if(!visible.length){
@@ -2657,16 +3204,19 @@ function createPostHTML(post){
 
   const liked=
     post.likedBy &&
-    post.likedBy.includes(currentUser.id);
+    post.likedBy.map(String)
+      .includes(String(currentUser.id));
 
   const isMine=
-    post.userId===currentUser.id;
+    String(post.userId)===String(currentUser.id);
 
   const archived=
     isArchived("post",post.id);
 
   const targetUser=
-    users.find(u=>u.id===post.userId);
+    users.find(
+      u=>String(u.id)===String(post.userId)
+    );
 
   const online=
     targetUser &&
@@ -2852,7 +3402,16 @@ async function publishReel(){
       .toString(36)
       .slice(2);
 
-  await saveMediaBlob(mediaId,file);
+  try{
+
+    await saveMediaBlob(mediaId,file);
+
+  }catch(error){
+
+    alert("Video kaydedilemedi.");
+    return;
+
+  }
 
   const reelId=
     Date.now()+
@@ -2908,7 +3467,7 @@ async function renderReels(){
 
   const visible=
     reels.filter(
-      reel=>!isBlocked(reel.userId)
+      reel=>canSeeUser(reel.userId)
     );
 
   if(!visible.length){
@@ -2926,76 +3485,84 @@ async function renderReels(){
 
   for(const reel of visible){
 
-    const blob=
-      await getMediaBlob(
-        reel.videoMediaId
-      );
+    try{
 
-    if(!blob)continue;
+      const blob=
+        await getMediaBlob(
+          reel.videoMediaId
+        );
 
-    const url=
-      URL.createObjectURL(blob);
+      if(!blob)continue;
 
-    const archived=
-      isArchived("reel",reel.id);
+      const url=
+        URL.createObjectURL(blob);
 
-    const div=
-      document.createElement("div");
+      const archived=
+        isArchived("reel",reel.id);
 
-    div.className="reel";
+      const div=
+        document.createElement("div");
 
-    div.innerHTML=`
+      div.className="reel";
 
-      <video
-        src="${url}"
-        controls
-        playsinline
-        preload="metadata">
-      </video>
+      div.innerHTML=`
 
-      <div class="reel-info">
+        <video
+          src="${url}"
+          controls
+          playsinline
+          preload="metadata">
+        </video>
 
-        <div class="reel-user">
+        <div class="reel-info">
 
-          ${escapeHTML(reel.userName)}
+          <div class="reel-user">
+
+            ${escapeHTML(reel.userName)}
+
+          </div>
+
+          <div class="reel-text">
+            ${escapeHTML(reel.text || "")}
+          </div>
 
         </div>
 
-        <div class="reel-text">
-          ${escapeHTML(reel.text || "")}
-        </div>
+        <div class="reel-actions">
 
-      </div>
-
-      <div class="reel-actions">
-
-        <button
-          onclick="toggleArchive('reel',${reel.id})">
-
-          ${archived ? "Arşivden Çıkar":"Arşivle"}
-
-        </button>
-
-        ${
-          reel.userId!==currentUser.id
-          ?
-          `
           <button
-            onclick="blockUser(${reel.userId})">
+            onclick="toggleArchive('reel',${reel.id})">
 
-            Engelle
+            ${archived ? "Arşivden Çıkar":"Arşivle"}
 
           </button>
-          `
-          :
-          ""
-        }
 
-      </div>
+          ${
+            String(reel.userId)!==String(currentUser.id)
+            ?
+            `
+            <button
+              onclick="blockUser(${reel.userId})">
 
-    `;
+              Engelle
 
-    box.appendChild(div);
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+      box.appendChild(div);
+
+    }catch(error){
+
+      console.error("Reels yüklenemedi:",error);
+
+    }
 
   }
 
@@ -3089,15 +3656,24 @@ async function publishSong(){
       .slice(2);
 
 
-  await saveMediaBlob(
-    coverId,
-    cover
-  );
+  try{
 
-  await saveMediaBlob(
-    audioId,
-    audio
-  );
+    await saveMediaBlob(
+      coverId,
+      cover
+    );
+
+    await saveMediaBlob(
+      audioId,
+      audio
+    );
+
+  }catch(error){
+
+    alert("Şarkı dosyaları kaydedilemedi.");
+    return;
+
+  }
 
 
   const songId=
@@ -3174,7 +3750,7 @@ async function renderSongs(){
 
   const visible=
     songs.filter(
-      song=>!isBlocked(song.userId)
+      song=>canSeeUser(song.userId)
     );
 
   if(!visible.length){
@@ -3192,106 +3768,1211 @@ async function renderSongs(){
 
   for(const song of visible){
 
-    const cover=
-      await getMediaBlob(
-        song.coverMediaId
-      );
+    try{
 
-    const audio=
-      await getMediaBlob(
-        song.audioMediaId
-      );
+      const cover=
+        await getMediaBlob(
+          song.coverMediaId
+        );
 
-    if(!cover || !audio)continue;
+      const audio=
+        await getMediaBlob(
+          song.audioMediaId
+        );
 
-    const coverURL=
-      URL.createObjectURL(cover);
+      if(!cover || !audio)continue;
 
-    const audioURL=
-      URL.createObjectURL(audio);
+      const coverURL=
+        URL.createObjectURL(cover);
 
-    const archived=
-      isArchived("song",song.id);
+      const audioURL=
+        URL.createObjectURL(audio);
 
-    const card=
-      document.createElement("div");
+      const archived=
+        isArchived("song",song.id);
 
-    card.className="song-card";
+      const card=
+        document.createElement("div");
 
-    card.innerHTML=`
+      card.className="song-card";
 
-      <div class="song-top">
+      card.innerHTML=`
 
-        <img
-          class="song-cover"
-          src="${coverURL}"
-          alt="Kapak">
+        <div class="song-top">
 
-        <div class="song-info">
+          <img
+            class="song-cover"
+            src="${coverURL}"
+            alt="Kapak">
 
-          <div class="song-name">
-            ${escapeHTML(song.name)}
-          </div>
+          <div class="song-info">
 
-          <div class="song-author">
-            ${escapeHTML(song.userName)}
+            <div class="song-name">
+              ${escapeHTML(song.name)}
+            </div>
+
+            <div class="song-author">
+              ${escapeHTML(song.userName)}
+            </div>
+
           </div>
 
         </div>
-
-      </div>
-
-      ${
-        song.description
-        ?
-        `
-        <div class="song-description">
-          ${escapeHTML(song.description)}
-        </div>
-        `
-        :
-        ""
-      }
-
-      <audio
-        class="song-audio"
-        src="${audioURL}"
-        controls>
-      </audio>
-
-      <div class="song-actions">
-
-        <button
-          class="action ${archived ? "active":""}"
-          onclick="toggleArchive('song',${song.id})">
-
-          ${archived ? "Arşivden Çıkar":"Arşivle"}
-
-        </button>
 
         ${
-          song.userId!==currentUser.id
+          song.description
           ?
           `
-          <button
-            class="action block-action"
-            onclick="blockUser(${song.userId})">
-
-            Engelle
-
-          </button>
+          <div class="song-description">
+            ${escapeHTML(song.description)}
+          </div>
           `
           :
           ""
         }
 
+        <audio
+          class="song-audio"
+          src="${audioURL}"
+          controls>
+        </audio>
+
+        <div class="song-actions">
+
+          <button
+            class="action ${archived ? "active":""}"
+            onclick="toggleArchive('song',${song.id})">
+
+            ${archived ? "Arşivden Çıkar":"Arşivle"}
+
+          </button>
+
+          ${
+            String(song.userId)!==String(currentUser.id)
+            ?
+            `
+            <button
+              class="action block-action"
+              onclick="blockUser(${song.userId})">
+
+              Engelle
+
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+      box.appendChild(card);
+
+    }catch(error){
+
+      console.error("Şarkı yüklenemedi:",error);
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   SHOP
+========================= */
+
+/*
+  Free plan:
+  Beat + Mix toplamı 50 adet.
+
+  Normal şarkılar:
+  Sınırsız.
+
+  Gönderiler:
+  Sınırsız.
+
+  Reels:
+  Sınırsız.
+
+  Pro altyapısı:
+  plan:"pro" olursa Shop limiti sınırsız olur.
+*/
+
+function getMyShopCount(){
+
+  if(!currentUser)return 0;
+
+  return shopItems.filter(
+    item=>String(item.userId)===String(currentUser.id)
+  ).length;
+
+}
+
+
+function canUploadShop(){
+
+  if(!currentUser)return false;
+
+  if(currentUser.plan==="pro"){
+    return true;
+  }
+
+  return getMyShopCount()<50;
+
+}
+
+
+function getAllowedShopTypes(){
+
+  if(!currentUser)return [];
+
+  const types=[];
+
+  if(
+    currentUser.role==="Beat Maker" ||
+    currentUser.role==="Prodüktör"
+  ){
+
+    types.push("beat");
+
+  }
+
+  if(
+    currentUser.role==="Mix Engineer" ||
+    currentUser.role==="Prodüktör"
+  ){
+
+    types.push("mix");
+
+  }
+
+  return types;
+
+}
+
+
+function getShopTypeName(type){
+
+  if(type==="beat")return "BEAT";
+
+  if(type==="mix")return "MIX";
+
+  return "SHOP";
+
+}
+
+
+function openShopModal(){
+
+  document
+    .getElementById("shareMenu")
+    .classList.remove("active");
+
+  const allowed=
+    getAllowedShopTypes();
+
+  if(!allowed.length){
+
+    alert(
+      "Shop'a Beat yüklemek için Beat Maker veya Prodüktör, " +
+      "Mix yüklemek için Mix Engineer veya Prodüktör hesabı gerekir."
+    );
+
+    return;
+
+  }
+
+  if(!canUploadShop()){
+
+    alert(
+      "Free plan Shop limitin doldu. Beat + Mix toplamında 50 yükleme hakkın var."
+    );
+
+    return;
+
+  }
+
+  const select=
+    document.getElementById("shopType");
+
+  select.innerHTML=
+    allowed.map(type=>`
+      <option value="${type}">
+        ${getShopTypeName(type)}
+      </option>
+    `).join("");
+
+  document
+    .getElementById("shopName")
+    .value="";
+
+  document
+    .getElementById("shopDescription")
+    .value="";
+
+  document
+    .getElementById("shopFile")
+    .value="";
+
+  document
+    .getElementById("shopUploadStatus")
+    .textContent=
+      currentUser.plan==="pro"
+      ?
+      "Pro plan: Shop yükleme sınırı yok."
+      :
+      `Free plan: ${getMyShopCount()} / 50 Shop yüklemesi kullanıldı.`;
+
+  document
+    .getElementById("shopModal")
+    .classList.add("active");
+
+}
+
+
+async function publishShopItem(){
+
+  if(!currentUser)return;
+
+  const allowed=
+    getAllowedShopTypes();
+
+  if(!allowed.length){
+
+    alert("Bu hesap türü Shop'a yükleme yapamaz.");
+    return;
+
+  }
+
+  if(!canUploadShop()){
+
+    alert(
+      "Free plan Shop limitin doldu. Toplam 50 Beat + Mix yükleyebilirsin."
+    );
+
+    return;
+
+  }
+
+  const type=
+    document
+      .getElementById("shopType")
+      .value;
+
+  const name=
+    document
+      .getElementById("shopName")
+      .value.trim();
+
+  const description=
+    document
+      .getElementById("shopDescription")
+      .value.trim();
+
+  const file=
+    document
+      .getElementById("shopFile")
+      .files[0];
+
+
+  if(!allowed.includes(type)){
+
+    alert("Bu Shop türünü yüklemeye yetkin yok.");
+    return;
+
+  }
+
+  if(!name){
+
+    alert("Beat veya Mix adı zorunlu.");
+    return;
+
+  }
+
+  if(name.length>60){
+
+    alert("İsim en fazla 60 karakter olabilir.");
+    return;
+
+  }
+
+  if(!file){
+
+    alert("Bir ses dosyası seç.");
+    return;
+
+  }
+
+  if(!file.type.startsWith("audio/")){
+
+    alert("Sadece ses dosyası yükleyebilirsin.");
+    return;
+
+  }
+
+
+  const mediaId=
+    "shop_audio_"+
+    Date.now()+
+    "_"+
+    Math.random()
+      .toString(36)
+      .slice(2);
+
+  try{
+
+    await saveMediaBlob(
+      mediaId,
+      file
+    );
+
+  }catch(error){
+
+    alert("Shop ses dosyası kaydedilemedi.");
+    return;
+
+  }
+
+
+  const itemId=
+    Date.now()+
+    Math.floor(Math.random()*1000);
+
+
+  shopItems.unshift({
+
+    id:itemId,
+
+    userId:currentUser.id,
+
+    userName:currentUser.name,
+
+    role:currentUser.role,
+
+    type:type,
+
+    name:name,
+
+    description:description,
+
+    mediaId:mediaId,
+
+    createdAt:new Date().toISOString()
+
+  });
+
+
+  recordShare(
+    type==="beat"
+      ? "Shop Beat"
+      : "Shop Mix",
+    itemId
+  );
+
+  saveAll();
+
+
+  document
+    .getElementById("shopName")
+    .value="";
+
+  document
+    .getElementById("shopDescription")
+    .value="";
+
+  document
+    .getElementById("shopFile")
+    .value="";
+
+
+  closeModal("shopModal");
+
+  renderShop();
+
+  updateProfile();
+
+  renderChannels();
+
+  alert(
+    type==="beat"
+      ? "Beat Shop'a başarıyla yüklendi."
+      : "Mix Shop'a başarıyla yüklendi."
+  );
+
+}
+
+
+async function renderShop(){
+
+  const box=
+    document.getElementById("shop");
+
+  if(!currentUser){
+
+    box.innerHTML="";
+    return;
+
+  }
+
+  const count=
+    getMyShopCount();
+
+  const limitText=
+    document.getElementById("shopLimitText");
+
+  if(currentUser.plan==="pro"){
+
+    limitText.innerHTML=
+      `<strong>Pro plan</strong> · Shop yükleme: Sınırsız`;
+
+  }else{
+
+    limitText.innerHTML=
+      `<strong>Free plan</strong> · Shop yükleme: ${count} / 50`;
+
+  }
+
+
+  const visible=
+    shopItems.filter(
+      item=>canSeeUser(item.userId)
+    );
+
+  if(!visible.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Henüz Shop'ta Beat veya Mix yok.
+      </div>`;
+
+    return;
+
+  }
+
+  box.innerHTML="";
+
+  for(const item of visible){
+
+    try{
+
+      const blob=
+        await getMediaBlob(item.mediaId);
+
+      if(!blob)continue;
+
+      const audioURL=
+        URL.createObjectURL(blob);
+
+      const isMine=
+        String(item.userId)===String(currentUser.id);
+
+      const archived=
+        isArchived("shop",item.id);
+
+      const card=
+        document.createElement("div");
+
+      card.className="shop-item";
+
+      card.innerHTML=`
+
+        <div class="shop-item-head">
+
+          <div>
+
+            <span class="shop-type">
+              ${escapeHTML(getShopTypeName(item.type))}
+            </span>
+
+            <div class="shop-name">
+              ${escapeHTML(item.name)}
+            </div>
+
+            <div class="shop-author">
+              ${escapeHTML(item.userName)}
+              ·
+              ${escapeHTML(item.role || "Kullanıcı")}
+            </div>
+
+          </div>
+
+        </div>
+
+        ${
+          item.description
+          ?
+          `
+          <div class="shop-description">
+            ${escapeHTML(item.description)}
+          </div>
+          `
+          :
+          ""
+        }
+
+        <audio
+          class="shop-audio"
+          src="${audioURL}"
+          controls>
+        </audio>
+
+        <div class="shop-actions">
+
+          <button
+            class="action ${archived ? "active":""}"
+            onclick="toggleArchive('shop',${item.id})">
+
+            ${archived ? "Arşivden Çıkar":"Arşivle"}
+
+          </button>
+
+          ${
+            !isMine
+            ?
+            `
+            <button
+              class="action block-action"
+              onclick="blockUser(${item.userId})">
+
+              Engelle
+
+            </button>
+            `
+            :
+            ""
+          }
+
+          ${
+            isMine
+            ?
+            `
+            <button
+              class="action delete-action"
+              onclick="deleteShopItem(${item.id})">
+
+              Sil
+
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+      box.appendChild(card);
+
+    }catch(error){
+
+      console.error("Shop öğesi yüklenemedi:",error);
+
+    }
+
+  }
+
+}
+
+
+async function deleteShopItem(id){
+
+  const item=
+    shopItems.find(
+      item=>String(item.id)===String(id)
+    );
+
+  if(!item)return;
+
+  if(String(item.userId)!==String(currentUser.id)){
+
+    alert("Bu Shop öğesini silemezsin.");
+    return;
+
+  }
+
+  const confirmed=
+    confirm(
+      "Bu Shop öğesini silmek istediğine emin misin?"
+    );
+
+  if(!confirmed)return;
+
+  shopItems=
+    shopItems.filter(
+      item=>String(item.id)!==String(id)
+    );
+
+  archive=
+    archive.filter(
+      a=>!(
+        a.type==="shop" &&
+        String(a.itemId)===String(id)
+      )
+    );
+
+  shareHistory=
+    shareHistory.filter(
+      h=>!(
+        String(h.itemId)===String(id) &&
+        (
+          h.type==="Shop Beat" ||
+          h.type==="Shop Mix"
+        )
+      )
+    );
+
+  await deleteMediaBlob(item.mediaId);
+
+  saveAll();
+
+  renderShop();
+
+  updateProfile();
+
+  renderChannels();
+
+}
+
+
+/* =========================
+   CHANNELS
+========================= */
+
+function getUserPostCount(userId){
+
+  return posts.filter(
+    p=>String(p.userId)===String(userId)
+  ).length;
+
+}
+
+
+function getUserSongCount(userId){
+
+  return songs.filter(
+    s=>String(s.userId)===String(userId)
+  ).length;
+
+}
+
+
+function getUserReelCount(userId){
+
+  return reels.filter(
+    r=>String(r.userId)===String(userId)
+  ).length;
+
+}
+
+
+function getUserShopCount(userId){
+
+  return shopItems.filter(
+    item=>String(item.userId)===String(userId)
+  ).length;
+
+}
+
+
+function renderChannels(){
+
+  const box=
+    document.getElementById("channels");
+
+  if(!currentUser){
+
+    box.innerHTML="";
+    return;
+
+  }
+
+  const visibleUsers=
+    users.filter(
+      user=>
+        String(user.id)!==String(currentUser.id)
+        &&
+        canSeeUser(user.id)
+    );
+
+  if(!visibleUsers.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Görüntülenebilecek kanal yok.
+      </div>`;
+
+    return;
+
+  }
+
+  box.innerHTML=
+    visibleUsers.map(user=>{
+
+      const online=
+        user.online;
+
+      return `
+
+        <div class="channel-card">
+
+          <div class="channel-head">
+
+            <div class="channel-avatar">
+              ${escapeHTML(
+                user.name
+                  .charAt(0)
+                  .toUpperCase()
+              )}
+            </div>
+
+            <div>
+
+              <div class="channel-name">
+
+                ${
+                  online
+                  ? `<span class="online-dot"></span>`
+                  : `<span class="offline-dot"></span>`
+                }
+
+                ${escapeHTML(user.name)}
+
+              </div>
+
+              <div class="channel-role">
+                ${escapeHTML(user.role || "Kullanıcı")}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="channel-stats">
+
+            <div class="channel-stat">
+              <strong>${getUserPostCount(user.id)}</strong>
+              <span>Gönderi</span>
+            </div>
+
+            <div class="channel-stat">
+              <strong>${getUserSongCount(user.id)}</strong>
+              <span>Şarkı</span>
+            </div>
+
+            <div class="channel-stat">
+              <strong>${getUserReelCount(user.id)}</strong>
+              <span>Reels</span>
+            </div>
+
+            <div class="channel-stat">
+              <strong>${getUserShopCount(user.id)}</strong>
+              <span>Shop</span>
+            </div>
+
+          </div>
+
+          <button
+            class="channel-button"
+            onclick="openChannel(${user.id})">
+
+            Kanalı Gör
+
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function openChannel(userId){
+
+  const user=
+    users.find(
+      u=>String(u.id)===String(userId)
+    );
+
+  if(!user)return;
+
+  if(!canSeeUser(user.id)){
+
+    alert("Bu kanalı görüntüleyemezsin.");
+    return;
+
+  }
+
+  selectedChannelUserId=user.id;
+
+  const box=
+    document.getElementById("channelModalContent");
+
+  const userPosts=
+    posts.filter(
+      p=>String(p.userId)===String(user.id)
+    );
+
+  const userSongs=
+    songs.filter(
+      s=>String(s.userId)===String(user.id)
+    );
+
+  const userReels=
+    reels.filter(
+      r=>String(r.userId)===String(user.id)
+    );
+
+  const userShop=
+    shopItems.filter(
+      item=>String(item.userId)===String(user.id)
+    );
+
+
+  box.innerHTML=`
+
+    <div class="channel-modal-profile">
+
+      <div class="channel-modal-avatar">
+        ${escapeHTML(
+          user.name
+            .charAt(0)
+            .toUpperCase()
+        )}
+      </div>
+
+      <div class="profile-name">
+        ${escapeHTML(user.name)}
+      </div>
+
+      <div class="profile-role">
+        ${escapeHTML(user.role || "Kullanıcı")}
+      </div>
+
+      <div class="profile-status">
+
+        ${
+          user.online
+          ?
+          `<span class="online-dot"></span>Çevrimiçi`
+          :
+          `<span class="offline-dot"></span>Çevrimdışı`
+        }
+
+      </div>
+
+    </div>
+
+    <div class="channel-stats">
+
+      <div class="channel-stat">
+        <strong>${userPosts.length}</strong>
+        <span>Gönderi</span>
+      </div>
+
+      <div class="channel-stat">
+        <strong>${userSongs.length}</strong>
+        <span>Şarkı</span>
+      </div>
+
+      <div class="channel-stat">
+        <strong>${userReels.length}</strong>
+        <span>Reels</span>
+      </div>
+
+      <div class="channel-stat">
+        <strong>${userShop.length}</strong>
+        <span>Shop</span>
+      </div>
+
+    </div>
+
+    <div id="channelContentArea"></div>
+
+  `;
+
+
+  const content=
+    document.getElementById("channelContentArea");
+
+
+  /* GÖNDERİLER */
+
+  if(userPosts.length){
+
+    content.innerHTML+=`
+
+      <div class="channel-content-title">
+        Gönderiler
+      </div>
+
+      ${userPosts.map(post=>`
+
+        <div class="activity-item">
+
+          <div class="activity-title">
+            ${escapeHTML(post.text)}
+          </div>
+
+          <div class="activity-info">
+            ${formatDate(post.createdAt)}
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    `;
+
+  }
+
+
+  /* ŞARKILAR */
+
+  if(userSongs.length){
+
+    content.innerHTML+=`
+
+      <div class="channel-content-title">
+        Şarkılar
       </div>
 
     `;
 
-    box.appendChild(card);
+    for(const song of userSongs){
+
+      try{
+
+        const cover=
+          await getMediaBlob(song.coverMediaId);
+
+        const audio=
+          await getMediaBlob(song.audioMediaId);
+
+        if(!cover || !audio)continue;
+
+        const coverURL=
+          URL.createObjectURL(cover);
+
+        const audioURL=
+          URL.createObjectURL(audio);
+
+        content.innerHTML+=`
+
+          <div class="song-card">
+
+            <div class="song-top">
+
+              <img
+                class="song-cover"
+                src="${coverURL}"
+                alt="Kapak">
+
+              <div class="song-info">
+
+                <div class="song-name">
+                  ${escapeHTML(song.name)}
+                </div>
+
+                <div class="song-author">
+                  ${escapeHTML(song.userName)}
+                </div>
+
+              </div>
+
+            </div>
+
+            ${
+              song.description
+              ?
+              `
+              <div class="song-description">
+                ${escapeHTML(song.description)}
+              </div>
+              `
+              :
+              ""
+            }
+
+            <audio
+              class="song-audio"
+              src="${audioURL}"
+              controls>
+            </audio>
+
+          </div>
+
+        `;
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+    }
 
   }
+
+
+  /* REELS */
+
+  if(userReels.length){
+
+    content.innerHTML+=`
+
+      <div class="channel-content-title">
+        Reels
+      </div>
+
+    `;
+
+    for(const reel of userReels){
+
+      try{
+
+        const blob=
+          await getMediaBlob(reel.videoMediaId);
+
+        if(!blob)continue;
+
+        const videoURL=
+          URL.createObjectURL(blob);
+
+        content.innerHTML+=`
+
+          <div class="reel"
+               style="height:430px">
+
+            <video
+              src="${videoURL}"
+              controls
+              playsinline
+              preload="metadata">
+            </video>
+
+            <div class="reel-info">
+
+              <div class="reel-user">
+                ${escapeHTML(reel.userName)}
+              </div>
+
+              <div class="reel-text">
+                ${escapeHTML(reel.text || "")}
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+    }
+
+  }
+
+
+  /* SHOP */
+
+  if(userShop.length){
+
+    content.innerHTML+=`
+
+      <div class="channel-content-title">
+        Shop
+      </div>
+
+    `;
+
+    for(const item of userShop){
+
+      try{
+
+        const blob=
+          await getMediaBlob(item.mediaId);
+
+        if(!blob)continue;
+
+        const audioURL=
+          URL.createObjectURL(blob);
+
+        content.innerHTML+=`
+
+          <div class="shop-item">
+
+            <span class="shop-type">
+              ${escapeHTML(getShopTypeName(item.type))}
+            </span>
+
+            <div class="shop-name">
+              ${escapeHTML(item.name)}
+            </div>
+
+            ${
+              item.description
+              ?
+              `
+              <div class="shop-description">
+                ${escapeHTML(item.description)}
+              </div>
+              `
+              :
+              ""
+            }
+
+            <audio
+              class="shop-audio"
+              src="${audioURL}"
+              controls>
+            </audio>
+
+          </div>
+
+        `;
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+    }
+
+  }
+
+
+  if(
+    !userPosts.length &&
+    !userSongs.length &&
+    !userReels.length &&
+    !userShop.length
+  ){
+
+    content.innerHTML+=`
+
+      <div class="empty">
+        Bu kanalda henüz içerik yok.
+      </div>
+
+    `;
+
+  }
+
+
+  document
+    .getElementById("channelModal")
+    .classList.add("active");
 
 }
 
@@ -3399,18 +5080,21 @@ function updateProfile(){
 
   const myPosts=
     posts.filter(
-      p=>p.userId===currentUser.id
+      p=>String(p.userId)===String(currentUser.id)
     ).length;
 
   const mySongs=
     songs.filter(
-      s=>s.userId===currentUser.id
+      s=>String(s.userId)===String(currentUser.id)
     ).length;
 
   const myReels=
     reels.filter(
-      r=>r.userId===currentUser.id
+      r=>String(r.userId)===String(currentUser.id)
     ).length;
+
+  const myShop=
+    getMyShopCount();
 
 
   document
@@ -3444,6 +5128,20 @@ function updateProfile(){
     .getElementById("profileReels")
     .textContent=
       myReels;
+
+  document
+    .getElementById("profileShop")
+    .textContent=
+      myShop;
+
+  document
+    .getElementById("profilePlan")
+    .textContent=
+      currentUser.plan==="pro"
+      ?
+      "Pro · Shop sınırsız"
+      :
+      `Free · Shop ${myShop}/50`;
 
   updateOnlineUI();
 
@@ -3546,7 +5244,7 @@ function renderActivity(type){
     const mine=
       comments
         .filter(
-          c=>c.userId===currentUser.id
+          c=>String(c.userId)===String(currentUser.id)
         )
         .sort(
           (a,b)=>
@@ -3570,7 +5268,7 @@ function renderActivity(type){
 
         const post=
           posts.find(
-            p=>p.id===comment.postId
+            p=>String(p.id)===String(comment.postId)
           );
 
         return `
@@ -3617,7 +5315,8 @@ function renderActivity(type){
       posts.filter(
         p=>
           p.likedBy &&
-          p.likedBy.includes(currentUser.id)
+          p.likedBy.map(String)
+            .includes(String(currentUser.id))
       );
 
     if(!likedPosts.length){
@@ -3668,7 +5367,7 @@ function renderActivity(type){
     const mine=
       archive
         .filter(
-          a=>a.userId===currentUser.id
+          a=>String(a.userId)===String(currentUser.id)
         )
         .sort(
           (a,b)=>
@@ -3697,7 +5396,7 @@ function renderActivity(type){
 
           const post=
             posts.find(
-              p=>p.id===item.itemId
+              p=>String(p.id)===String(item.itemId)
             );
 
           title=
@@ -3720,7 +5419,7 @@ function renderActivity(type){
 
           const reel=
             reels.find(
-              r=>r.id===item.itemId
+              r=>String(r.id)===String(item.itemId)
             );
 
           title=
@@ -3743,7 +5442,7 @@ function renderActivity(type){
 
           const song=
             songs.find(
-              s=>s.id===item.itemId
+              s=>String(s.id)===String(item.itemId)
             );
 
           title=
@@ -3759,6 +5458,29 @@ function renderActivity(type){
             song.userName
             :
             "Bu şarkı artık mevcut değil.";
+
+        }
+
+        if(item.type==="shop"){
+
+          const shop=
+            shopItems.find(
+              s=>String(s.id)===String(item.itemId)
+            );
+
+          title=
+            shop
+            ?
+            shop.name
+            :
+            "Silinmiş Shop içeriği";
+
+          info=
+            shop
+            ?
+            shop.userName
+            :
+            "Bu Shop içeriği artık mevcut değil.";
 
         }
 
@@ -3780,13 +5502,26 @@ function renderActivity(type){
               ${formatDate(item.createdAt)}
             </div>
 
-            <button
-              class="activity-button"
-              onclick="toggleArchive('${item.type}',${item.itemId});renderActivity('archive')">
+            ${
+              (
+                item.type==="post" ||
+                item.type==="reel" ||
+                item.type==="song" ||
+                item.type==="shop"
+              )
+              ?
+              `
+              <button
+                class="activity-button"
+                onclick="toggleArchive('${item.type}',${item.itemId});renderActivity('archive')">
 
-              Arşivden Çıkar
+                Arşivden Çıkar
 
-            </button>
+              </button>
+              `
+              :
+              ""
+            }
 
           </div>
 
@@ -3806,7 +5541,7 @@ function renderActivity(type){
     const mine=
       shareHistory
         .filter(
-          h=>h.userId===currentUser.id
+          h=>String(h.userId)===String(currentUser.id)
         )
         .sort(
           (a,b)=>
@@ -3834,7 +5569,7 @@ function renderActivity(type){
 
           const post=
             posts.find(
-              p=>p.id===item.itemId
+              p=>String(p.id)===String(item.itemId)
             );
 
           if(post){
@@ -3849,7 +5584,7 @@ function renderActivity(type){
 
           const song=
             songs.find(
-              s=>s.id===item.itemId
+              s=>String(s.id)===String(item.itemId)
             );
 
           if(song){
@@ -3870,7 +5605,7 @@ function renderActivity(type){
 
           const repost=
             posts.find(
-              p=>p.id===item.itemId
+              p=>String(p.id)===String(item.itemId)
             );
 
           if(repost){
@@ -3880,6 +5615,38 @@ function renderActivity(type){
               repost.text.slice(0,60);
 
           }
+
+        }
+
+        if(item.type==="Shop Beat"){
+
+          const shop=
+            shopItems.find(
+              s=>String(s.id)===String(item.itemId)
+            );
+
+          title=
+            shop
+            ?
+            "Shop Beat: "+shop.name
+            :
+            "Shop Beat";
+
+        }
+
+        if(item.type==="Shop Mix"){
+
+          const shop=
+            shopItems.find(
+              s=>String(s.id)===String(item.itemId)
+            );
+
+          title=
+            shop
+            ?
+            "Shop Mix: "+shop.name
+            :
+            "Shop Mix";
 
         }
 
@@ -4035,6 +5802,11 @@ if(savedUserId){
     );
 
   if(found){
+
+    if(!found.plan){
+      found.plan="free";
+      saveAll();
+    }
 
     currentUser=found;
 
